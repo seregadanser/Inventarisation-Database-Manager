@@ -32,12 +32,19 @@ namespace DB_course.Repositories
 
         public IEnumerable<Person> Get(string value)
         {
-            return db.Persons.Find(value);
+            var petList = new List<Person>();
+            int petId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
+            string petName = value;
+
+            return (from user in db.Persons
+                   where user.Id == petId || EF.Functions.Like(user.Name!, value)
+                   select user).ToList();
+          
         }
 
         public IEnumerable<Person> GetList()
-        {
-            return db.Persons;
+        { 
+            return db.Persons.ToList(); ;
         }
 
         public void Save()
