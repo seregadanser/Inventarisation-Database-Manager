@@ -93,11 +93,11 @@ namespace DB_course.View
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
 
-        public string WorkerId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int WorkerId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
         public string WorkerName { get { return NameText.Text; } set { NameText.Text = value; } }
-        public string WorkerSecondName { get { return SecondName.Text; } set { SecondName.Text = value; } }
+        public string WorkerSecondName { get { return SecondNameText.Text; } set { SecondNameText.Text = value; } }
         public string WorkerPosition { get { return PositionText.Text; } set { PositionText.Text = value; } }
-        public string WorkerBirthday { get { return NameText.Text; } set { NameText.Text = value; } }
+        public string WorkerBirthday { get { return BirthdayText.Text; } set { BirthdayText.Text = value; } }
         public string SearchValue { get { return SearchText.Text; } set { SearchText.Text = value; } }
         public bool IsEdit { get { return isEdit; } set { isEdit = value; } }
         public bool IsSuccessful { get { return isSuccessful; } set { isSuccessful = value; } } 

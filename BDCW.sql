@@ -97,6 +97,11 @@ insert into warehouse2.InventoryProduct values
 (2, 3, 1),
 (3, 23, 2)
 
+insert into dbo.Persons values
+(1, 'a', 'b', 'm', '1912-10-25' ,'va'),
+(2, 'f', 'g', 'b', '1962-10-25' ,'jt'),
+(3, 'a', 'g', 'b', '1956-10-25' ,'jt')
+
 
 --drop table warehouse2.InventoryProduct
 --drop table warehouse1.InventoryProduct

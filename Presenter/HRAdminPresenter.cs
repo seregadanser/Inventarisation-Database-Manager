@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Azure.Core.HttpHeader;
 
 namespace DB_course.Presenter
 {
@@ -21,26 +22,26 @@ namespace DB_course.Presenter
             this.view = view;
             this.repository = repository;
             //Subscribe event handler methods to view events
-            this.view.SearchEvent += SearchPet;
-            this.view.AddNewEvent += AddNewPet;
-            this.view.EditEvent += LoadSelectedPetToEdit;
-            this.view.DeleteEvent += DeleteSelectedPet;
-            this.view.SaveEvent += SavePet;
+            this.view.SearchEvent += SearchWorker;
+            this.view.AddNewEvent += AddNewWorker;
+            this.view.EditEvent += LoadSelectedWorkerToEdit;
+            this.view.DeleteEvent += DeleteSelectedWorker;
+            this.view.SaveEvent += SaveWorker;
             this.view.CancelEvent += CancelAction;
             //Set pets bindind source
             this.view.SetWorkerListBindingSource(workersBindingSource);
             //Load pet list view
-            LoadAllPetList();
+            LoadAllWorkerList();
             //Show view
             this.view.Show();
         }
         //Methods
-        private void LoadAllPetList()
+        private void LoadAllWorkerList()
         {
             personList = repository.GetList();
             workersBindingSource.DataSource = personList;//Set data source.
         }
-        private void SearchPet(object sender, EventArgs e)
+        private void SearchWorker(object sender, EventArgs e)
         {
             bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
             if (emptyValue == false)
@@ -50,23 +51,80 @@ namespace DB_course.Presenter
         }
         private void CancelAction(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            view.WorkerSecondName = "";
+            view.WorkerPosition = "";
+            view.WorkerName = "";
+            view.WorkerId = 0;
+            view.WorkerBirthday = "";
         }
-        private void SavePet(object sender, EventArgs e)
+        private void SaveWorker(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var model = new Person();
+            model.Id = 6;
+            model.Name = view.WorkerName;
+            model.SecondName = view.WorkerSecondName;
+            model.Position = view.WorkerPosition;
+            model.DateOfBirthday = null;
+            try
+            {
+               // new Common.ModelDataValidation().Validate(model);
+                if (view.IsEdit)//Edit model
+                {
+                    repository.Update(model);
+                    view.Message = "worker edited successfuly";
+                }
+                else //Add new model
+                {
+                    repository.Create(model);
+                    view.Message = "Pet added sucessfully";
+                }
+                view.IsSuccessful = true;
+                personList = repository.GetList();
+                workersBindingSource.DataSource = personList;//Set data source.
+                view.WorkerSecondName = "";
+                view.WorkerPosition = "";
+                view.WorkerName = "";
+                //view.WorkerId = 0;
+                view.WorkerBirthday = "";
+                repository.Save();
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = ex.Message;
+            }
         }
-        private void DeleteSelectedPet(object sender, EventArgs e)
+        private void DeleteSelectedWorker(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var pet = (Person)workersBindingSource.Current;
+                repository.Delete(pet.Id);
+                view.IsSuccessful = true;
+                view.Message = "Pet deleted successfully";
+                personList = repository.GetList();
+                workersBindingSource.DataSource = personList;//Set data source.
+                repository.Save();
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "An error ocurred, could not delete pet";
+            }
         }
-        private void LoadSelectedPetToEdit(object sender, EventArgs e)
+        private void LoadSelectedWorkerToEdit(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            var pet = (Person)workersBindingSource.Current;
+            //view.PetId = pet.Id.ToString();
+            view.WorkerName = pet.Name;
+            view.WorkerSecondName = pet.SecondName;
+            view.WorkerPosition = pet.Position;
+            view.WorkerBirthday = pet.DateOfBirthday.ToString();
+            view.IsEdit = true;
         }
-        private void AddNewPet(object sender, EventArgs e)
+        private void AddNewWorker(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+             view.IsEdit = false;
         }
     }
 }

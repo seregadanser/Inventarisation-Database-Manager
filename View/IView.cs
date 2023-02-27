@@ -22,7 +22,7 @@ namespace DB_course.View
     public interface IHRAdminView
     {
 
-        string WorkerId { get; set; }
+        int WorkerId { get; set; }
         string WorkerName { get; set; }
         string WorkerSecondName { get; set; }
         string WorkerPosition { get; set; }
