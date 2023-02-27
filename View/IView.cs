@@ -10,6 +10,7 @@ namespace DB_course.View
     {
         event EventHandler ShowWorker;
         event EventHandler ShowAdmin;
+        event EventHandler ShowHrAdmin;
         event EventHandler ShowWarer;
     }
     public interface IWorkerView
@@ -21,10 +22,11 @@ namespace DB_course.View
     public interface IHRAdminView
     {
 
-        string PetId { get; set; }
-        string PetName { get; set; }
-        string PetType { get; set; }
-        string PetColour { get; set; }
+        string WorkerId { get; set; }
+        string WorkerName { get; set; }
+        string WorkerSecondName { get; set; }
+        string WorkerPosition { get; set; }
+        string WorkerBirthday { get; set; }
         string SearchValue { get; set; }
         bool IsEdit { get; set; }
         bool IsSuccessful { get; set; }

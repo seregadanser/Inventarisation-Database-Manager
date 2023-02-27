@@ -16,6 +16,7 @@ namespace DB_course.View
         {
             InitializeComponent();
             button1.Click += delegate { ShowWorker?.Invoke(this, EventArgs.Empty); };
+            button2.Click += delegate { ShowHrAdmin?.Invoke(this, EventArgs.Empty); };
         }
 
 
@@ -23,5 +24,6 @@ namespace DB_course.View
         public event EventHandler ShowWorker;
         public event EventHandler ShowAdmin;
         public event EventHandler ShowWarer;
+        public event EventHandler ShowHrAdmin;
     }
 }

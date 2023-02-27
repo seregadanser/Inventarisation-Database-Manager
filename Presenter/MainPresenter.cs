@@ -1,4 +1,5 @@
-﻿using DB_course.View;
+﻿using DB_course.Repositories;
+using DB_course.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,16 @@ namespace DB_course.Presenter
             this.mainView = mainView;
             this.sqlConnectionString = sqlConnectionString;
             this.mainView.ShowWorker += ShowWorkerView;
+            this.mainView.ShowHrAdmin += ShowHrView;
         }
+
+        private void ShowHrView(object? sender, EventArgs e)
+        {
+            IHRAdminView view =HRAdminForm.GetInstace((MainForm)mainView);
+            IRepository<Person> repository = new PersonRepository();
+            new HRAdminPresenter(view, repository);
+        }
+
         private void ShowWorkerView(object sender, EventArgs e)
         {
             IWorkerView view = WorkerForm.GetInstace((MainForm)mainView);
