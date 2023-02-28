@@ -23,6 +23,7 @@ namespace DB_course.Models
         }
         public void AddPerson(Person person)
         {
+            new DataValidateModel().Validate(person);
             repository.Create(person);
             repository.Save();
             maxId++;
@@ -36,6 +37,7 @@ namespace DB_course.Models
 
         public void UpdatePerson(int Id_cur, Person updateperson)
         {
+            new DataValidateModel().Validate(updateperson);
             Person curperson;
             curperson = repository.Get(Id_cur.ToString()).First();
             curperson.Position = updateperson.Position;

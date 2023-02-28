@@ -68,7 +68,7 @@ namespace DB_course.Presenter
                 person.Login = view.WorkerLogin;
                 person.DateOfBirthday = null;
 
-                // new Common.ModelDataValidation().Validate(model);
+                
                 if (view.IsEdit)
                 {
                     model.UpdatePerson(view.WorkerId, person);
@@ -104,7 +104,7 @@ namespace DB_course.Presenter
             try
             {
                 var worker = (Person)workersBindingSource.Current;
-                if (worker == null) throw new Exception();
+                if (worker == null) throw new Exception("Cant delit empty person");
                 model.RemovePerson(worker.Id);
                 view.IsSuccessful = true;
                 view.Message = "worker deleted successfully";
@@ -115,7 +115,7 @@ namespace DB_course.Presenter
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = "An error ocurred, could not delete worker";
+                view.Message = ex.Message;
             }
         }
         private void LoadSelectedWorkerToEdit(object sender, EventArgs e)
