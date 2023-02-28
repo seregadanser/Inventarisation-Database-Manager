@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace DB_course;
+namespace DB_course.Models.DBModels;
 
 public partial class WarehouseContext : DbContext
 {

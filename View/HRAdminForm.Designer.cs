@@ -37,16 +37,18 @@
             this.Search = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.NameText = new System.Windows.Forms.TextBox();
-            this.SecondNameText = new System.Windows.Forms.TextBox();
-            this.PositionText = new System.Windows.Forms.TextBox();
-            this.BirthdayText = new System.Windows.Forms.TextBox();
-            this.SecondName = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.Save = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
+            this.LoginText = new System.Windows.Forms.TextBox();
             this.Cancel = new System.Windows.Forms.Button();
+            this.Save = new System.Windows.Forms.Button();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.SecondName = new System.Windows.Forms.Label();
+            this.BirthdayText = new System.Windows.Forms.TextBox();
+            this.PositionText = new System.Windows.Forms.TextBox();
+            this.SecondNameText = new System.Windows.Forms.TextBox();
+            this.NameText = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -55,6 +57,9 @@
             // 
             // tabControl1
             // 
+            this.tabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Location = new System.Drawing.Point(12, 12);
@@ -81,6 +86,7 @@
             // 
             // Delit
             // 
+            this.Delit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Delit.Location = new System.Drawing.Point(447, 93);
             this.Delit.Name = "Delit";
             this.Delit.Size = new System.Drawing.Size(75, 23);
@@ -90,6 +96,7 @@
             // 
             // Edit
             // 
+            this.Edit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Edit.Location = new System.Drawing.Point(447, 64);
             this.Edit.Name = "Edit";
             this.Edit.Size = new System.Drawing.Size(75, 23);
@@ -99,6 +106,7 @@
             // 
             // Add
             // 
+            this.Add.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Add.Location = new System.Drawing.Point(447, 35);
             this.Add.Name = "Add";
             this.Add.Size = new System.Drawing.Size(75, 23);
@@ -108,6 +116,9 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(6, 35);
             this.dataGridView1.Name = "dataGridView1";
@@ -117,6 +128,7 @@
             // 
             // Search
             // 
+            this.Search.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.Search.Location = new System.Drawing.Point(447, 6);
             this.Search.Name = "Search";
             this.Search.Size = new System.Drawing.Size(75, 23);
@@ -126,6 +138,8 @@
             // 
             // SearchText
             // 
+            this.SearchText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.SearchText.Location = new System.Drawing.Point(6, 6);
             this.SearchText.Name = "SearchText";
             this.SearchText.Size = new System.Drawing.Size(435, 23);
@@ -133,6 +147,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label4);
+            this.tabPage2.Controls.Add(this.LoginText);
             this.tabPage2.Controls.Add(this.Cancel);
             this.tabPage2.Controls.Add(this.Save);
             this.tabPage2.Controls.Add(this.label3);
@@ -151,33 +167,66 @@
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // NameText
+            // label4
             // 
-            this.NameText.Location = new System.Drawing.Point(129, 6);
-            this.NameText.Name = "NameText";
-            this.NameText.Size = new System.Drawing.Size(100, 23);
-            this.NameText.TabIndex = 0;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(253, 108);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(34, 15);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "login";
             // 
-            // SecondNameText
+            // LoginText
             // 
-            this.SecondNameText.Location = new System.Drawing.Point(328, 6);
-            this.SecondNameText.Name = "SecondNameText";
-            this.SecondNameText.Size = new System.Drawing.Size(100, 23);
-            this.SecondNameText.TabIndex = 1;
+            this.LoginText.Location = new System.Drawing.Point(328, 100);
+            this.LoginText.Name = "LoginText";
+            this.LoginText.Size = new System.Drawing.Size(100, 23);
+            this.LoginText.TabIndex = 10;
             // 
-            // PositionText
+            // Cancel
             // 
-            this.PositionText.Location = new System.Drawing.Point(129, 56);
-            this.PositionText.Name = "PositionText";
-            this.PositionText.Size = new System.Drawing.Size(100, 23);
-            this.PositionText.TabIndex = 2;
+            this.Cancel.Location = new System.Drawing.Point(353, 189);
+            this.Cancel.Name = "Cancel";
+            this.Cancel.Size = new System.Drawing.Size(75, 23);
+            this.Cancel.TabIndex = 9;
+            this.Cancel.Text = "Cancel";
+            this.Cancel.UseVisualStyleBackColor = true;
             // 
-            // BirthdayText
+            // Save
             // 
-            this.BirthdayText.Location = new System.Drawing.Point(328, 51);
-            this.BirthdayText.Name = "BirthdayText";
-            this.BirthdayText.Size = new System.Drawing.Size(100, 23);
-            this.BirthdayText.TabIndex = 3;
+            this.Save.Location = new System.Drawing.Point(129, 189);
+            this.Save.Name = "Save";
+            this.Save.Size = new System.Drawing.Size(75, 23);
+            this.Save.TabIndex = 8;
+            this.Save.Text = "Save";
+            this.Save.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(66, 59);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 15);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Position";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(77, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(39, 15);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Name";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(253, 59);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(51, 15);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Birthday";
             // 
             // SecondName
             // 
@@ -189,50 +238,33 @@
             this.SecondName.Text = "SecondName";
             this.SecondName.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label1
+            // BirthdayText
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(253, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 15);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Birthday";
+            this.BirthdayText.Location = new System.Drawing.Point(328, 51);
+            this.BirthdayText.Name = "BirthdayText";
+            this.BirthdayText.Size = new System.Drawing.Size(100, 23);
+            this.BirthdayText.TabIndex = 3;
             // 
-            // label2
+            // PositionText
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(77, 9);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 15);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Name";
+            this.PositionText.Location = new System.Drawing.Point(129, 56);
+            this.PositionText.Name = "PositionText";
+            this.PositionText.Size = new System.Drawing.Size(100, 23);
+            this.PositionText.TabIndex = 2;
             // 
-            // label3
+            // SecondNameText
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(66, 59);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(50, 15);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Position";
+            this.SecondNameText.Location = new System.Drawing.Point(328, 6);
+            this.SecondNameText.Name = "SecondNameText";
+            this.SecondNameText.Size = new System.Drawing.Size(100, 23);
+            this.SecondNameText.TabIndex = 1;
             // 
-            // Save
+            // NameText
             // 
-            this.Save.Location = new System.Drawing.Point(129, 114);
-            this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(75, 23);
-            this.Save.TabIndex = 8;
-            this.Save.Text = "Save";
-            this.Save.UseVisualStyleBackColor = true;
-            // 
-            // Cancel
-            // 
-            this.Cancel.Location = new System.Drawing.Point(353, 114);
-            this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(75, 23);
-            this.Cancel.TabIndex = 9;
-            this.Cancel.Text = "Cancel";
-            this.Cancel.UseVisualStyleBackColor = true;
+            this.NameText.Location = new System.Drawing.Point(129, 6);
+            this.NameText.Name = "NameText";
+            this.NameText.Size = new System.Drawing.Size(100, 23);
+            this.NameText.TabIndex = 0;
             // 
             // HRAdminForm
             // 
@@ -274,5 +306,7 @@
         private Label label1;
         private Button Cancel;
         private Button Save;
+        private Label label4;
+        private TextBox LoginText;
     }
 }

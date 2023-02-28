@@ -45,15 +45,21 @@ namespace DB_course.View
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(tabPage1);
                 tabControl1.TabPages.Add(tabPage2);
-                tabPage2.Text = "Add new pet";
+                tabPage2.Text = "Add new worker";
             };
             //Edit
             Edit.Click += delegate
             {
                 EditEvent?.Invoke(this, EventArgs.Empty);
-                tabControl1.TabPages.Remove(tabPage1);
-                tabControl1.TabPages.Add(tabPage2);
-                tabPage2.Text = "Edit pet";
+                if (isSuccessful)
+                {
+                    tabControl1.TabPages.Remove(tabPage1);
+                    tabControl1.TabPages.Add(tabPage2);
+                    tabPage2.Text = "Edit worker";
+                }
+                else
+                    MessageBox.Show(Message);
+              
             };
             //Save changes
              Save.Click += delegate
@@ -76,7 +82,7 @@ namespace DB_course.View
             //Delete
             Delit.Click += delegate
             {
-                var result = MessageBox.Show("Are you sure you want to delete the selected pet?", "Warning",
+                var result = MessageBox.Show("Are you sure you want to delete the selected worker?", "Warning",
                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
@@ -93,11 +99,13 @@ namespace DB_course.View
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
 
-        public int WorkerId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        private int id = 0;
+        public int WorkerId { get { return id; } set { id= value; } }
         public string WorkerName { get { return NameText.Text; } set { NameText.Text = value; } }
         public string WorkerSecondName { get { return SecondNameText.Text; } set { SecondNameText.Text = value; } }
         public string WorkerPosition { get { return PositionText.Text; } set { PositionText.Text = value; } }
         public string WorkerBirthday { get { return BirthdayText.Text; } set { BirthdayText.Text = value; } }
+        public string WorkerLogin { get { return LoginText.Text; } set { LoginText.Text = value; } }
         public string SearchValue { get { return SearchText.Text; } set { SearchText.Text = value; } }
         public bool IsEdit { get { return isEdit; } set { isEdit = value; } }
         public bool IsSuccessful { get { return isSuccessful; } set { isSuccessful = value; } } 

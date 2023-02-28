@@ -1,4 +1,6 @@
-﻿using DB_course.Repositories;
+﻿using DB_course.Models;
+using DB_course.Models.DBModels;
+using DB_course.Repositories;
 using DB_course.View;
 using System;
 using System.Collections.Generic;
@@ -9,7 +11,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DB_course.Presenter
 {
-      public class MainPresenter
+    public class MainPresenter
     {
         private IMainView mainView;
         private readonly string sqlConnectionString;
@@ -24,8 +26,8 @@ namespace DB_course.Presenter
         private void ShowHrView(object? sender, EventArgs e)
         {
             IHRAdminView view =HRAdminForm.GetInstace((MainForm)mainView);
-            IRepository<Person> repository = new PersonRepository();
-            new HRAdminPresenter(view, repository);
+            IModel model = new HRAdminModel();
+            new HRAdminPresenter(view, model);
         }
 
         private void ShowWorkerView(object sender, EventArgs e)

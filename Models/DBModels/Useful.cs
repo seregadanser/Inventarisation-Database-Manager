@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace DB_course;
+namespace DB_course.Models.DBModels;
 
 public partial class Useful
 {

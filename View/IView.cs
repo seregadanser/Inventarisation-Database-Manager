@@ -31,6 +31,7 @@ namespace DB_course.View
         bool IsEdit { get; set; }
         bool IsSuccessful { get; set; }
         string Message { get; set; }
+        public string WorkerLogin { get; set; }
 
         event EventHandler SearchEvent;
         event EventHandler AddNewEvent;
