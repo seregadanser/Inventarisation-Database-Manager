@@ -13,9 +13,9 @@ namespace DB_course.Repositories
     {
         private WarehouseContext db;
 
-        public PersonRepository()
+        public PersonRepository(WarehouseContext db)
         {
-            this.db = new WarehouseContext();
+            this.db = db;
         }
 
         public void Create(Person item)

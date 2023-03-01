@@ -18,7 +18,7 @@ namespace DB_course.Models
 
         public HRAdminModel()
         {
-            repository = new PersonRepository();
+            repository = new PersonRepository(new WarehouseContext());
             maxId = repository.GetList().Count();
         }
         public void AddPerson(Person person)
