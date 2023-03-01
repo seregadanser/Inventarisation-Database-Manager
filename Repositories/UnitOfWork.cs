@@ -21,7 +21,7 @@ namespace DB_course.Repositories
 
         public IRepository<Person> personRepository
         {
-            get
+            get  
             {
                 if(personRep == null)
                     personRep = new PersonRepository(context);

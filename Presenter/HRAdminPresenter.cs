@@ -17,7 +17,6 @@ namespace DB_course.Presenter
         private HRAdminModel model;
         private BindingSource workersBindingSource;
         private IEnumerable<Person> personList;
-        private Person curperson;
 
         public HRAdminPresenter(IHRAdminView view, IModel model)
         {
