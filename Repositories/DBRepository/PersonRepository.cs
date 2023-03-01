@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DB_course.Repositories
+namespace DB_course.Repositories.DBRepository
 {
     public class PersonRepository : IRepository<Person>
     {
@@ -38,14 +38,14 @@ namespace DB_course.Repositories
             string petName = value;
 
             return (from user in db.Persons
-                   where user.Id == petId || EF.Functions.Like(user.Name!, value)
-                   select user).ToList();
-          
+                    where user.Id == petId || EF.Functions.Like(user.Name!, value)
+                    select user).ToList();
+
         }
 
         public IEnumerable<Person> GetList()
-        { 
-            return db.Persons.ToList(); ;
+        {
+            return db.Persons.ToList();
         }
 
         public void Save()
@@ -62,14 +62,14 @@ namespace DB_course.Repositories
 
         public virtual void Dispose(bool disposing)
         {
-            if (!this.disposed)
+            if (!disposed)
             {
                 if (disposing)
                 {
                     db.Dispose();
                 }
             }
-            this.disposed = true;
+            disposed = true;
         }
 
         public void Dispose()

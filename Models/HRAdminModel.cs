@@ -50,16 +50,19 @@ namespace DB_course.Models
 
         public IEnumerable<Person> LookPerson()
         {
-           return unitOfWork.personRepository.GetList();
+            maxId = unitOfWork.personRepository.GetList().Count();
+            return unitOfWork.personRepository.GetList();
         }
 
         public IEnumerable<Person> LookPerson(string value)
         {
+            
             IEnumerable<Person> personList;
             bool emptyValue = string.IsNullOrWhiteSpace(value);
             if (emptyValue == false)
                 personList = unitOfWork.personRepository.Get(value);
-            else personList = unitOfWork.personRepository.GetList();
+            else { maxId = unitOfWork.personRepository.GetList().Count();
+                personList = unitOfWork.personRepository.GetList(); }
             return personList;
         }
     }
