@@ -10,48 +10,47 @@ namespace DB_course.Models
 {
     public class HRAdminModel : IModel
     {
-        private IRepository<Person> repository;
-        
+        private IUnitOfWork unitOfWork;
         private int maxId = 0;
 
         public int MaxId { get { return maxId; } }
 
-        public HRAdminModel()
+        public HRAdminModel(IUnitOfWork unitOfWork)
         {
-            repository = new PersonRepository(new WarehouseContext());
-            maxId = repository.GetList().Count();
+            this.unitOfWork = unitOfWork;
+            maxId = unitOfWork.personRepository.GetList().Count();
         }
         public void AddPerson(Person person)
         {
             new DataValidateModel().Validate(person);
-            repository.Create(person);
-            repository.Save();
+            unitOfWork.personRepository.Create(person);
+            unitOfWork.personRepository.Save();
             maxId++;
         }
 
         public void RemovePerson(int Id)
         {
-            repository.Delete(Id);
-            repository.Save();
+            unitOfWork.personRepository.Delete(Id);
+            unitOfWork.personRepository.Save();
         }
 
         public void UpdatePerson(int Id_cur, Person updateperson)
         {
             new DataValidateModel().Validate(updateperson);
             Person curperson;
-            curperson = repository.Get(Id_cur.ToString()).First();
+            curperson = unitOfWork.personRepository.Get(Id_cur.ToString()).First();
             curperson.Position = updateperson.Position;
             curperson.Name = updateperson.Name;
             curperson.SecondName = updateperson.SecondName;
             curperson.Login = updateperson.Login;
             curperson.DateOfBirthday = updateperson.DateOfBirthday;
-            repository.Update(curperson);
-            repository.Save();
+            unitOfWork.personRepository.Update(curperson);
+            unitOfWork.personRepository.Save();
         }
 
         public IEnumerable<Person> LookPerson()
         {
-           return repository.GetList();
+           return unitOfWork.personRepository.GetList();
         }
 
         public IEnumerable<Person> LookPerson(string value)
@@ -59,8 +58,8 @@ namespace DB_course.Models
             IEnumerable<Person> personList;
             bool emptyValue = string.IsNullOrWhiteSpace(value);
             if (emptyValue == false)
-                personList = repository.Get(value);
-            else personList = repository.GetList();
+                personList = unitOfWork.personRepository.Get(value);
+            else personList = unitOfWork.personRepository.GetList();
             return personList;
         }
     }

@@ -26,7 +26,7 @@ namespace DB_course.Presenter
         private void ShowHrView(object? sender, EventArgs e)
         {
             IHRAdminView view =HRAdminForm.GetInstace((MainForm)mainView);
-            IModel model = new HRAdminModel();
+            IModel model = new HRAdminModel(new UnitOfWork(new WarehouseContext()));
             new HRAdminPresenter(view, model);
         }
 
