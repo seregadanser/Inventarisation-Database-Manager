@@ -13,6 +13,8 @@ namespace DB_course.Repositories.DBRepository
     {
         private WarehouseContext db;
 
+        public WarehouseContext DB { set {db = value; } }
+
         public PersonRepository(WarehouseContext db)
         {
             this.db = db;
@@ -59,6 +61,8 @@ namespace DB_course.Repositories.DBRepository
         }
 
         private bool disposed = false;
+
+       
 
         public virtual void Dispose(bool disposing)
         {

@@ -4,7 +4,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DB_course.Models.DBModels;
 
-public partial class WarehouseContext : DbContext
+public interface IContext
+{
+
+}
+
+public partial class WarehouseContext : DbContext, IContext
 {
     public WarehouseContext()
     {

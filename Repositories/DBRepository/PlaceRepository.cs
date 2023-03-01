@@ -12,6 +12,8 @@ namespace DB_course.Repositories.DBRepository
 
         private WarehouseContext db;
 
+        public WarehouseContext DB { set { db = value; } }
+
         public PlaceRepository(WarehouseContext db)
         {
             this.db = db;

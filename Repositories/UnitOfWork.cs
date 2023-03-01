@@ -18,6 +18,8 @@ namespace DB_course.Repositories
         IRepository<Product> ProductRepository { get; }
         IRepository<Useful> UsefulRepository { get; }
 
+        public void UpdateContext(WarehouseContext context);
+
     }
 
     public class UnitOfWork : IUnitOfWork
@@ -90,6 +92,16 @@ namespace DB_course.Repositories
         public UnitOfWork(WarehouseContext context)
         {
             this.context = context;
+        }
+
+        public void UpdateContext(WarehouseContext context)
+        {
+            personRepository.DB = context;
+            InventoryProductRepository.DB = context;
+            PlaceofObjectRepository.DB = context;
+            PlaceRepository.DB = context;
+            ProductRepository.DB = context;
+            UsefulRepository.DB = context;
         }
     }
 }
