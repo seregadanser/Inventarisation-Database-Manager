@@ -2,6 +2,7 @@
 using DB_course.Models.DBModels;
 using DB_course.Repositories;
 using DB_course.View;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +26,11 @@ namespace DB_course.Presenter
 
         private void ShowHrView(object? sender, EventArgs e)
         {
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
+
             IHRAdminView view =HRAdminForm.GetInstace((MainForm)mainView);
-            IModel model = new HRAdminModel(new UnitOfWork(new WarehouseContext()));
+            IModel model = new HRAdminModel(new UnitOfWork(new WarehouseContext(options)));
             new HRAdminPresenter(view, model);
         }
 

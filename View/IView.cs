@@ -13,13 +13,22 @@ namespace DB_course.View
         event EventHandler ShowHrAdmin;
         event EventHandler ShowWarer;
     }
-    public interface IWorkerView
-    {
-        void SetWorkerListBindingSource(BindingSource petList);
+
+    public interface IView
+     { 
+        string SearchValue { get; set; }
+        bool IsEdit { get; set; }
+        bool IsSuccessful { get; set; }
+        string Message { get; set; }
         void Show();
     }
 
-    public interface IHRAdminView
+    public interface IWorkerView  : IView
+    {
+        void SetWorkerListBindingSource(BindingSource petList);
+    }
+
+    public interface IHRAdminView   : IView
     {
 
         int WorkerId { get; set; }
@@ -27,10 +36,6 @@ namespace DB_course.View
         string WorkerSecondName { get; set; }
         string WorkerPosition { get; set; }
         string WorkerBirthday { get; set; }
-        string SearchValue { get; set; }
-        bool IsEdit { get; set; }
-        bool IsSuccessful { get; set; }
-        string Message { get; set; }
         public string WorkerLogin { get; set; }
 
         event EventHandler SearchEvent;
@@ -41,6 +46,21 @@ namespace DB_course.View
         event EventHandler CancelEvent;
 
         void SetWorkerListBindingSource(BindingSource WorkerList);
-        void Show();
+    }
+    public interface IWarehouseAdminForm : IView
+    {
+
+        int PlaceId { get; set; }
+        int ProductId { get; set; }
+
+        event EventHandler SearchEvent;
+        event EventHandler AddNewEvent;
+        event EventHandler EditEvent;
+        event EventHandler DeleteEvent;
+        event EventHandler SaveEvent;
+        event EventHandler CancelEvent;
+
+        void SetPlaceListBindingSource(BindingSource WorkerList);
+        void SetProductListBindingSource(BindingSource WorkerList);
     }
 }

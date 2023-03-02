@@ -139,5 +139,10 @@ namespace DB_course.View
         {
 
         }
+
+        private void SearchText_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

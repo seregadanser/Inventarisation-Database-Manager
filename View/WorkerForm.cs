@@ -24,6 +24,12 @@ namespace DB_course.View
         }
 
         private static WorkerForm instance;
+
+        public string SearchValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool IsEdit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool IsSuccessful { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+
         public static WorkerForm GetInstace(Form parentContainer)
         {
             if(instance == null || instance.IsDisposed)
