@@ -1,4 +1,4 @@
-#define Laptop
+//#define Laptop
 
 using DB_course.Presenter;
 using DB_course.View;
@@ -18,7 +18,7 @@ namespace DB_course
             #if Laptop
                 builder.SetBasePath("D:\\Study\\Test\\DB_course");
             #else
-                builder.SetBasePath(Directory.GetCurrentDirectory());
+                builder.SetBasePath("D:\\Labs\\DB_course");
             #endif
 
             builder.AddJsonFile("jsconfig1.json");
