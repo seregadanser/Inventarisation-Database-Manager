@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace DB_course.Repositories.DBRepository
 {
-    public class InventoryProductRepository : IRepository<InventoryProduct>
+    public class InventoryProductRepository : ISQLRepository<InventoryProduct>
     {
         private WarehouseContext db;
 
-        public WarehouseContext DB { set { db = value; } }
+        public IConnection DB { set { db = (WarehouseContext)value; } }
 
-        public InventoryProductRepository(WarehouseContext db)
+        public InventoryProductRepository(IConnection db)
         {
-            this.db = db;
+            this.db = (WarehouseContext)db;
         }
 
         public void Create(InventoryProduct item)

@@ -18,13 +18,13 @@ namespace DB_course.Repositories
         IRepository<Product> ProductRepository { get; }
         IRepository<Useful> UsefulRepository { get; }
 
-        public void UpdateContext(WarehouseContext context);
+        public void UpdateRepository(IRepositoryAbstractFabric fabric);
 
     }
 
     public class UnitOfWork : IUnitOfWork
     {
-        private WarehouseContext context;
+        private IRepositoryAbstractFabric fabric;
 
         private IRepository<Person> personRep;
         private IRepository<InventoryProduct> InventoryProductRep;
@@ -39,7 +39,7 @@ namespace DB_course.Repositories
             get  
             {
                 if(personRep == null)
-                    personRep = new PersonRepository(context);
+                    personRep = fabric.CreatePersonR();
                 return personRep;
             }
         }
@@ -48,8 +48,8 @@ namespace DB_course.Repositories
         {
             get
             {
-                if (InventoryProductRep == null)
-                    InventoryProductRep = new InventoryProductRepository(context);
+                if(InventoryProductRep == null)
+                    InventoryProductRep = fabric.CreateInventoryProductR();
                 return InventoryProductRep;
             }
         }
@@ -57,8 +57,8 @@ namespace DB_course.Repositories
         {
             get
             {
-                if (PlaceofObjectRep == null)
-                    PlaceofObjectRep = new PlaceofObjectRepository(context);
+                if(PlaceofObjectRep == null)
+                    PlaceofObjectRep = fabric.CreatePlaceOfObjectR();
                 return PlaceofObjectRep;
             }
         }
@@ -66,8 +66,8 @@ namespace DB_course.Repositories
         {
             get
             {
-                if (PlaceRep == null)
-                    PlaceRep = new PlaceRepository(context);
+                if(PlaceRep == null)
+                    PlaceRep = fabric.CreatePlaceR();
                 return PlaceRep;
             }
         }
@@ -75,8 +75,8 @@ namespace DB_course.Repositories
         {
             get
             {
-                if (ProductRep == null)
-                    ProductRep = new ProductRepository(context);
+                if(ProductRep == null)
+                    ProductRep = fabric.CreateProductR();
                 return ProductRep;
             }
         }
@@ -84,24 +84,25 @@ namespace DB_course.Repositories
         {
             get
             {
-                if (UsefulRep == null)
-                    UsefulRep = new UsefulRepository(context);
+                if(UsefulRep == null)
+                    UsefulRep = fabric.CreateUsefulR();
                 return UsefulRep;
             }
         }
-        public UnitOfWork(WarehouseContext context)
+        public UnitOfWork(IRepositoryAbstractFabric fabric)
         {
-            this.context = context;
+            this.fabric = fabric;
         }
 
-        public void UpdateContext(WarehouseContext context)
+        public void UpdateRepository(IRepositoryAbstractFabric fabric)
         {
-            personRepository.DB = context;
-            InventoryProductRepository.DB = context;
-            PlaceofObjectRepository.DB = context;
-            PlaceRepository.DB = context;
-            ProductRepository.DB = context;
-            UsefulRepository.DB = context;
+            this.fabric = fabric;
+            personRep = null;
+            InventoryProductRep = null;
+            PlaceofObjectRep = null;
+            PlaceRep = null;
+            ProductRep = null;
+            UsefulRep = null;
         }
     }
 }

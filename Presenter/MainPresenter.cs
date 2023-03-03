@@ -30,7 +30,7 @@ namespace DB_course.Presenter
             var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
 
             IHRAdminView view =HRAdminForm.GetInstace((MainForm)mainView);
-            IModel model = new HRAdminModel(new UnitOfWork(new WarehouseContext(options)));
+            IModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(new WarehouseContext(options))));
             new HRAdminPresenter(view, model);
         }
 

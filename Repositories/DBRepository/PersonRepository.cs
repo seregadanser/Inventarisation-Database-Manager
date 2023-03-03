@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 
 namespace DB_course.Repositories.DBRepository
 {
-    public class PersonRepository : IRepository<Person>
+    public class PersonRepository : ISQLRepository<Person>
     {
         private WarehouseContext db;
 
-        public WarehouseContext DB { set {db = value; } }
+        public IConnection DB { set {db = (WarehouseContext)value; } }
 
-        public PersonRepository(WarehouseContext db)
+        public PersonRepository(IConnection db)
         {
-            this.db = db;
+            this.db = (WarehouseContext)db;
         }
 
         public void Create(Person item)
