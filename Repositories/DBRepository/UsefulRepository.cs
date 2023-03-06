@@ -21,18 +21,16 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(Useful item)
         {
-            throw new NotImplementedException();
+            db.Usefuls.Add(item);
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            Useful book = db.Usefuls.Find(id);
+            if(book != null)
+                db.Usefuls.Remove(book);
         }
 
-        public void Dispose()
-        {
-            throw new NotImplementedException();
-        }
 
         public IEnumerable<Useful> Get(string value)
         {
@@ -46,12 +44,33 @@ namespace DB_course.Repositories.DBRepository
 
         public void Save()
         {
-            throw new NotImplementedException();
+             db.SaveChanges();
         }
 
         public void Update(Useful item)
         {
             throw new NotImplementedException();
+        }
+        private bool disposed = false;
+
+
+
+        public virtual void Dispose(bool disposing)
+        {
+            if(!disposed)
+            {
+                if(disposing)
+                {
+                    db.Dispose();
+                }
+            }
+            disposed = true;
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

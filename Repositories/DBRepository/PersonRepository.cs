@@ -22,7 +22,7 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(Person item)
         {
-            db.Add(item);
+            db.Persons.Add(item);
         }
 
         public void Delete(int id)

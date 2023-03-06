@@ -12,11 +12,8 @@ namespace DB_course.Repositories
     public interface IRepositoryAbstractFabric
     {
         public IRepository<Person> CreatePersonR();
-        public IRepository<Product> CreateProductR();
         public IRepository<Place> CreatePlaceR();
         public IRepository<Useful> CreateUsefulR();
-        public IRepository<PlaceofObject> CreatePlaceOfObjectR();
-        public IRepository<InventoryProduct> CreateInventoryProductR();
 
     }
     public class SQLRepositoryAbstractFabric : IRepositoryAbstractFabric
@@ -28,30 +25,19 @@ namespace DB_course.Repositories
             this.connection = connection;
         }
 
-        public IRepository<InventoryProduct> CreateInventoryProductR()
-        {
-            return new InventoryProductRepository(connection);
-        }
 
         public IRepository<Person> CreatePersonR()
         {
             return new PersonRepository(connection);
         }
 
-        public IRepository<PlaceofObject> CreatePlaceOfObjectR()
-        {
-            return new PlaceofObjectRepository(connection);
-        }
 
         public IRepository<Place> CreatePlaceR()
         {
             return new PlaceRepository(connection);
         }
 
-        public IRepository<Product> CreateProductR()
-        {
-            return new ProductRepository(connection);
-        }
+
 
         public IRepository<Useful> CreateUsefulR()
         {
