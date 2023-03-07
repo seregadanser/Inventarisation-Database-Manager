@@ -19,7 +19,7 @@ namespace DB_course.Models
             this.unitOfWork = unitOfWork;
         }
 
-        public void RemoveUseful(int Id)
+        public void DelitUseful(int Id)
         {
             unitOfWork.WarehousemanLookComposeRepository.Delete(Id);
             unitOfWork.WarehousemanLookComposeRepository.Save();

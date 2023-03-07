@@ -31,7 +31,23 @@ namespace DB_course.Repositories.CompositRepository
             if(petId == -1)
               throw new Exception("person not exists");
 
+            var D = from I in db.InventoryProducts
+                    join P in db.Products on I.ProductId equals P.Id
+                    select new {I.Id ,I.InventoryNumber, P.Name, P.DateCome, P.DateProduction };
 
+            var A = from D1 in D
+                    join U in db.Usefuls on D1.Id equals U.InventoryId
+                    where U.PersonId == petId
+                    select new WorkerLookUsefulCompose
+                    {
+                        Id = U.Id,
+                        Inventory_number = (int)D1.InventoryNumber,
+                        Name = D1.Name,
+                        DateCome = D1.DateCome,
+                        DateProduction = D1.DateProduction,
+                        DateOfStart = U.DateOfStart
+                    };
+            return A.ToList();
         }
 
         public void Create(WorkerLookUsefulCompose item)
