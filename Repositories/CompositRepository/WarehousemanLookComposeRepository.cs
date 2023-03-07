@@ -60,7 +60,7 @@ namespace DB_course.Repositories.CompositRepository
                           NumberLayer = NT.NumberLayer,
                           DateOfStart = U.DateOfStart
                       };
-            return WLC;
+            return WLC.ToList();
 
         }
 
@@ -85,7 +85,7 @@ namespace DB_course.Repositories.CompositRepository
                           DateOfStart = U.DateOfStart
                       };
 
-            return WLC;
+            return WLC.ToList();
         }
 
         public void Save()

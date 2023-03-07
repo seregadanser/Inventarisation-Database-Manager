@@ -100,13 +100,35 @@ insert into dbo.Persons values
 (3, 'a', 'g', 'b', '1956-10-25' ,'ji')
 go
 
-
+--Сотрудник
 select warehouse2.InventoryProduct.Id,
-warehouse2.InventoryProduct.inventory_number, [name], dateCome, dateProduction, product_Id
+warehouse2.InventoryProduct.inventory_number, [name], dateCome, dateProduction
 from warehouse2.InventoryProduct join warehouse2.Products on warehouse2.Products.Id = warehouse2.InventoryProduct.product_Id 
 where warehouse2.InventoryProduct.Id not in (select warehouse2.Useful.InventoryId from warehouse2.Useful)
 
-select * from warehouse2.Useful join dbo.Persons on dbo.Persons.Id = warehouse2.Useful.PersonId join 
-(select warehouse2.PlaceofObject.InventoryId, warehouse2.Place.number_stay, number_layer from warehouse2.PlaceofObject join warehouse2.Place 
-on warehouse2.PlaceofObject.PlaceId = warehouse2.Place.Id) as K 
-on K.InventoryId = warehouse2.Useful.InventoryId 
+--Главная сущность Inventory ее Id выводится, при этом сотрудник может только добавлять и удалять Useful по Id инвентарному 
+--Id сотрудника будет устанавливаться при входе. Просматривает он составную таблицу из Inventory, Product
+
+select * from (select warehouse2.InventoryProduct.Id,
+warehouse2.InventoryProduct.inventory_number, [name], dateCome, dateProduction
+from warehouse2.InventoryProduct join warehouse2.Products on
+warehouse2.Products.Id = warehouse2.InventoryProduct.product_Id ) as K join warehouse2.Useful on
+warehouse2.Useful.InventoryId = K.Id where PersonId = 2
+
+
+--кладовщик
+select U.Id, PE.[Name], PE.SecondName, PE.[Login], I.inventory_number, K.number_stay, K.number_layer, U.DateOfStart
+from warehouse2.Useful as U 
+join dbo.Persons as PE on PE.Id = U.PersonId 
+join 
+	(select PO.InventoryId, P.number_stay, P.number_layer from warehouse2.PlaceofObject as PO 
+	 join warehouse2.Place as P on PO.PlaceId = P.Id) 
+as K on K.InventoryId = U.InventoryId 
+join warehouse2.InventoryProduct as I on I.Id = U.InventoryId
+
+
+--Useful главная таблица ее Id выводится. Кладовщик может только удалять из Useful по Id при этом просматривает он 
+--Составную сущность из Useful, Person, Inventory, Place
+
+--Админ склада
+

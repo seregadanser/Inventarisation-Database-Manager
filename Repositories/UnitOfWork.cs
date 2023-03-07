@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DB_course.Repositories.DBRepository;
+using DB_course.Repositories.CompositRepository;
+using DB_course.Models.CompositModels;
 
 namespace DB_course.Repositories
 {
@@ -14,7 +16,9 @@ namespace DB_course.Repositories
         IRepository<Person> personRepository {get;}
         IRepository<Place> PlaceRepository { get; }
         IRepository<Useful> UsefulRepository { get; }
-
+        IRepository<WarehousemanLookCompose> WarehousemanLookComposeRepository { get; }
+        IRepository<WorkerLookUsefulCompose> WorkerLookUsefulComposeRepository { get; }
+        IRepository<WorkerLookCompose> WorkerLookComposeRepository { get; }
         public void UpdateRepository(IRepositoryAbstractFabric fabric);
 
     }
@@ -26,7 +30,9 @@ namespace DB_course.Repositories
         private IRepository<Person> personRep;
         private IRepository<Place> PlaceRep;
         private IRepository<Useful> UsefulRep;
-
+        IRepository<WarehousemanLookCompose> WarehousemanLookComposeRep;
+        IRepository<WorkerLookUsefulCompose> WorkerLookUsefulComposeRep;
+        IRepository<WorkerLookCompose> WorkerLookComposeRep;
 
         public IRepository<Person> personRepository
         {
@@ -57,6 +63,39 @@ namespace DB_course.Repositories
                 return UsefulRep;
             }
         }
+        public IRepository<WarehousemanLookCompose> WarehousemanLookComposeRepository {
+            get
+            {
+
+                if(WarehousemanLookComposeRep == null)
+                    WarehousemanLookComposeRep = fabric.CreateWarehousemanLookComposeRepositoryR();
+                return WarehousemanLookComposeRep;
+
+            }
+        }
+
+        public IRepository<WorkerLookUsefulCompose> WorkerLookUsefulComposeRepository
+        {
+            get
+            {
+
+                if(WorkerLookUsefulComposeRep == null)
+                    WorkerLookUsefulComposeRep = fabric.CreateWorkerLookUsefulComposeR();
+                return WorkerLookUsefulComposeRep;
+
+            }
+        }
+        public IRepository<WorkerLookCompose> WorkerLookComposeRepository
+        {
+            get
+            {
+
+                if(WorkerLookComposeRep == null)
+                    WorkerLookComposeRep = fabric.CreateWorkerLookComposeR();
+                return WorkerLookComposeRep;
+
+            }
+        }
         public UnitOfWork(IRepositoryAbstractFabric fabric)
         {
             this.fabric = fabric;
@@ -68,6 +107,7 @@ namespace DB_course.Repositories
             personRep = null;
             PlaceRep = null;
             UsefulRep = null;
+            WarehousemanLookComposeRep = null;
         }
     }
 }
