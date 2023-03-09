@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DB_course.Models
 {
-    public class WorkerModel
+    public class WorkerModel : IModel
     {
         private IUnitOfWork unitOfWork;
         int curId = -1;

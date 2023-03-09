@@ -4,58 +4,54 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DB_course.Models;
+using DB_course.Models.DBModels;
+using DB_course.Models.CompositModels;
 
 namespace DB_course.Presenter
 {
     public class WorkerPresenter
     {
         private IWorkerView view;
-        //private IPetRepository repository;
-        private BindingSource petsBindingSource;
-      //  private IEnumerable<PetModel> petList;
+        private WorkerModel model;
+        private BindingSource productsBindingSource;
+        private IEnumerable<WorkerLookCompose> productList;
+        private BindingSource usingBindingSource;
+        private IEnumerable<WorkerLookUsefulCompose> usingList;
+
         //Constructor
-        public WorkerPresenter(IWorkerView view/*, IPetRepository repository*/)
+        public WorkerPresenter(IWorkerView view, IModel model)
         {
-            this.petsBindingSource = new BindingSource();
+            this.productsBindingSource = new BindingSource();
+            this.usingBindingSource = new BindingSource();
             this.view = view;
-           // this.repository = repository;
-            //Subscribe event handler methods to view events
+            this.model = (WorkerModel)model;
+
             
             //Set pets bindind source
-            this.view.SetWorkerListBindingSource(petsBindingSource);
-            //Load pet list view
-            LoadAllPetList();
-            //Show view
+            this.view.SetProductsListBindingSource(productsBindingSource);
+            this.view.SetUsingListBindingSource(usingBindingSource);
+            LoadAllLists();
+
+            this.view.SearchEvent += SearchProduct;
+
             this.view.Show();
         }
         //Methods
-        private void LoadAllPetList()
+        private void LoadAllLists()
         {
-           /*petList = repository.GetAll();
-            petsBindingSource.DataSource = petList;//Set data source.     */
+            productList = model.LookProducts();
+            usingList = model.LookUsing();
+            productsBindingSource.DataSource = productList;
+            usingBindingSource.DataSource = usingList;  
         }
-        private void SearchPet(object sender, EventArgs e)
+        private void SearchProduct(object sender, EventArgs e)
         {
-           /* bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if(emptyValue == false)
-                petList = repository.GetByValue(this.view.SearchValue);
-            else
-                petList = repository.GetAll();
-            petsBindingSource.DataSource = petList;   */
+            productList = model.LookProducts(view.SearchValue);
+            productsBindingSource.DataSource = productList;
         }
-        private void CancelAction(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        private void SavePet(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
+       
         private void DeleteSelectedPet(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-        private void LoadSelectedPetToEdit(object sender, EventArgs e)
         {
             throw new NotImplementedException();
         }

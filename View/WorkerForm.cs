@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
@@ -19,11 +20,43 @@ namespace DB_course.View
         public WorkerForm()
         {
             InitializeComponent();
+            AssociateAndRaiseViewEvents();
         }
 
-        public void SetWorkerListBindingSource(BindingSource ProductList)
+        private void AssociateAndRaiseViewEvents()
+        {
+            //Search
+            Searchbtn.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+            SearchText.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+            };
+            //Add new
+            Addbtn.Click += delegate
+            {
+                AddNewEvent?.Invoke(this, EventArgs.Empty);
+            };
+            Delitebtn.Click += delegate
+            {
+                var result = MessageBox.Show("Are you sure you want to delete the selected product?", "Warning",
+                      MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes)
+                {
+                    DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
+            };
+
+        }
+
+        public void SetProductsListBindingSource(BindingSource ProductList)
         {
             dataGridView1.DataSource = ProductList;
+        }
+        public void SetUsingListBindingSource(BindingSource UsingList)
+        {
+            dataGridView2.DataSource = UsingList;
         }
 
         private static WorkerForm instance;

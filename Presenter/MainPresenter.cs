@@ -36,9 +36,11 @@ namespace DB_course.Presenter
 
         private void ShowWorkerView(object sender, EventArgs e)
         {
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
+
             IWorkerView view = WorkerForm.GetInstace((MainForm)mainView);
-            //IPetRepository repository = new PetRepository(sqlConnectionString);
-            new WorkerPresenter(view/*, repository*/);
+            IModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(new WarehouseContext(options))), 2);
         }
     }
 }
