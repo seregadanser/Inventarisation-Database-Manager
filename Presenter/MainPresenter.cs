@@ -41,6 +41,7 @@ namespace DB_course.Presenter
 
             IWorkerView view = WorkerForm.GetInstace((MainForm)mainView);
             IModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(new WarehouseContext(options))), 2);
-        }
+            new WorkerPresenter(view, model);
+            }
     }
 }

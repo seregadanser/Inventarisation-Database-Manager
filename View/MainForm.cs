@@ -25,5 +25,10 @@ namespace DB_course.View
         public event EventHandler ShowAdmin;
         public event EventHandler ShowWarer;
         public event EventHandler ShowHrAdmin;
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

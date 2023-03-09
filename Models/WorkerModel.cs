@@ -20,7 +20,7 @@ namespace DB_course.Models
         {
             this.unitOfWork = unitOfWork;
             this.curId = curId;
-            maxId = unitOfWork.UsefulRepository.GetList().Count();
+           // maxId = unitOfWork.UsefulRepository.GetList().Count();
         }
 
         public void DelitUseful(int Id)
@@ -43,7 +43,7 @@ namespace DB_course.Models
 
         public IEnumerable<WorkerLookCompose> LookProducts()
         {
-            maxId = unitOfWork.UsefulRepository.GetList().Count();
+            //maxId = unitOfWork.UsefulRepository.GetList().Count();
             return unitOfWork.WorkerLookComposeRepository.GetList();
         }
 
@@ -55,7 +55,7 @@ namespace DB_course.Models
                 personList = unitOfWork.WorkerLookComposeRepository.Get(value);
             else
             {
-                maxId = unitOfWork.UsefulRepository.GetList().Count();
+                //maxId = unitOfWork.UsefulRepository.GetList().Count();
                 personList = unitOfWork.WorkerLookComposeRepository.GetList();
             }
             return personList;
