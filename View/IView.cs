@@ -26,6 +26,9 @@ namespace DB_course.View
     public interface IWorkerView  : IView
     {
         void SetWorkerListBindingSource(BindingSource petList);
+        event EventHandler SearchEvent;
+        event EventHandler AddNewEvent;
+        event EventHandler DeleteEvent;
     }
 
     public interface IHRAdminView   : IView

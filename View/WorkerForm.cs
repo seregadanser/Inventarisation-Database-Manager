@@ -13,22 +13,29 @@ namespace DB_course.View
 {
     public partial class WorkerForm : Form , IWorkerView
     {
+        private string message;
+        private bool isSuccessful;
+
         public WorkerForm()
         {
             InitializeComponent();
         }
 
-        public void SetWorkerListBindingSource(BindingSource petList)
+        public void SetWorkerListBindingSource(BindingSource ProductList)
         {
-            dataGridView1.DataSource = petList;
+            dataGridView1.DataSource = ProductList;
         }
 
         private static WorkerForm instance;
 
-        public string SearchValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public event EventHandler SearchEvent;
+        public event EventHandler AddNewEvent;
+        public event EventHandler DeleteEvent;
+
+        public string SearchValue { get{ return SearchText.Text; } set { SearchText.Text = value; } }
         public bool IsEdit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public bool IsSuccessful { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool IsSuccessful { get { return isSuccessful; } set { isSuccessful = value; } }
+        public string Message { get { return message; } set { message = value; } }
 
         public static WorkerForm GetInstace(Form parentContainer)
         {
@@ -46,6 +53,16 @@ namespace DB_course.View
                 instance.BringToFront();
             }
             return instance;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void WorkerForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
