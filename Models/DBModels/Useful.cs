@@ -5,15 +5,13 @@ namespace DB_course.Models.DBModels;
 
 public partial class Useful
 {
-    public int Id { get; set; }
+    public int InventoryId { get; set; }
 
-    public int? InventoryId { get; set; }
-
-    public int? PersonId { get; set; }
+    public string? PersonId { get; set; }
 
     public DateTime? DateOfStart { get; set; }
 
-    public virtual InventoryProduct? Inventory { get; set; }
+    public virtual InventoryProduct Inventory { get; set; } = null!;
 
     public virtual Person? Person { get; set; }
 }

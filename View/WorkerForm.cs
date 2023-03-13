@@ -36,6 +36,8 @@ namespace DB_course.View
             Addbtn.Click += delegate
             {
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
+                MessageBox.Show(Message);
+
             };
             Delitebtn.Click += delegate
             {

@@ -34,6 +34,8 @@ namespace DB_course.Presenter
             LoadAllLists();
 
             this.view.SearchEvent += SearchProduct;
+            this.view.DeleteEvent += DeleteSelectedUseful;
+            this.view.AddNewEvent += AddNewUsing;
 
             this.view.Show();
         }
@@ -51,13 +53,45 @@ namespace DB_course.Presenter
             productsBindingSource.DataSource = productList;
         }
        
-        private void DeleteSelectedPet(object sender, EventArgs e)
+        private void DeleteSelectedUseful(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var worker = (WorkerLookUsefulCompose)usingBindingSource.Current;
+                if (worker == null) throw new Exception("Cant delit empty useful product");
+                model.DelitUseful(worker.Id);
+                view.IsSuccessful = true;
+                view.Message = "useful deleted successfully";
+                productList = model.LookProducts();
+                usingList = model.LookUsing();
+                productsBindingSource.DataSource = productList;
+                usingBindingSource.DataSource = usingList;
+
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = ex.Message;
+            }
         }
-        private void AddNewPet(object sender, EventArgs e)
+        private void AddNewUsing(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var product = (WorkerLookCompose)productsBindingSource.Current;
+                if (product == null) throw new Exception("An error ocurred, could not ass worker");
+                model.AddUseful(product);
+                view.Message = "product added sucessfully";
+                productList = model.LookProducts();
+                usingList = model.LookUsing();
+                productsBindingSource.DataSource = productList;
+                usingBindingSource.DataSource = usingList;
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message =ex.Message;
+            }
         }
     }
 }

@@ -75,7 +75,7 @@ namespace DB_course.Repositories.CompositRepository
                     });
             var K = from U in db.Usefuls select U.InventoryId;
             var A = from D1 in D
-                    where !K.Contains(D1.Inventory_number)
+                    where !K.Contains(D1.Id)
                     select new WorkerLookCompose
                     {
                         Id = D1.Id,

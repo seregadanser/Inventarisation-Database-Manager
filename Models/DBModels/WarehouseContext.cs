@@ -12,7 +12,6 @@ public interface IConnection
 public partial class WarehouseContext : DbContext, IConnection
 {
     public string Type { get; set; }
-
     public WarehouseContext()
     {
     }
@@ -36,39 +35,44 @@ public partial class WarehouseContext : DbContext, IConnection
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer();
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-TPNKBFP;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<InventoryProduct>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Inventor__3214EC077AD6E2A1");
+            entity.HasKey(e => e.InventoryNumber).HasName("PK__Inventor__070F296D33815378");
 
             entity.ToTable("InventoryProduct", "warehouse2");
 
-            entity.HasIndex(e => e.InventoryNumber, "UQ__Inventor__070F296CF84897E5").IsUnique();
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.InventoryNumber).HasColumnName("inventory_number");
+            entity.Property(e => e.InventoryNumber)
+                .ValueGeneratedNever()
+                .HasColumnName("inventory_number");
             entity.Property(e => e.ProductId).HasColumnName("product_Id");
 
             entity.HasOne(d => d.Product).WithMany(p => p.InventoryProducts)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Inventory__produ__276EDEB3");
+                .HasConstraintName("FK__Inventory__produ__52593CB8");
         });
 
         modelBuilder.Entity<Person>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Persons__3214EC0777E9B0A3");
+            entity.HasKey(e => e.Login).HasName("PK__Persons__5E55825A7D236D07");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.DateOfBirthday).HasColumnType("date");
+            entity.HasIndex(e => e.Password, "UQ__Persons__6E2DBEDEE13B4EDB").IsUnique();
+
             entity.Property(e => e.Login)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.DateOfBirthday).HasColumnType("date");
             entity.Property(e => e.Name)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.NumberOfCome).HasColumnName("number_of_come");
+            entity.Property(e => e.Password)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasColumnName("password");
             entity.Property(e => e.Position)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -79,7 +83,7 @@ public partial class WarehouseContext : DbContext, IConnection
 
         modelBuilder.Entity<Place>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Place__3214EC078A021FF3");
+            entity.HasKey(e => e.Id).HasName("PK__Place__3214EC07D1BD5286");
 
             entity.ToTable("Place", "warehouse2");
 
@@ -91,7 +95,7 @@ public partial class WarehouseContext : DbContext, IConnection
 
         modelBuilder.Entity<PlaceofObject>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__PlaceofO__3214EC07F2399B56");
+            entity.HasKey(e => e.Id).HasName("PK__PlaceofO__3214EC0743E2FEF6");
 
             entity.ToTable("PlaceofObject", "warehouse2");
 
@@ -99,16 +103,16 @@ public partial class WarehouseContext : DbContext, IConnection
 
             entity.HasOne(d => d.Inventory).WithMany(p => p.PlaceofObjects)
                 .HasForeignKey(d => d.InventoryId)
-                .HasConstraintName("FK__PlaceofOb__Inven__2D27B809");
+                .HasConstraintName("FK__PlaceofOb__Inven__5812160E");
 
             entity.HasOne(d => d.Place).WithMany(p => p.PlaceofObjects)
                 .HasForeignKey(d => d.PlaceId)
-                .HasConstraintName("FK__PlaceofOb__Place__2C3393D0");
+                .HasConstraintName("FK__PlaceofOb__Place__571DF1D5");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Products__3214EC07888CC753");
+            entity.HasKey(e => e.Id).HasName("PK__Products__3214EC07ADD5DA18");
 
             entity.ToTable("Products", "warehouse2");
 
@@ -127,22 +131,24 @@ public partial class WarehouseContext : DbContext, IConnection
 
         modelBuilder.Entity<Useful>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Useful__3214EC07AD45DB4A");
+            entity.HasKey(e => e.InventoryId).HasName("PK__Useful__F5FDE6B3EA3D563F");
 
             entity.ToTable("Useful", "warehouse2");
 
-            entity.HasIndex(e => e.InventoryId, "UQ__Useful__F5FDE6B2B760517D").IsUnique();
-
-            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.InventoryId).ValueGeneratedNever();
             entity.Property(e => e.DateOfStart).HasColumnType("date");
+            entity.Property(e => e.PersonId)
+                .HasMaxLength(50)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.Inventory).WithOne(p => p.Useful)
                 .HasForeignKey<Useful>(d => d.InventoryId)
-                .HasConstraintName("FK__Useful__Inventor__32E0915F");
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Useful__Inventor__6C190EBB");
 
             entity.HasOne(d => d.Person).WithMany(p => p.Usefuls)
                 .HasForeignKey(d => d.PersonId)
-                .HasConstraintName("FK__Useful__PersonId__33D4B598");
+                .HasConstraintName("FK__Useful__PersonId__6D0D32F4");
         });
 
         OnModelCreatingPartial(modelBuilder);
