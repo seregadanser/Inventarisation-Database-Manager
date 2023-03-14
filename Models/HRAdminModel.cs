@@ -11,21 +11,19 @@ namespace DB_course.Models
     public class HRAdminModel : IModel
     {
         private IUnitOfWork unitOfWork;
-        private int maxId = 0;
 
-        public int MaxId { get { return maxId; } }
 
         public HRAdminModel(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            maxId = unitOfWork.personRepository.GetList().Count();
+
         }
         public void AddPerson(Person person)
         {
             new DataValidateModel().Validate(person);
             unitOfWork.personRepository.Create(person);
             unitOfWork.personRepository.Save();
-            maxId++;
+ 
         }
 
         public void RemovePerson(string Id)
@@ -34,15 +32,14 @@ namespace DB_course.Models
             unitOfWork.personRepository.Save();
         }
 
-        public void UpdatePerson(int Id_cur, Person updateperson)
+        public void UpdatePerson(string Id_cur, Person updateperson)
         {
             new DataValidateModel().Validate(updateperson);
             Person curperson;
-            curperson = unitOfWork.personRepository.Get(Id_cur.ToString()).First();
+            curperson = unitOfWork.personRepository.Get(Id_cur).First();
             curperson.Position = updateperson.Position;
             curperson.Name = updateperson.Name;
             curperson.SecondName = updateperson.SecondName;
-            curperson.Login = updateperson.Login;
             curperson.DateOfBirthday = updateperson.DateOfBirthday;
             unitOfWork.personRepository.Update(curperson);
             unitOfWork.personRepository.Save();
@@ -50,7 +47,6 @@ namespace DB_course.Models
 
         public IEnumerable<Person> LookPerson()
         {
-            maxId = unitOfWork.personRepository.GetList().Count();
             return unitOfWork.personRepository.GetList();
         }
 
@@ -61,7 +57,7 @@ namespace DB_course.Models
             bool emptyValue = string.IsNullOrWhiteSpace(value);
             if (emptyValue == false)
                 personList = unitOfWork.personRepository.Get(value);
-            else { maxId = unitOfWork.personRepository.GetList().Count();
+            else {
                 personList = unitOfWork.personRepository.GetList(); }
             return personList;
         }

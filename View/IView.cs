@@ -35,7 +35,7 @@ namespace DB_course.View
     public interface IHRAdminView   : IView
     {
 
-        int WorkerId { get; set; }
+        public string WorkerPassword { get; set; }
         string WorkerName { get; set; }
         string WorkerSecondName { get; set; }
         string WorkerPosition { get; set; }

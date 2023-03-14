@@ -54,7 +54,6 @@ namespace DB_course.Presenter
             view.WorkerSecondName = "";
             view.WorkerPosition = "";
             view.WorkerName = "";
-            view.WorkerId = 0;
             view.WorkerBirthday = "";
         }
         private void SaveWorker(object sender, EventArgs e)
@@ -64,18 +63,23 @@ namespace DB_course.Presenter
                 var person = new Person();
                 person.Name = view.WorkerName;
                 person.SecondName = view.WorkerSecondName;
-                person.Position = view.WorkerPosition;
-                person.Login = view.WorkerLogin;
+                person.Position = view.WorkerPosition;              
                 person.DateOfBirthday = null;
 
                 
                 if (view.IsEdit)
                 {
-                    model.UpdatePerson(view.WorkerId, person);
+                    person.Login = log;
+                    person.Password = pass;
+                    person.NumberOfCome = count;
+                    model.UpdatePerson(log, person);
                     view.Message = "worker edited successfuly";
                 }
                 else
                 {
+                    person.Login = view.WorkerLogin;
+                    person.Password = view.WorkerPassword;
+                    person.NumberOfCome = 0;
                     model.AddPerson(person);
                     view.Message = "worker added sucessfully";
                 }
@@ -87,8 +91,9 @@ namespace DB_course.Presenter
                 view.WorkerSecondName = "";
                 view.WorkerPosition = "";
                 view.WorkerName = "";
-                view.WorkerId = 0;
                 view.WorkerBirthday = "";
+                view.WorkerLogin = "";
+                view.WorkerPassword = "";
                 view.WorkerLogin = "";
                 
             }
@@ -117,6 +122,8 @@ namespace DB_course.Presenter
                 view.Message = ex.Message;
             }
         }
+        private string pass = "", log= "";
+        private int count = 0;
         private void LoadSelectedWorkerToEdit(object sender, EventArgs e)
         {
             try
@@ -127,7 +134,11 @@ namespace DB_course.Presenter
                 view.WorkerSecondName = worker.SecondName;
                 view.WorkerPosition = worker.Position;
                 view.WorkerBirthday = worker.DateOfBirthday.ToString();
-                view.WorkerLogin = worker.Login;
+
+                log= worker.Login;
+                pass = worker.Password;
+                count = (int)worker.NumberOfCome;
+
                 view.IsEdit = true;
                 view.IsSuccessful = true;
             }
