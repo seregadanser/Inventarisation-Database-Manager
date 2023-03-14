@@ -8,10 +8,10 @@ namespace DB_course.Models.DBModels;
 public partial class Person
 {
     public string Login { get; set; } = null!;
+
     [DisplayName("Person Name")]
     [Required(ErrorMessage = "Person name is requerid")]
     [StringLength(50, MinimumLength = 2, ErrorMessage = "Person name must be between 3 and 50 characters")]
-
     public string? Name { get; set; }
 
     public string? SecondName { get; set; }

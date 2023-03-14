@@ -25,9 +25,9 @@ namespace DB_course.Repositories.DBRepository
             db.Persons.Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(string key)
         {
-            Person book = db.Persons.Find(id);
+            Person book = db.Persons.Find(key);
             if (book != null)
                 db.Persons.Remove(book);
         }
@@ -40,7 +40,7 @@ namespace DB_course.Repositories.DBRepository
             string petName = value;
 
             return (from user in db.Persons
-                    where user.Id == petId || EF.Functions.Like(user.Name!, value)
+                    where EF.Functions.Like(user.Name!, value) || EF.Functions.Like(user.Login!, value)
                     select user).ToList();
 
         }

@@ -59,7 +59,7 @@ namespace DB_course.Presenter
             {
                 var worker = (WorkerLookUsefulCompose)usingBindingSource.Current;
                 if (worker == null) throw new Exception("Cant delit empty useful product");
-                model.DelitUseful(worker.Id);
+                model.DelitUseful(worker.Inventory_number);
                 view.IsSuccessful = true;
                 view.Message = "useful deleted successfully";
                 productList = model.LookProducts();

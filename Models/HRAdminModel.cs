@@ -28,7 +28,7 @@ namespace DB_course.Models
             maxId++;
         }
 
-        public void RemovePerson(int Id)
+        public void RemovePerson(string Id)
         {
             unitOfWork.personRepository.Delete(Id);
             unitOfWork.personRepository.Save();

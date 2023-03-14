@@ -24,8 +24,14 @@ namespace DB_course.Repositories.DBRepository
             db.Usefuls.Add(item);
         }
 
-        public void Delete(int id)
+        public void Delete(string key)
         {
+            int id = 0;
+            try
+            {
+                id = Convert.ToInt32(key);
+            }
+            catch { throw new Exception("unvalid key"); }
             Useful book = db.Usefuls.Find(id);
             if(book != null)
                 db.Usefuls.Remove(book);

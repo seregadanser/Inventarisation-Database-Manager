@@ -14,7 +14,7 @@ namespace DB_course.Repositories
         IEnumerable<T> Get(string value); // получение одного объекта по id
         void Create(T item); // создание объекта
         void Update(T item); // обновление объекта
-        void Delete(int id); // удаление объекта по id
+        void Delete(string key); // удаление объекта по id
         void Save();  // сохранение изменений 
     }
     public interface ISQLRepository<T> : IRepository<T> where T : class

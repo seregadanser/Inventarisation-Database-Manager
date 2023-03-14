@@ -21,8 +21,8 @@ namespace DB_course.Models
 
         public void DelitUseful(int Id)
         {
-            unitOfWork.WarehousemanLookComposeRepository.Delete(Id);
-            unitOfWork.WarehousemanLookComposeRepository.Save();
+            unitOfWork.UsefulRepository.Delete(Convert.ToString(Id));
+            unitOfWork.UsefulRepository.Save();
         }
 
         public IEnumerable<WarehousemanLookCompose> LookWarehousemanLook()

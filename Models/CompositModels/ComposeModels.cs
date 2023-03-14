@@ -10,9 +10,6 @@ namespace DB_course.Models.CompositModels
 {
    public class WorkerLookCompose              //IPr
    {
-        [DisplayName("Inventory ID")]
-        public int Id { get; set; }
-
         [DisplayName("Inventory number")]
         public int Inventory_number { get; set; }
 
@@ -28,9 +25,6 @@ namespace DB_course.Models.CompositModels
     }
     public class WarehousemanLookCompose              //UPeIPl
     {
-        [DisplayName("Person ID")]
-        public int Id { get; set; }
-
         [DisplayName("Person Name")]
         [Required(ErrorMessage = "Person name is requerid")]
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Person name must be between 3 and 50 characters")]
@@ -56,10 +50,7 @@ namespace DB_course.Models.CompositModels
     }
     public class WorkerLookUsefulCompose              //IPrU
     {
-        [DisplayName("Useful ID")]
-        public int Id { get; set; }
-
-        [DisplayName("Inventory number")]
+         [DisplayName("Inventory number")]
         public int Inventory_number { get; set; }
 
         [DisplayName("Product Name")]

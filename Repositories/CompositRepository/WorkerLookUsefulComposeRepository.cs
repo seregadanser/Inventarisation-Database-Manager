@@ -1,5 +1,6 @@
 ﻿using DB_course.Models.CompositModels;
 using DB_course.Models.DBModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,21 +27,15 @@ namespace DB_course.Repositories.CompositRepository
 
         public IEnumerable<WorkerLookUsefulCompose> Get(string value)
         {
-
-            int petId = int.TryParse(value, out _) ? Convert.ToInt32(value) : -1;
-            if(petId == -1)
-              throw new Exception("person not exists");
-
             var D = from I in db.InventoryProducts
                     join P in db.Products on I.ProductId equals P.Id
-                    select new {I.Id ,I.InventoryNumber, P.Name, P.DateCome, P.DateProduction };
+                    select new {I.InventoryNumber, P.Name, P.DateCome, P.DateProduction };
 
             var A = from D1 in D
-                    join U in db.Usefuls on D1.Id equals U.InventoryId
-                    where U.PersonId == petId
+                    join U in db.Usefuls on D1.InventoryNumber equals U.InventoryId
+                    where EF.Functions.Like(U.PersonId!, value)
                     select new WorkerLookUsefulCompose
                     {
-                        Id = U.Id,
                         Inventory_number = (int)D1.InventoryNumber,
                         Name = D1.Name,
                         DateCome = D1.DateCome,
@@ -60,7 +55,7 @@ namespace DB_course.Repositories.CompositRepository
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             throw new NotImplementedException();
         }

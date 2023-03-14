@@ -40,7 +40,7 @@ namespace DB_course.Presenter
             var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
 
             IWorkerView view = WorkerForm.GetInstace((MainForm)mainView);
-            IModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(new WarehouseContext(options))), 2);
+            IModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(new WarehouseContext(options))), "f");
             new WorkerPresenter(view, model);
             }
     }

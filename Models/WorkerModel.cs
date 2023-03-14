@@ -12,29 +12,28 @@ namespace DB_course.Models
     public class WorkerModel : IModel
     {
         private IUnitOfWork unitOfWork;
-        int curId = -1;
+        string curId = "";
         public int MaxId { get { return maxId; } }
         private int maxId = 0;
 
-        public WorkerModel(IUnitOfWork unitOfWork, int curId)
+        public WorkerModel(IUnitOfWork unitOfWork, string login)
         {
             this.unitOfWork = unitOfWork;
-            this.curId = curId;
+            this.curId = login;
            // maxId = unitOfWork.UsefulRepository.GetList().Count();
         }
 
         public void DelitUseful(int Id)
         {
-            unitOfWork.UsefulRepository.Delete(Id);
+            unitOfWork.UsefulRepository.Delete(Convert.ToString(Id));
             unitOfWork.UsefulRepository.Save();
         }
 
         public void AddUseful(WorkerLookCompose value)
         {
             Useful u = new Useful();
-            u.Id = maxId;
             u.PersonId = curId;
-            u.InventoryId = value.Id;
+            u.InventoryId = value.Inventory_number;
             u.DateOfStart = null;
             //add validation
             unitOfWork.UsefulRepository.Create(u);

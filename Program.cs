@@ -1,8 +1,11 @@
-//#define Laptop
+#define Laptop
 
 using DB_course.Presenter;
 using DB_course.View;
+using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Configuration;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DB_course
 {
@@ -14,6 +17,7 @@ namespace DB_course
         [STAThread]
         static void Main()
         {
+
             var builder = new ConfigurationBuilder();
             #if Laptop
                 builder.SetBasePath("D:\\Study\\Test\\DB_course");
@@ -24,11 +28,12 @@ namespace DB_course
             builder.AddJsonFile("jsconfig1.json");
             var config = builder.Build();
             string connectionString = "";
-            #if Laptop
+#if Laptop
+
                 connectionString = config.GetConnectionString("LaptopConnection");
-            #else
+#else
                 connectionString = config.GetConnectionString("DefaultConnection");
-            #endif
+#endif
 
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.

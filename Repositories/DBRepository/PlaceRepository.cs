@@ -23,7 +23,7 @@ namespace DB_course.Repositories.DBRepository
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             throw new NotImplementedException();
         }

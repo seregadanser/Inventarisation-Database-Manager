@@ -24,7 +24,7 @@ namespace DB_course.Repositories.CompositRepository
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             throw new NotImplementedException();
         }
@@ -41,7 +41,7 @@ namespace DB_course.Repositories.CompositRepository
                      where I.InventoryNumber == petId || value.Equals(PR.Name)
                      select new WorkerLookCompose
                      {
-                         Id = I.Id,
+               
                          Inventory_number = (int)I.InventoryNumber,
                          Name = PR.Name,
                          DateCome = PR.DateCome,
@@ -52,7 +52,6 @@ namespace DB_course.Repositories.CompositRepository
                     where !K.Contains(D1.Inventory_number)
                     select new WorkerLookCompose
                     {
-                        Id = D1.Id,
                         Inventory_number = (int)D1.Inventory_number,
                         Name = D1.Name,
                         DateCome = D1.DateCome,
@@ -67,7 +66,6 @@ namespace DB_course.Repositories.CompositRepository
             var D = (from I in db.InventoryProducts
                     join PR in db.Products on I.ProductId equals PR.Id select new WorkerLookCompose
                     {
-                        Id = I.Id,
                         Inventory_number = (int)I.InventoryNumber,
                         Name = PR.Name,
                         DateCome = PR.DateCome,
@@ -75,10 +73,10 @@ namespace DB_course.Repositories.CompositRepository
                     });
             var K = from U in db.Usefuls select U.InventoryId;
             var A = from D1 in D
-                    where !K.Contains(D1.Id)
+                    where !K.Contains(D1.Inventory_number)
                     select new WorkerLookCompose
                     {
-                        Id = D1.Id,
+        
                         Inventory_number = (int)D1.Inventory_number,
                         Name = D1.Name,
                         DateCome = D1.DateCome,

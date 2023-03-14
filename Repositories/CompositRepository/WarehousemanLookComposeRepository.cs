@@ -28,7 +28,7 @@ namespace DB_course.Repositories.CompositRepository
             throw new NotImplementedException();
         }
 
-        public void Delete(int id)
+        public void Delete(string id)
         {
             throw new NotImplementedException();
         }
@@ -45,13 +45,13 @@ namespace DB_course.Repositories.CompositRepository
                     select new { PO.InventoryId, P.NumberStay, P.NumberLayer };
 
             var WLC = from U in db.Usefuls
-                      join PE in db.Persons on U.PersonId equals PE.Id
+                      join PE in db.Persons on U.PersonId equals PE.Login
                       join NT in N on U.InventoryId equals NT.InventoryId
-                      join I in db.InventoryProducts on U.InventoryId equals I.Id
-                      where I.Id == petId || EF.Functions.Like(PE.Name!, value) || EF.Functions.Like(PE.SecondName!, value)
+                      join I in db.InventoryProducts on U.InventoryId equals I.InventoryNumber
+                      where I.InventoryNumber == petId || EF.Functions.Like(PE.Name!, value) || EF.Functions.Like(PE.SecondName!, value)
                       select new WarehousemanLookCompose
                       {
-                          Id = U.Id,
+                   
                           Name = PE.Name,
                           SecondName = PE.SecondName,
                           Login = PE.Login,
@@ -70,16 +70,15 @@ namespace DB_course.Repositories.CompositRepository
             select new { PO.InventoryId, P.NumberStay, P.NumberLayer };
 
             var WLC = from U in db.Usefuls
-                      join PE in db.Persons on U.PersonId equals PE.Id
+                      join PE in db.Persons on U.PersonId equals PE.Login
                       join NT in N on U.InventoryId equals NT.InventoryId
-                      join I in db.InventoryProducts on U.InventoryId equals I.Id
+                      join I in db.InventoryProducts on U.InventoryId equals I.InventoryNumber
                       select new WarehousemanLookCompose
                       {
-                          Id = U.Id,
+                          InventoryNumber = U.InventoryId,
                           Name = PE.Name,
                           SecondName = PE.SecondName,
                           Login = PE.Login,
-                          InventoryNumber = I.InventoryNumber,
                           NumberStay = NT.NumberStay,
                           NumberLayer = NT.NumberLayer,
                           DateOfStart = U.DateOfStart

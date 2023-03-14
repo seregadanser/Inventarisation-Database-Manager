@@ -76,7 +76,6 @@ namespace DB_course.Presenter
                 }
                 else
                 {
-                    person.Id = model.MaxId + 1;
                     model.AddPerson(person);
                     view.Message = "worker added sucessfully";
                 }
@@ -105,7 +104,7 @@ namespace DB_course.Presenter
             {
                 var worker = (Person)workersBindingSource.Current;
                 if (worker == null) throw new Exception("Cant delit empty person");
-                model.RemovePerson(worker.Id);
+                model.RemovePerson(worker.Login);
                 view.IsSuccessful = true;
                 view.Message = "worker deleted successfully";
                 personList = model.LookPerson();
@@ -124,7 +123,6 @@ namespace DB_course.Presenter
             {
                 var worker = (Person)workersBindingSource.Current;
                 if (worker == null) throw new Exception();
-                view.WorkerId = worker.Id;
                 view.WorkerName = worker.Name;
                 view.WorkerSecondName = worker.SecondName;
                 view.WorkerPosition = worker.Position;
