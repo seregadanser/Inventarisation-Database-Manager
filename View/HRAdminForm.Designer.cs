@@ -37,6 +37,8 @@
             this.Search = new System.Windows.Forms.Button();
             this.SearchText = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label5 = new System.Windows.Forms.Label();
+            this.passwordText = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.LoginText = new System.Windows.Forms.TextBox();
             this.Cancel = new System.Windows.Forms.Button();
@@ -49,8 +51,6 @@
             this.PositionText = new System.Windows.Forms.TextBox();
             this.SecondNameText = new System.Windows.Forms.TextBox();
             this.NameText = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.passwordText = new System.Windows.Forms.TextBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -80,11 +80,12 @@
             this.tabPage1.Controls.Add(this.SearchText);
             this.tabPage1.Location = new System.Drawing.Point(4, 24);
             this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(528, 218);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Таблица";
             this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // Delit
             // 
@@ -128,6 +129,8 @@
             this.dataGridView1.RowTemplate.Height = 25;
             this.dataGridView1.Size = new System.Drawing.Size(435, 150);
             this.dataGridView1.TabIndex = 2;
+            this.dataGridView1.CellErrorTextNeeded += new System.Windows.Forms.DataGridViewCellErrorTextNeededEventHandler(this.dataGridView1_CellErrorTextNeeded);
+            this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
             // 
             // Search
             // 
@@ -167,12 +170,28 @@
             this.tabPage2.Controls.Add(this.NameText);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(528, 218);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Поля";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(253, 137);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(57, 15);
+            this.label5.TabIndex = 13;
+            this.label5.Text = "password";
+            // 
+            // passwordText
+            // 
+            this.passwordText.Location = new System.Drawing.Point(328, 129);
+            this.passwordText.Name = "passwordText";
+            this.passwordText.Size = new System.Drawing.Size(100, 23);
+            this.passwordText.TabIndex = 12;
             // 
             // label4
             // 
@@ -273,29 +292,13 @@
             this.NameText.Size = new System.Drawing.Size(100, 23);
             this.NameText.TabIndex = 0;
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(253, 137);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 15);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "password";
-            // 
-            // passwordText
-            // 
-            this.passwordText.Location = new System.Drawing.Point(328, 129);
-            this.passwordText.Name = "passwordText";
-            this.passwordText.Size = new System.Drawing.Size(100, 23);
-            this.passwordText.TabIndex = 12;
-            // 
             // HRAdminForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(560, 270);
             this.Controls.Add(this.tabControl1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "HRAdminForm";
             this.Load += new System.EventHandler(this.HRAdminForm_Load);
             this.tabControl1.ResumeLayout(false);

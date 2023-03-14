@@ -48,6 +48,7 @@ namespace DB_course.Presenter
         {
             personList = model.LookPerson(view.SearchValue);
             workersBindingSource.DataSource = personList;
+            
         }
         private void CancelAction(object sender, EventArgs e)
         {

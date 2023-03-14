@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -136,7 +137,10 @@ namespace DB_course.View
             }
             return instance;
         }
-
+        void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+          
+        }
         private void HRAdminForm_Load(object sender, EventArgs e)
         {
 
@@ -155,6 +159,26 @@ namespace DB_course.View
         private void tabPage2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellErrorTextNeeded(object sender, DataGridViewCellErrorTextNeededEventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (dataGridView1.Columns.Count > 7)
+            {
+                dataGridView1.Columns[5].Visible = false;
+                dataGridView1.Columns[6].Visible = false;
+                dataGridView1.Columns[7].Visible = false;
+            }
         }
     }
 }
