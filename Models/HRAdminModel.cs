@@ -35,8 +35,14 @@ namespace DB_course.Models
         public void UpdatePerson(string Id_cur, Person updateperson)
         {
             new DataValidateModel().Validate(updateperson);
-            Person curperson;
-            curperson = unitOfWork.personRepository.Get(Id_cur).First();
+            Person curperson = null;
+            try
+            {
+                curperson = unitOfWork.personRepository.Get(Id_cur).First();
+                if(curperson == null)
+                    throw new Exception("No such person for update");
+            }
+            catch { return; }
             curperson.Position = updateperson.Position;
             curperson.Name = updateperson.Name;
             curperson.SecondName = updateperson.SecondName;

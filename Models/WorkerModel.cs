@@ -20,7 +20,6 @@ namespace DB_course.Models
         {
             this.unitOfWork = unitOfWork;
             this.curId = login;
-           // maxId = unitOfWork.UsefulRepository.GetList().Count();
         }
 
         public void DelitUseful(int Id)
@@ -35,17 +34,31 @@ namespace DB_course.Models
             u.PersonId = curId;
             u.InventoryId = value.Inventory_number;
             u.DateOfStart = null;
-            //add validation
+            new DataValidateModel().Validate(u);
             unitOfWork.UsefulRepository.Create(u);
             unitOfWork.UsefulRepository.Save();
         }
 
         public IEnumerable<WorkerLookCompose> LookProducts()
         {
-            //maxId = unitOfWork.UsefulRepository.GetList().Count();
             return unitOfWork.WorkerLookComposeRepository.GetList();
         }
 
+        public void UpdatePasswoord(string newpassword)
+        {
+            Person curperson = null;
+            try
+            {
+                curperson = unitOfWork.personRepository.Get(curId).First();
+                if(curperson == null)
+                    throw new Exception("No such person for update");
+            }
+            catch { return; }
+            curperson.Password = newpassword;
+            curperson.NumberOfCome = curperson.NumberOfCome + 1;
+            unitOfWork.personRepository.Update(curperson);
+            unitOfWork.personRepository.Save();
+        }
         public IEnumerable<WorkerLookCompose> LookProducts(string value)
         {
             IEnumerable<WorkerLookCompose> personList;
@@ -54,7 +67,6 @@ namespace DB_course.Models
                 personList = unitOfWork.WorkerLookComposeRepository.Get(value);
             else
             {
-                //maxId = unitOfWork.UsefulRepository.GetList().Count();
                 personList = unitOfWork.WorkerLookComposeRepository.GetList();
             }
             return personList;

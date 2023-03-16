@@ -100,6 +100,26 @@ insert into warehouse2.Useful values
 ( 1, 'f', null)
 go
 
+create role worker
+create role HRAdmin
+create role Warehouseman
+create role WerehouseAdmin
+create role NotLogin
+
+grant select on dbo.Persons to NotLogin, Warehouseman, HRAdmin
+grant select, insert, update, delete on dbo.Persons to HRAdmin
+
+grant select, delete on  warehouse2.Useful to Warehouseman
+grant select, delete, insert on  warehouse2.Useful to worker
+grant select on warehouse2.InventoryProduct to worker, Warehouseman
+grant select on warehouse2.Products to worker
+grant select on warehouse2.PlaceofObject to Warehouseman
+grant select on warehouse2.Place to Warehouseman
+
+
+
+
+
 --Сотрудник
 select warehouse2.InventoryProduct.inventory_number, [name], dateCome, dateProduction
 from warehouse2.InventoryProduct join warehouse2.Products on warehouse2.Products.Id = warehouse2.InventoryProduct.product_Id 
