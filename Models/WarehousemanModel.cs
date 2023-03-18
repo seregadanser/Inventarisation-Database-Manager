@@ -21,6 +21,7 @@ namespace DB_course.Models
 
         public void DelitUseful(int Id)
         {
+            if (Id <= 0) throw new Exception("Invalid Id");
             unitOfWork.UsefulRepository.Delete(Convert.ToString(Id));
             unitOfWork.UsefulRepository.Save();
         }

@@ -28,7 +28,7 @@ namespace DB_course.Repositories.DBRepository
         public void Delete(string key)
         {
             Person book = db.Persons.Find(key);
-            if (book != null)
+            if (book == null) throw new Exception("person not Exists");
                 db.Persons.Remove(book);
         }
 

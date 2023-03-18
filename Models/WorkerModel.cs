@@ -24,6 +24,7 @@ namespace DB_course.Models
 
         public void DelitUseful(int Id)
         {
+            if (Id <= 0) throw new Exception("Invalid Id");
             unitOfWork.UsefulRepository.Delete(Convert.ToString(Id));
             unitOfWork.UsefulRepository.Save();
         }
@@ -56,6 +57,7 @@ namespace DB_course.Models
             catch { return; }
             curperson.Password = newpassword;
             curperson.NumberOfCome = curperson.NumberOfCome + 1;
+            new DataValidateModel().Validate(curperson);
             unitOfWork.personRepository.Update(curperson);
             unitOfWork.personRepository.Save();
         }
