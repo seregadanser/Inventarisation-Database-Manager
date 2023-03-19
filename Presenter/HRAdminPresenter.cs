@@ -15,7 +15,7 @@ namespace DB_course.Presenter
     public class HRAdminPresenter
     {
         private IHRAdminView view;
-        private HRAdminModel model;
+        private AHRAdminModel model;
         private BindingSource workersBindingSource;
         private IEnumerable<Person> personList;
 
@@ -23,7 +23,7 @@ namespace DB_course.Presenter
         {
             this.workersBindingSource = new BindingSource();
             this.view = view;
-            this.model = (HRAdminModel)model;
+            this.model = (AHRAdminModel)model;
 
             this.view.SearchEvent += SearchWorker;
             this.view.AddNewEvent += AddNewWorker;
