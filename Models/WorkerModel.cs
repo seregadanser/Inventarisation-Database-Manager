@@ -9,27 +9,27 @@ using System.Threading.Tasks;
 
 namespace DB_course.Models
 {
-    public class WorkerModel : IModel
+    public abstract class AWorkerModel : IModel
     {
-        private IUnitOfWork unitOfWork;
-        string curId = "";
-        public int MaxId { get { return maxId; } }
-        private int maxId = 0;
+        protected private IUnitOfWork? unitOfWork;
+        protected string curId = "";
 
-        public WorkerModel(IUnitOfWork unitOfWork, string login)
+        public IUnitOfWork UnitOfWork { get { return unitOfWork;  } }
+        public string CurrentLogin { get { return curId; } }
+
+        public AWorkerModel(IUnitOfWork unitOfWork, string login)
         {
             this.unitOfWork = unitOfWork;
             this.curId = login;
         }
 
-        public void DelitUseful(int Id)
+        public virtual void DelitUseful(int Id)
         {
             if (Id <= 0) throw new Exception("Invalid Id");
             unitOfWork.UsefulRepository.Delete(Convert.ToString(Id));
             unitOfWork.UsefulRepository.Save();
         }
-
-        public void AddUseful(WorkerLookCompose value)
+        public virtual void AddUseful(WorkerLookCompose value)
         {
             Useful u = new Useful();
             u.PersonId = curId;
@@ -39,19 +39,13 @@ namespace DB_course.Models
             unitOfWork.UsefulRepository.Create(u);
             unitOfWork.UsefulRepository.Save();
         }
-
-        public IEnumerable<WorkerLookCompose> LookProducts()
-        {
-            return unitOfWork.WorkerLookComposeRepository.GetList();
-        }
-
-        public void UpdatePasswoord(string newpassword)
+        public virtual void UpdatePasswoord(string newpassword)
         {
             Person curperson = null;
             try
             {
                 curperson = unitOfWork.personRepository.Get(curId).First();
-                if(curperson == null)
+                if (curperson == null)
                     throw new Exception("No such person for update");
             }
             catch { return; }
@@ -61,7 +55,11 @@ namespace DB_course.Models
             unitOfWork.personRepository.Update(curperson);
             unitOfWork.personRepository.Save();
         }
-        public IEnumerable<WorkerLookCompose> LookProducts(string value)
+        public virtual IEnumerable<WorkerLookCompose> LookProducts() 
+        {
+            return unitOfWork.WorkerLookComposeRepository.GetList(); 
+        }
+        public virtual IEnumerable<WorkerLookCompose> LookProducts(string value)
         {
             IEnumerable<WorkerLookCompose> personList;
             bool emptyValue = string.IsNullOrWhiteSpace(value);
@@ -73,9 +71,42 @@ namespace DB_course.Models
             }
             return personList;
         }
-        public IEnumerable<WorkerLookUsefulCompose> LookUsing()
+        public virtual IEnumerable<WorkerLookUsefulCompose> LookUsing() 
+        { 
+            return unitOfWork.WorkerLookUsefulComposeRepository.Get(Convert.ToString(curId)); 
+        }
+
+    }
+
+    public class WorkerModel : AWorkerModel
+    {
+
+        public WorkerModel(IUnitOfWork unitOfWork, string login) : base(unitOfWork, login)
         {
-            return unitOfWork.WorkerLookUsefulComposeRepository.Get(Convert.ToString(curId));
+
+        }
+    }
+
+    public abstract class AWorkerModelDecorator : AWorkerModel
+    {
+        protected AWorkerModel workerModel;
+        public AWorkerModelDecorator(AWorkerModel workerModel) : base(workerModel.UnitOfWork, workerModel.CurrentLogin)
+        {
+            this.workerModel = workerModel;
+        }
+    }
+
+    public class WorkerModelLogDecorator : AWorkerModelDecorator
+    {
+        public WorkerModelLogDecorator (AWorkerModel workerModel) : base(workerModel)
+        {
+
+        }
+
+        public override void AddUseful(WorkerLookCompose value)
+        {
+            base.AddUseful(value);
+            Console.WriteLine("Add useful at " + DateTime.Now);
         }
     }
 }

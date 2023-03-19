@@ -11,6 +11,7 @@ namespace DB_course.Models
     public class WarehouseAdminModel : IModel
     {
         private IUnitOfWork unitOfWork;
+        public IUnitOfWork UnitOfWork { get { return unitOfWork; } }
         private int maxId = 0;
 
         public int MaxId { get { return maxId; } }

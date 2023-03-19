@@ -16,32 +16,31 @@ namespace DB_course.Presenter
     {
         private IMainView mainView;
         private readonly string sqlConnectionString;
+        IConnection connection;
         public MainPresenter(IMainView mainView, string sqlConnectionString)
         {
             this.mainView = mainView;
             this.sqlConnectionString = sqlConnectionString;
             this.mainView.ShowWorker += ShowWorkerView;
             this.mainView.ShowHrAdmin += ShowHrView;
+
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
+            connection = new WarehouseContext(options);
         }
 
         private void ShowHrView(object? sender, EventArgs e)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
-            var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
-
             IHRAdminView view =HRAdminForm.GetInstace((MainForm)mainView);
-            IModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(new WarehouseContext(options))));
+            IModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
             new HRAdminPresenter(view, model);
         }
 
         private void ShowWorkerView(object sender, EventArgs e)
-        {
-            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
-            var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
-
+        { 
             IWorkerView view = WorkerForm.GetInstace((MainForm)mainView);
-            IModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(new WarehouseContext(options))), "f");
+            IModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)), "f");
             new WorkerPresenter(view, model);
-            }
+        }
     }
 }

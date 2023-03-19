@@ -13,6 +13,7 @@ namespace DB_course.Models
     public class WarehousemanModel : IModel
     {
         private IUnitOfWork unitOfWork;
+        public IUnitOfWork UnitOfWork { get { return unitOfWork; } }
 
         public WarehousemanModel(IUnitOfWork unitOfWork)
         {

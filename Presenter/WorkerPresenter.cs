@@ -13,7 +13,7 @@ namespace DB_course.Presenter
     public class WorkerPresenter
     {
         private IWorkerView view;
-        private WorkerModel model;
+        private AWorkerModel model;
         private BindingSource productsBindingSource;
         private IEnumerable<WorkerLookCompose> productList;
         private BindingSource usingBindingSource;
@@ -25,7 +25,7 @@ namespace DB_course.Presenter
             this.productsBindingSource = new BindingSource();
             this.usingBindingSource = new BindingSource();
             this.view = view;
-            this.model = (WorkerModel)model;
+            this.model = (AWorkerModel)model;
 
             
             //Set pets bindind source

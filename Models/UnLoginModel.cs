@@ -9,17 +9,17 @@ using System.Threading.Tasks;
 namespace DB_course.Models
 {
    public enum State{ FIRST, OK, INVALID };
-    public class UnLoginModel  : IModel
+    public abstract class AUnLoginModel  : IModel
     {
-        private IUnitOfWork unitOfWork;
+        protected IUnitOfWork unitOfWork;
+        public IUnitOfWork UnitOfWork { get { return unitOfWork; } }
 
-
-        public UnLoginModel(IUnitOfWork unitOfWork)
+        public AUnLoginModel(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
-        public State check(string login, string password)
+        public virtual State Check(string login, string password)
         {
             Person p = unitOfWork.personRepository.Get(login).FirstOrDefault();
             if(p == null)
@@ -31,6 +31,39 @@ namespace DB_course.Models
                 return State.OK;
             }
             return State.INVALID;
+        }
+
+    }
+
+    public class UnLoginModel : AUnLoginModel
+    {
+        public UnLoginModel(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+          
+        }
+    }
+
+    public abstract class AUnLoginModelDecorator : AUnLoginModel
+    {
+        protected AUnLoginModel workerModel;
+        public AUnLoginModelDecorator(AUnLoginModel workerModel) : base(workerModel.UnitOfWork)
+        {
+            this.workerModel = workerModel;
+        }
+    }
+
+    public class HUnLoginModelLogDecorator : AUnLoginModelDecorator
+    {
+        public HUnLoginModelLogDecorator(AUnLoginModel workerModel) : base(workerModel)
+        {
+
+        }
+
+        public override State Check(string login, string password)
+        {
+            State s = base.Check(login, password);
+            Console.WriteLine(s);
+            return s;
         }
 
     }

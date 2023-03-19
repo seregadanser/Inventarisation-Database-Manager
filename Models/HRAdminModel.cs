@@ -8,17 +8,18 @@ using System.Threading.Tasks;
 
 namespace DB_course.Models
 {
-    public class HRAdminModel : IModel
+    public abstract class AHRAdminModel : IModel
     {
-        private IUnitOfWork unitOfWork;
+        protected IUnitOfWork unitOfWork;
+        public IUnitOfWork UnitOfWork { get { return unitOfWork; } }
 
 
-        public HRAdminModel(IUnitOfWork unitOfWork)
+        public AHRAdminModel(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
 
         }
-        public void AddPerson(Person person)
+        public virtual void AddPerson(Person person)
         {
             new DataValidateModel().Validate(person);
             unitOfWork.personRepository.Create(person);
@@ -26,13 +27,13 @@ namespace DB_course.Models
  
         }
 
-        public void RemovePerson(string Id)
+        public virtual void RemovePerson(string Id)
         {
             unitOfWork.personRepository.Delete(Id);
             unitOfWork.personRepository.Save();
         }
 
-        public void UpdatePerson(string Id_cur, Person updateperson)
+        public virtual void UpdatePerson(string Id_cur, Person updateperson)
         {
             new DataValidateModel().Validate(updateperson);
             Person curperson = null;
@@ -51,12 +52,12 @@ namespace DB_course.Models
             unitOfWork.personRepository.Save();
         }
 
-        public IEnumerable<Person> LookPerson()
+        public virtual IEnumerable<Person> LookPerson()
         {
             return unitOfWork.personRepository.GetList();
         }
 
-        public IEnumerable<Person> LookPerson(string value)
+        public virtual IEnumerable<Person> LookPerson(string value)
         {
             
             IEnumerable<Person> personList;
@@ -66,6 +67,37 @@ namespace DB_course.Models
             else {
                 personList = unitOfWork.personRepository.GetList(); }
             return personList;
+        }
+    }
+
+    public class HRAdminModel : AHRAdminModel
+    {
+        public HRAdminModel(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+        }
+    }
+
+    public abstract class AHRAdminModelDecorator : AHRAdminModel
+    {
+        protected AHRAdminModel workerModel;
+        public AHRAdminModelDecorator(AHRAdminModel workerModel) : base(workerModel.UnitOfWork)
+        {
+            this.workerModel = workerModel;
+        }
+    }
+
+    public class HRAdminModelLogDecorator : AHRAdminModelDecorator
+    {
+        public HRAdminModelLogDecorator(AHRAdminModel workerModel) : base(workerModel)
+        {
+
+        }
+
+        public override void AddPerson(Person person)
+        {
+            base.AddPerson(person);
+            Console.WriteLine("Add person at " + DateTime.Now);
         }
     }
 }
