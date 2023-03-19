@@ -23,6 +23,23 @@ namespace DB_course.Models.CompositModels
         public DateTime? DateProduction { get; set; }
 
     }
+    public class WorkerLookUsefulCompose              //IPrU
+    {
+        [DisplayName("Inventory number")]
+        public int Inventory_number { get; set; }
+
+        [DisplayName("Product Name")]
+        [Required(ErrorMessage = "Product name is requerid")]
+        [StringLength(50, MinimumLength = 2, ErrorMessage = "Product name must be between 3 and 50 characters")]
+        public string? Name { get; set; }
+
+        public DateTime? DateCome { get; set; }
+
+        public DateTime? DateProduction { get; set; }
+
+        public DateTime? DateOfStart { get; set; }
+
+    }
     public class WarehousemanLookCompose              //UPeIPl
     {
         [DisplayName("Person Name")]
@@ -48,25 +65,17 @@ namespace DB_course.Models.CompositModels
 
         public DateTime? DateOfStart { get; set; }
     }
-    public class WorkerLookUsefulCompose              //IPrU
-    {
-         [DisplayName("Inventory number")]
-        public int Inventory_number { get; set; }
 
-        [DisplayName("Product Name")]
-        [Required(ErrorMessage = "Product name is requerid")]
-        [StringLength(50, MinimumLength = 2, ErrorMessage = "Product name must be between 3 and 50 characters")]
+    public class AdminCompose              //IPrPlo
+    {
         public string? Name { get; set; }
 
         public DateTime? DateCome { get; set; }
 
         public DateTime? DateProduction { get; set; }
 
-        public DateTime? DateOfStart { get; set; }
+        public int InventoryNumber { get; set; }
 
-    }
-    public class AdminCompose              //IPrPlo
-    {
-
+        public int? PlaceId { get; set; }
     }
 }

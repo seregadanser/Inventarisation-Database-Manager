@@ -1,4 +1,5 @@
 ﻿using DB_course.Models.DBModels;
+using DB_course.Models.CompositModels;
 using DB_course.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,43 @@ namespace DB_course.Models
             this.unitOfWork = unitOfWork;
 
         }
-       
+        
+        public void AddPlace(Place place)
+        {
+
+        }
+        public void RemovePlace(int key)
+        {
+
+        }
+        public void UpdatePlace(int key, Place newPlace)
+        {
+
+        }
+        public IEnumerable<Place> GetPlace()
+        {
+            return null;
+        }
+        public IEnumerable<Place> GetPlace(string value)
+        {
+            return null;
+        }
+
+        public void AddProduct(AdminCompose value)
+        {
+
+        }
+        public void RemoveProduct(int id)
+        {
+
+        }
+        public IEnumerable<AdminCompose> GetProducts()
+        {
+            return null;
+        }
+        public IEnumerable<AdminCompose> GetProducts(string value)
+        {
+            return null;
+        }
     }
 }
