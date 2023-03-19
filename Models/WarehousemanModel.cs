@@ -10,29 +10,29 @@ using System.Threading.Tasks;
 
 namespace DB_course.Models
 {
-    public class WarehousemanModel : IModel
+    public abstract class AWarehousemanModel : IModel
     {
         private IUnitOfWork unitOfWork;
         public IUnitOfWork UnitOfWork { get { return unitOfWork; } }
 
-        public WarehousemanModel(IUnitOfWork unitOfWork)
+        public AWarehousemanModel(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
-        public void DelitUseful(int Id)
+        public virtual void DelitUseful(int Id)
         {
             if (Id <= 0) throw new Exception("Invalid Id");
             unitOfWork.UsefulRepository.Delete(Convert.ToString(Id));
             unitOfWork.UsefulRepository.Save();
         }
 
-        public IEnumerable<WarehousemanLookCompose> LookWarehousemanLook()
+        public virtual IEnumerable<WarehousemanLookCompose> LookWarehousemanLook()
         {
             return unitOfWork.WarehousemanLookComposeRepository.GetList();
         }
 
-        public IEnumerable<WarehousemanLookCompose> LookWarehousemanLook(string value)
+        public virtual IEnumerable<WarehousemanLookCompose> LookWarehousemanLook(string value)
         {
 
             IEnumerable<WarehousemanLookCompose> personList;
@@ -45,5 +45,32 @@ namespace DB_course.Models
             }
             return personList;
         }
+    }
+
+    public class HWarehousemanModel : AWarehousemanModel
+    {
+        public HWarehousemanModel(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+        }
+    }
+
+    public abstract class AWarehousemanModelDecorator : AWarehousemanModel
+    {
+        protected AWarehousemanModel workerModel;
+        public AWarehousemanModelDecorator(AWarehousemanModel workerModel) : base(workerModel.UnitOfWork)
+        {
+            this.workerModel = workerModel;
+        }
+    }
+
+    public class WarehousemanModelLogDecorator : AWarehousemanModelDecorator
+    {
+        public WarehousemanModelLogDecorator(AWarehousemanModel workerModel) : base(workerModel)
+        {
+
+        }
+
+
     }
 }
