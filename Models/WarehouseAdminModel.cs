@@ -12,40 +12,12 @@ namespace DB_course.Models
     {
         private IUnitOfWork unitOfWork;
         public IUnitOfWork UnitOfWork { get { return unitOfWork; } }
-        private int maxId = 0;
-
-        public int MaxId { get { return maxId; } }
-
+ 
         public WarehouseAdminModel(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-            maxId = unitOfWork.personRepository.GetList().Count();
-        }
-        public void AddPlace(Place person)
-        {
-           
-        }
 
-        public void RemovePlace(int Id)
-        {
-           
         }
-
-        public void UpdatePlace(int Id_cur, Person updateperson)
-        {
-         
-        }
-
-        public IEnumerable<Person> LookPlace()
-        {
-          return null;
-        }
-
-        public IEnumerable<Person> LookPlace(string value)
-        {
-
-           
-            return null;
-        }
+       
     }
 }

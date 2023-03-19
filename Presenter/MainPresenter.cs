@@ -1,5 +1,6 @@
 ﻿using DB_course.Models;
 using DB_course.Models.DBModels;
+using DB_course.Models.CompositModels;
 using DB_course.Repositories;
 using DB_course.View;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +24,7 @@ namespace DB_course.Presenter
             this.sqlConnectionString = sqlConnectionString;
             this.mainView.ShowWorker += ShowWorkerView;
             this.mainView.ShowHrAdmin += ShowHrView;
+            this.mainView.ShowAdmin += ShowAdmin;
 
             var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
             var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
@@ -42,6 +44,12 @@ namespace DB_course.Presenter
             IWorkerView view = WorkerForm.GetInstace((MainForm)mainView);
             IModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)), "f");
             new WorkerPresenter(view, model);
+        }
+        private void ShowAdmin(object sender, EventArgs e)
+        {
+           
+            AWarehousemanModel model = new WarehousemanModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            IEnumerable<WarehousemanLookCompose> personList = model.LookWarehousemanLook();
         }
     }
 }

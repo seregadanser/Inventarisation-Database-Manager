@@ -44,7 +44,7 @@ namespace DB_course.Models.CompositModels
 
         public int? NumberStay { get; set; }
 
-        public int? NumberLayer { get; set; }
+        public string? NumberLayer { get; set; }
 
         public DateTime? DateOfStart { get; set; }
     }

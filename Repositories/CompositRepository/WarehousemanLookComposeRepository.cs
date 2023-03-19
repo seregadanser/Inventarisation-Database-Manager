@@ -57,7 +57,7 @@ namespace DB_course.Repositories.CompositRepository
                           Login = PE.Login,
                           InventoryNumber = I.InventoryNumber,
                           NumberStay = NT.NumberStay,
-                          NumberLayer = NT.NumberLayer,
+                          NumberLayer = Convert.ToString(NT.NumberLayer),
                           DateOfStart = U.DateOfStart
                       };
             return WLC.ToList();
@@ -80,11 +80,21 @@ namespace DB_course.Repositories.CompositRepository
                           SecondName = PE.SecondName,
                           Login = PE.Login,
                           NumberStay = NT.NumberStay,
-                          NumberLayer = NT.NumberLayer,
+                          NumberLayer = Convert.ToString(NT.NumberLayer),
                           DateOfStart = U.DateOfStart
                       };
-
-            return WLC.ToList();
+            var groupedResult = WLC.GroupBy(a => a.Login);
+            var result = groupedResult.ToList().Select(eg => new WarehousemanLookCompose
+            {
+                Login = eg.Key,
+                Name = eg.First().Name,
+                SecondName = eg.First().SecondName,
+                InventoryNumber = eg.First().InventoryNumber,
+                DateOfStart = eg.First().DateOfStart,
+                NumberStay = eg.First().NumberStay,
+                NumberLayer = string.Join(",", eg.Select(i => i.NumberLayer))
+            });
+            return result.ToList();
         }
 
         public void Save()

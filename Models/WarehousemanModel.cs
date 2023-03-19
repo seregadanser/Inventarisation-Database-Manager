@@ -47,9 +47,9 @@ namespace DB_course.Models
         }
     }
 
-    public class HWarehousemanModel : AWarehousemanModel
+    public class WarehousemanModel : AWarehousemanModel
     {
-        public HWarehousemanModel(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public WarehousemanModel(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
 
         }
