@@ -17,6 +17,7 @@ namespace DB_course.View
             InitializeComponent();
             button1.Click += delegate { ShowWorker?.Invoke(this, EventArgs.Empty); };
             button2.Click += delegate { ShowHrAdmin?.Invoke(this, EventArgs.Empty); };
+            button3.Click += delegate { ShowAdmin?.Invoke(this, EventArgs.Empty); };
         }
 
 

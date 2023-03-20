@@ -48,8 +48,9 @@ namespace DB_course.Presenter
         private void ShowAdmin(object sender, EventArgs e)
         {
            
-            AWarehousemanModel model = new WarehousemanModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
-            IEnumerable<WarehousemanLookCompose> personList = model.LookWarehousemanLook();
+           IWarehouseAdminForm view =WarehouseAdminForm.GetInstace((MainForm)mainView);
+           IModel model = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+           new WarehouseAdminPresenter(view, model);
         }
     }
 }

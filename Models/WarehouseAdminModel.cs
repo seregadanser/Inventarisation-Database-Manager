@@ -114,8 +114,7 @@ namespace DB_course.Models
                 unitOfWork.PlaceofObjectRepository.Create(newPlaceofObject);
                 unitOfWork.PlaceofObjectRepository.Save();
                 maxId++;
-            }
-                                
+            }                    
         }
         public void RemoveProduct(AdminCompose value)
         {

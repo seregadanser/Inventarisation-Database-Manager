@@ -7,6 +7,11 @@ using System.Threading.Tasks;
 
 namespace DB_course.Models
 {
+    public class ValidationExeption : Exception
+    {
+        public ValidationExeption(string value) : base(value)
+        { }
+    }
     public class DataValidateModel
     {
         public void Validate(object model)
@@ -19,7 +24,7 @@ namespace DB_course.Models
             {
                 foreach (var item in results)
                     errorMessage += "- " + item.ErrorMessage + "\n";
-                throw new Exception(errorMessage);
+                throw new ValidationExeption(errorMessage);
             }
         }
 

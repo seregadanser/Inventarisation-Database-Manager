@@ -32,12 +32,92 @@ namespace DB_course.Repositories.CompositRepository
 
         public IEnumerable<AdminCompose> Get(string value)
         {
-            throw new NotImplementedException();
+            var N = from IP in db.InventoryProducts
+                    join P in db.PlaceofObjects on IP.InventoryNumber equals P.InventoryId
+                    join PR in db.Products on IP.ProductId equals PR.Id
+                    select new AdminCompose
+                    {
+                        ProductId = PR.Id,
+
+                        Name = PR.Name,
+
+                        DateCome = PR.DateCome,
+
+                        DateProduction = PR.DateProduction,
+
+                        InventoryNumber = IP.InventoryNumber,
+
+                        value = (int)PR.Value,
+
+                        PlaceId = Convert.ToString(P.PlaceId)
+                    };
+
+
+            var groupedResult = N.GroupBy(a => a.InventoryNumber);
+            var result = groupedResult.ToList().Select(eg => new AdminCompose
+            {
+
+                ProductId = eg.First().ProductId,
+
+                Name = eg.First().Name,
+
+                DateCome = eg.First().DateCome,
+
+                DateProduction = eg.First().DateProduction,
+
+                InventoryNumber = eg.Key,
+
+                value = eg.First().value,
+
+                PlaceId = string.Join(",", eg.Select(i => i.PlaceId))
+
+            });
+            return result.ToList();
         }
 
         public IEnumerable<AdminCompose> GetList()
         {
-            throw new NotImplementedException();
+            var N = from IP in db.InventoryProducts
+                    join P in db.PlaceofObjects on IP.InventoryNumber equals P.InventoryId
+                    join PR in db.Products on IP.ProductId equals PR.Id
+                    select new AdminCompose
+                    {
+                        ProductId = PR.Id,
+
+                        Name = PR.Name,
+
+                        DateCome = PR.DateCome,
+
+                        DateProduction = PR.DateProduction,
+
+                        InventoryNumber = IP.InventoryNumber,
+
+                        value = (int)PR.Value,
+
+                        PlaceId = Convert.ToString(P.PlaceId)
+                    };
+
+           
+            var groupedResult = N.GroupBy(a => a.InventoryNumber);
+            var result = groupedResult.ToList().Select(eg => new AdminCompose
+            {
+                
+                ProductId = eg.First().ProductId,
+
+                Name = eg.First().Name,
+
+                DateCome = eg.First().DateCome,
+
+                DateProduction = eg.First().DateProduction,
+
+                InventoryNumber = eg.Key,
+
+                value = eg.First().value,
+
+                PlaceId = string.Join(",", eg.Select(i => i.PlaceId))
+                
+            });
+            return result.ToList();
         }
 
         public void Update(AdminCompose item)

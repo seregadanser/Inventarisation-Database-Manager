@@ -78,6 +78,8 @@ namespace DB_course.Models.CompositModels
 
         public int InventoryNumber { get; set; }
 
+        public int value { get; set; }
+
         public string? PlaceId { get; set; }
     }
 }

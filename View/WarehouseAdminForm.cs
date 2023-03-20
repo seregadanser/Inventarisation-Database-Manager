@@ -38,7 +38,35 @@ namespace DB_course.View
 
         public void SetProductListBindingSource(BindingSource WorkerList)
         {
-            throw new NotImplementedException();
+            dataGridView1.DataSource = WorkerList;
+        }
+
+        private void WarehouseAdminForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+        private static WarehouseAdminForm instance;
+        public static WarehouseAdminForm GetInstace(Form parentContainer)
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new WarehouseAdminForm();
+                instance.MdiParent = parentContainer;
+                //instance.FormBorderStyle = FormBorderStyle.None;
+                //instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
         }
     }
 }
