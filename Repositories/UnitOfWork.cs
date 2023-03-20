@@ -22,6 +22,7 @@ namespace DB_course.Repositories
         IRepository<Product> ProductRepository { get; }
         IRepository<PlaceofObject> PlaceofObjectRepository { get; }
         IRepository<InventoryProduct> InventoryProductRepository { get; }
+        IRepository<AdminCompose> AdminComposeRepository { get; }
         public void UpdateRepository(IRepositoryAbstractFabric fabric);
 
     }
@@ -39,6 +40,7 @@ namespace DB_course.Repositories
         private IRepository<PlaceofObject> placeofObjectRep;
         private IRepository<Product> productRep;
         private IRepository<InventoryProduct> inventoryProductRep;
+        private IRepository<AdminCompose> adminComposeRep;
 
         public IRepository<Person> personRepository
         {
@@ -132,11 +134,19 @@ namespace DB_course.Repositories
         {
             get
             {
-
                 if(inventoryProductRep == null)
                     inventoryProductRep = fabric.CreateInventoryProductR();
                 return inventoryProductRep;
+            }
+        }
 
+        public IRepository<AdminCompose> AdminComposeRepository
+        {
+            get
+            {
+                if(adminComposeRep == null)
+                    adminComposeRep = fabric.CreateAdminComposeR();
+                return adminComposeRep;
             }
         }
 
@@ -155,6 +165,10 @@ namespace DB_course.Repositories
             placeofObjectRep = null;
             productRep = null;
             inventoryProductRep = null;
+            adminComposeRep = null;
+            workerLookUsefulComposeRep = null;
+            workerLookComposeRep = null;
+
         }
     }
 }

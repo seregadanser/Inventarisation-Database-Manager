@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DB_course.Repositories.DBRepository
 {
-    public class InventoryProductRepository : IRepository<InventoryProduct>
+    public class InventoryProductRepository : ISQLRepository<InventoryProduct>
     {
         private WarehouseContext db;
 

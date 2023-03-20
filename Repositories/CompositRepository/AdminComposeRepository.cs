@@ -1,25 +1,25 @@
-﻿using DB_course.Models.DBModels;
+﻿using DB_course.Models.CompositModels;
+using DB_course.Models.DBModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DB_course.Repositories.DBRepository
+namespace DB_course.Repositories.CompositRepository
 {
-    public class ProductRepository : ISQLRepository<Product>
+    public class AdminComposeRepository : ISQLRepository<AdminCompose>
     {
         private WarehouseContext db;
 
         public IConnection DB { set { db = (WarehouseContext)value; } }
 
-        public ProductRepository(IConnection db)
+        public AdminComposeRepository(IConnection db)
         {
             this.db = (WarehouseContext)db;
         }
 
-
-        public void Create(Product item)
+        public void Create(AdminCompose item)
         {
             throw new NotImplementedException();
         }
@@ -30,20 +30,17 @@ namespace DB_course.Repositories.DBRepository
         }
 
 
-
-        public IEnumerable<Product> Get(string value)
+        public IEnumerable<AdminCompose> Get(string value)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Product> GetList()
+        public IEnumerable<AdminCompose> GetList()
         {
             throw new NotImplementedException();
         }
 
-   
-
-        public void Update(Product item)
+        public void Update(AdminCompose item)
         {
             throw new NotImplementedException();
         }

@@ -22,6 +22,7 @@ namespace DB_course.Repositories
         public IRepository<Product> CreateProductR();
         public IRepository<InventoryProduct> CreateInventoryProductR();
         public IRepository<PlaceofObject> CreatePlaceofObjectR();
+        public IRepository<AdminCompose> CreateAdminComposeR();
 
     }
     public class SQLRepositoryAbstractFabric : IRepositoryAbstractFabric
@@ -31,6 +32,11 @@ namespace DB_course.Repositories
         public SQLRepositoryAbstractFabric(IConnection connection)
         {
             this.connection = connection;
+        }
+
+        public IRepository<AdminCompose> CreateAdminComposeR()
+        {
+           return new AdminComposeRepository(connection);
         }
 
         public IRepository<InventoryProduct> CreateInventoryProductR()

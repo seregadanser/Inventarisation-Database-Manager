@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DB_course.Repositories.DBRepository
 {
-    public class PlaceofObjectRepository : IRepository<PlaceofObject>
+    public class PlaceofObjectRepository : ISQLRepository<PlaceofObject>
     {
         private WarehouseContext db;
 

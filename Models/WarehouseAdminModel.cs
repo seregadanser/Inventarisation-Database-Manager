@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DB_course.Models
 {
@@ -61,12 +62,61 @@ namespace DB_course.Models
         }
         public IEnumerable<Place> GetPlace(string value)
         {
-            return unitOfWork.PlaceRepository.Get(value);
+            IEnumerable<Place> personList;
+            bool emptyValue = string.IsNullOrWhiteSpace(value);
+            if(emptyValue == false)
+                personList = unitOfWork.PlaceRepository.Get(value);
+            else
+            {
+                personList = unitOfWork.PlaceRepository.GetList();
+            }
+            return personList;
         }
 
         public void AddProduct(AdminCompose value)
         {
+            InventoryProduct newInventory = new InventoryProduct();
+            PlaceofObject newPlaceofObject = new PlaceofObject();
+            Product newProduct = new Product();
 
+            newProduct.DateProduction = value.DateProduction;
+            newProduct.DateCome = value.DateCome;
+            newProduct.Name = value.Name;
+            newProduct.Id = (int)value.ProductId;
+
+            Product p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id)).First();
+            if(p == null)
+            {
+                newProduct.Value = 1;
+                new DataValidateModel().Validate(newProduct);
+                unitOfWork.ProductRepository.Create(newProduct);
+            }
+            else
+            {
+                p.Value++;
+                unitOfWork.ProductRepository.Update(p);
+            }
+            unitOfWork.ProductRepository.Save();
+
+            newInventory.InventoryNumber = value.InventoryNumber;
+            newInventory.ProductId = value.ProductId;
+            new DataValidateModel().Validate(newInventory);
+            unitOfWork.InventoryProductRepository.Create(newInventory);
+            unitOfWork.InventoryProductRepository.Save();
+
+            IEnumerable<PlaceofObject> l = unitOfWork.PlaceofObjectRepository.GetList();
+            int maxId = l.Last().Id + 1;
+            string[] places = value.PlaceId.Split(',');
+            for(int i = 0; i < places.Length; i++)
+            {
+                newPlaceofObject.Id = maxId;
+                newPlaceofObject.PlaceId = Convert.ToInt32(places[i]);
+                newPlaceofObject.InventoryId = value.InventoryNumber;
+                unitOfWork.PlaceofObjectRepository.Create(newPlaceofObject);
+                unitOfWork.PlaceofObjectRepository.Save();
+                maxId++;
+            }
+                                
         }
         public void RemoveProduct(int id)
         {
@@ -74,11 +124,19 @@ namespace DB_course.Models
         }
         public IEnumerable<AdminCompose> GetProducts()
         {
-            return null;
+            return unitOfWork.AdminComposeRepository.GetList();
         }
         public IEnumerable<AdminCompose> GetProducts(string value)
         {
-            return null;
+            IEnumerable<AdminCompose> personList;
+            bool emptyValue = string.IsNullOrWhiteSpace(value);
+            if(emptyValue == false)
+                personList = unitOfWork.AdminComposeRepository.Get(value);
+            else
+            {
+                personList = unitOfWork.AdminComposeRepository.GetList();
+            }
+            return personList;
         }
     }
 }
