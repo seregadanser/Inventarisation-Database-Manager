@@ -18,7 +18,6 @@ namespace DB_course.Models
         public WarehouseAdminModel(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
-
         }
         
         public void AddPlace(Place place)
@@ -118,8 +117,31 @@ namespace DB_course.Models
             }
                                 
         }
-        public void RemoveProduct(int id)
+        public void RemoveProduct(AdminCompose value)
         {
+
+            string[] places = value.PlaceId.Split(',');
+            for(int i = 0; i < places.Length; i++)
+            {
+                unitOfWork.PlaceofObjectRepository.Delete(places[i]);
+                unitOfWork.PlaceofObjectRepository.Save();
+            }
+
+            unitOfWork.InventoryProductRepository.Delete(Convert.ToString(value.InventoryNumber));
+            unitOfWork.InventoryProductRepository.Save();
+
+            Product p = unitOfWork.ProductRepository.Get(Convert.ToString(value.ProductId)).First();
+            if(p == null)
+                throw new Exception("Product not found");
+
+            if(p.Value > 1)
+            {
+                p.Value--;
+                unitOfWork.ProductRepository.Update(p);
+            }
+            else
+                unitOfWork.ProductRepository.Delete(Convert.ToString(p.Id));
+            unitOfWork.ProductRepository.Save();
 
         }
         public IEnumerable<AdminCompose> GetProducts()
