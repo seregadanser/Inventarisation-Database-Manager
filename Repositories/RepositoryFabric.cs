@@ -19,6 +19,9 @@ namespace DB_course.Repositories
         public IRepository<WarehousemanLookCompose> CreateWarehousemanLookComposeRepositoryR();
         public IRepository<WorkerLookUsefulCompose> CreateWorkerLookUsefulComposeR();
         public IRepository<WorkerLookCompose> CreateWorkerLookComposeR();
+        public IRepository<Product> CreateProductR();
+        public IRepository<InventoryProduct> CreateInventoryProductR();
+        public IRepository<PlaceofObject> CreatePlaceofObjectR();
 
     }
     public class SQLRepositoryAbstractFabric : IRepositoryAbstractFabric
@@ -30,16 +33,29 @@ namespace DB_course.Repositories
             this.connection = connection;
         }
 
+        public IRepository<InventoryProduct> CreateInventoryProductR()
+        {
+            return new InventoryProductRepository(connection);
+        }
 
         public IRepository<Person> CreatePersonR()
         {
             return new PersonRepository(connection);
         }
 
+        public IRepository<PlaceofObject> CreatePlaceofObjectR()
+        {
+            return new PlaceofObjectRepository(connection);
+        }
 
         public IRepository<Place> CreatePlaceR()
         {
             return new PlaceRepository(connection);
+        }
+
+        public IRepository<Product> CreateProductR()
+        {
+            return new ProductRepository(connection);
         }
 
         public IRepository<Useful> CreateUsefulR()

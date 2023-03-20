@@ -13,12 +13,15 @@ namespace DB_course.Repositories
 
     public interface IUnitOfWork
     {
-        IRepository<Person> personRepository {get;}
+        IRepository<Person> personRepository { get; }
         IRepository<Place> PlaceRepository { get; }
         IRepository<Useful> UsefulRepository { get; }
         IRepository<WarehousemanLookCompose> WarehousemanLookComposeRepository { get; }
         IRepository<WorkerLookUsefulCompose> WorkerLookUsefulComposeRepository { get; }
         IRepository<WorkerLookCompose> WorkerLookComposeRepository { get; }
+        IRepository<Product> ProductRepository { get; }
+        IRepository<PlaceofObject> PlaceofObjectRepository { get; }
+        IRepository<InventoryProduct> InventoryProductRepository { get; }
         public void UpdateRepository(IRepositoryAbstractFabric fabric);
 
     }
@@ -28,11 +31,14 @@ namespace DB_course.Repositories
         private IRepositoryAbstractFabric fabric;
 
         private IRepository<Person> personRep;
-        private IRepository<Place> PlaceRep;
-        private IRepository<Useful> UsefulRep;
-        IRepository<WarehousemanLookCompose> WarehousemanLookComposeRep;
-        IRepository<WorkerLookUsefulCompose> WorkerLookUsefulComposeRep;
-        IRepository<WorkerLookCompose> WorkerLookComposeRep;
+        private IRepository<Place> placeRep;
+        private IRepository<Useful> usefulRep;
+        private IRepository<WarehousemanLookCompose> warehousemanLookComposeRep;
+        private IRepository<WorkerLookUsefulCompose> workerLookUsefulComposeRep;
+        private IRepository<WorkerLookCompose> workerLookComposeRep;
+        private IRepository<PlaceofObject> placeofObjectRep;
+        private IRepository<Product> productRep;
+        private IRepository<InventoryProduct> inventoryProductRep;
 
         public IRepository<Person> personRepository
         {
@@ -48,9 +54,9 @@ namespace DB_course.Repositories
         {
             get
             {
-                if(PlaceRep == null)
-                    PlaceRep = fabric.CreatePlaceR();
-                return PlaceRep;
+                if(placeRep == null)
+                    placeRep = fabric.CreatePlaceR();
+                return placeRep;
             }
         }
 
@@ -58,18 +64,18 @@ namespace DB_course.Repositories
         {
             get
             {
-                if(UsefulRep == null)
-                    UsefulRep = fabric.CreateUsefulR();
-                return UsefulRep;
+                if(usefulRep == null)
+                    usefulRep = fabric.CreateUsefulR();
+                return usefulRep;
             }
         }
         public IRepository<WarehousemanLookCompose> WarehousemanLookComposeRepository {
             get
             {
 
-                if(WarehousemanLookComposeRep == null)
-                    WarehousemanLookComposeRep = fabric.CreateWarehousemanLookComposeRepositoryR();
-                return WarehousemanLookComposeRep;
+                if(warehousemanLookComposeRep == null)
+                    warehousemanLookComposeRep = fabric.CreateWarehousemanLookComposeRepositoryR();
+                return warehousemanLookComposeRep;
 
             }
         }
@@ -79,9 +85,9 @@ namespace DB_course.Repositories
             get
             {
 
-                if(WorkerLookUsefulComposeRep == null)
-                    WorkerLookUsefulComposeRep = fabric.CreateWorkerLookUsefulComposeR();
-                return WorkerLookUsefulComposeRep;
+                if(workerLookUsefulComposeRep == null)
+                    workerLookUsefulComposeRep = fabric.CreateWorkerLookUsefulComposeR();
+                return workerLookUsefulComposeRep;
 
             }
         }
@@ -90,12 +96,50 @@ namespace DB_course.Repositories
             get
             {
 
-                if(WorkerLookComposeRep == null)
-                    WorkerLookComposeRep = fabric.CreateWorkerLookComposeR();
-                return WorkerLookComposeRep;
+                if(workerLookComposeRep == null)
+                    workerLookComposeRep = fabric.CreateWorkerLookComposeR();
+                return workerLookComposeRep;
 
             }
         }
+
+        public IRepository<Product> ProductRepository
+        {
+            get
+            {
+
+                if(productRep == null)
+                    productRep = fabric.CreateProductR();
+                return productRep;
+
+            }
+        }
+
+
+        public IRepository<PlaceofObject> PlaceofObjectRepository
+        {
+            get
+            {
+
+                if(placeofObjectRep == null)
+                    placeofObjectRep = fabric.CreatePlaceofObjectR();
+                return placeofObjectRep;
+
+            }
+        }
+
+        public IRepository<InventoryProduct> InventoryProductRepository
+        {
+            get
+            {
+
+                if(inventoryProductRep == null)
+                    inventoryProductRep = fabric.CreateInventoryProductR();
+                return inventoryProductRep;
+
+            }
+        }
+
         public UnitOfWork(IRepositoryAbstractFabric fabric)
         {
             this.fabric = fabric;
@@ -105,9 +149,12 @@ namespace DB_course.Repositories
         {
             this.fabric = fabric;
             personRep = null;
-            PlaceRep = null;
-            UsefulRep = null;
-            WarehousemanLookComposeRep = null;
+            placeRep = null;
+            usefulRep = null;
+            warehousemanLookComposeRep = null;
+            placeofObjectRep = null;
+            productRep = null;
+            inventoryProductRep = null;
         }
     }
 }
