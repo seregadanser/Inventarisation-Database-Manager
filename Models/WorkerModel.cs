@@ -34,7 +34,7 @@ namespace DB_course.Models
             Useful u = new Useful();
             u.PersonId = curId;
             u.InventoryId = value.Inventory_number;
-            u.DateOfStart = null;
+            u.DateOfStart = DateTime.Now;
             new DataValidateModel().Validate(u);
             unitOfWork.UsefulRepository.Create(u);
             unitOfWork.UsefulRepository.Save();

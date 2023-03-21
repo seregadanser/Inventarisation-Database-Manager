@@ -41,11 +41,12 @@ namespace DB_course.Models
             Place curperson = null;
             try
             {
-                curperson = unitOfWork.PlaceRepository.Get(Convert.ToString(key)).First();
+                curperson = unitOfWork.PlaceRepository.Get(Convert.ToString(key)).First();}
+            catch { throw new Exception("No such place for update"); }
                 if(curperson == null)
                     throw new Exception("No such place for update");
-            }
-            catch { return; }
+           
+           
             curperson.NumberLayer = newPlace.NumberLayer;
             curperson.NumberStay = newPlace.NumberStay;
             curperson.Size = newPlace.Size;
@@ -82,8 +83,10 @@ namespace DB_course.Models
             newProduct.DateCome = value.DateCome;
             newProduct.Name = value.Name;
             newProduct.Id = (int)value.ProductId;
-
-            Product p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id)).First();
+            Product p = null;
+            try
+            { p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id)).First(); }
+            catch { }
             if(p == null)
             {
                 newProduct.Value = 1;

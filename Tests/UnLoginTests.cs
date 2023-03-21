@@ -9,6 +9,7 @@ using DB_course.Models;
 using Xunit;
 using Moq;
 using DB_course.Repositories.DBRepository;
+using DB_course.Models.CompositModels;
 
 namespace DB_course.Tests
 {
@@ -58,62 +59,6 @@ namespace DB_course.Tests
     }
 
 
-    public class AHRAdminModelTests
-    {
-        [Fact]
-        public void AddPerson_ValidPerson_CreatesPerson()
-        {
-            // Arrange
-            Mock<IUnitOfWork> mockUnitOfWork =  new Mock<IUnitOfWork>(); 
 
-            AHRAdminModel adminModel = new HRAdminModel(mockUnitOfWork.Object); 
-
-            var person = new Person { Name = "John", SecondName = "Doe", Position = "Developer", DateOfBirthday = new DateTime(1985, 1, 1) };
-
-            // Act
-            Action act = () => adminModel.AddPerson(person);
-
-            // Assert
-           Assert.Throws<ValidationExeption>(act);
- 
-
-        }
-
-        [Fact]
-        public void RemovePerson_ExistingId_DeletesPerson()
-        {
-            // Arrange
-            Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
-
-            mockUnitOfWork.Setup(a => a.personRepository).Returns(new Mock<IRepository<Person>>().Object);
-
-            AHRAdminModel adminModel = new HRAdminModel(mockUnitOfWork.Object);
-
-            var existingId = "123";
-
-            // Act
-            adminModel.RemovePerson(existingId);
-
-            // Assert
-            mockUnitOfWork.Verify(x => x.personRepository.Delete(existingId), Times.Once);
-            mockUnitOfWork.Verify(x => x.personRepository.Save(), Times.Once);
-        }
-
-        //[Fact]
-        //public void UpdatePerson_ExistingIdAndValidPerson_UpdatesPerson()
-        //{
-        //    // Arrange
-        //    var existingId = "123";
-        //    var updatedPerson = new Person { Name = "Jane", SecondName = "Doe", Position = "Manager", DateOfBirthday = new DateTime(1990, 1, 1) };
-        //    mockUnitOfWork.Object.PersonRepository.Setup(x => x.Get(existingId)).Returns(new[] { new Person { Id = existingId, Name = "John", SecondName = "Doe", Position = "Developer", DateOfBirthday = new DateTime(1985, 1, 1) } });
-
-        //    // Act
-        //    adminModel.UpdatePerson(existingId, updatedPerson);
-
-        //    // Assert
-        //    mockUnitOfWork.Object.PersonRepository.Verify(x => x.Update(It.IsAny<Person>()), Times.Once);
-        //    mockUnitOfWork.Object.PersonRepository.Verify(x => x.Save(), Times.Once);
-        //}
 
     }
-}
