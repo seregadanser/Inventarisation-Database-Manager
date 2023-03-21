@@ -90,6 +90,10 @@ insert into warehouse2.PlaceofObject values
 (4,4,3),
 (5,5,3)
 
+insert into warehouse2.PlaceofObject values
+(2,2,1),
+(3,3,1)
+
 
 insert into dbo.Persons values
 ( 'a', 'b', 'm','fgsad', '1912-10-25' ,'va',0),
@@ -117,7 +121,7 @@ grant select on warehouse2.PlaceofObject to Warehouseman
 grant select on warehouse2.Place to Warehouseman
 
 
-
+select * from warehouse2.PlaceofObject
 
 
 --Сотрудник

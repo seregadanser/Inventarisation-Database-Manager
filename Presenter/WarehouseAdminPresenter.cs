@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DB_course.Models.DBModels;
 
 namespace DB_course.Presenter
 {
@@ -30,7 +31,7 @@ namespace DB_course.Presenter
             this.view.SetProductListBindingSource(productsBindingSource);
             LoadAllLists();
 
-     
+            this.view.DeleteEvent += DeleteSelectedWorker;
 
             this.view.Show();
         }
@@ -40,5 +41,26 @@ namespace DB_course.Presenter
             productList = model.GetProducts();
             productsBindingSource.DataSource = productList;
         }
+        private void DeleteSelectedWorker(object sender, EventArgs e)
+        {
+            try
+            {
+                var worker = (AdminCompose)productsBindingSource.Current;
+                if(worker == null)
+                    throw new Exception("Cant delit empty person");
+                model.RemoveProduct(worker);
+                view.IsSuccessful = true;
+                view.Message = "worker deleted successfully";
+                productList = model.GetProducts();
+                productsBindingSource.DataSource = productList;
+
+            }
+            catch(Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = ex.Message;
+            }
+        }
+
     }
 }

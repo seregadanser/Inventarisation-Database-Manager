@@ -118,7 +118,8 @@ namespace DB_course.Models
         }
         public void RemoveProduct(AdminCompose value)
         {
-
+            //добавить проверку на присутствие инвентарного предмета в useful
+            
             string[] places = value.PlaceId.Split(',');
             for(int i = 0; i < places.Length; i++)
             {

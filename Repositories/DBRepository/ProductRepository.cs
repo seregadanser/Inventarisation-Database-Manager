@@ -26,7 +26,10 @@ namespace DB_course.Repositories.DBRepository
 
         public void Delete(string key)
         {
-            throw new NotImplementedException();
+            Product book = db.Products.Find(Convert.ToInt32(key));
+            if(book == null)
+                throw new Exception("person not Exists");
+            db.Products.Remove(book);
         }
 
 
