@@ -11,14 +11,14 @@ namespace DB_course.Presenter
 {
     public class WarehouseAdminPresenter
     {
-        private IWarehouseAdminForm view;
+        private IWarehouseAdminView view;
         private WarehouseAdminModel model;
         private BindingSource productsBindingSource;
         private IEnumerable<AdminCompose> productList;
 
 
         //Constructor
-        public WarehouseAdminPresenter(IWarehouseAdminForm view, IModel model)
+        public WarehouseAdminPresenter(IWarehouseAdminView view, IModel model)
         {
             this.productsBindingSource = new BindingSource();
 

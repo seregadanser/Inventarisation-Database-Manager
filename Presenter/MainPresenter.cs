@@ -48,7 +48,7 @@ namespace DB_course.Presenter
         private void ShowAdmin(object sender, EventArgs e)
         {
            
-           IWarehouseAdminForm view =WarehouseAdminForm.GetInstace((MainForm)mainView);
+           IWarehouseAdminView view =WarehouseAdminForm.GetInstace((MainForm)mainView);
            IModel model = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
            new WarehouseAdminPresenter(view, model);
         }

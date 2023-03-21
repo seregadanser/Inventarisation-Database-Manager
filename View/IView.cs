@@ -51,7 +51,7 @@ namespace DB_course.View
 
         void SetWorkerListBindingSource(BindingSource WorkerList);
     }
-    public interface IWarehouseAdminForm : IView
+    public interface IWarehouseAdminView : IView
     {
 
         int PlaceId { get; set; }

@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace DB_course.View
 {
-    public partial class WarehouseAdminForm : Form,IWarehouseAdminForm  
+    public partial class WarehouseAdminForm : Form,IWarehouseAdminView
     {
         public WarehouseAdminForm()
         {
