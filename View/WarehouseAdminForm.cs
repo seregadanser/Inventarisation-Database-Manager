@@ -70,8 +70,10 @@ namespace DB_course.View
         {
             if (instance == null || instance.IsDisposed)
             {
-                instance = new WarehouseAdminForm();
-                instance.MdiParent = parentContainer;
+                instance = new WarehouseAdminForm
+                {
+                    MdiParent = parentContainer
+                };
                 //instance.FormBorderStyle = FormBorderStyle.None;
                 //instance.Dock = DockStyle.Fill;
             }
@@ -85,6 +87,16 @@ namespace DB_course.View
         }
 
         private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabPage2_Click(object sender, EventArgs e)
         {
 
         }

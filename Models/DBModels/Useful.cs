@@ -14,7 +14,7 @@ public partial class Useful
 
     [DisplayName("Person Login")]
     [Required(ErrorMessage = "Person Login is requerid")]
-    [StringLength(50, MinimumLength = 2, ErrorMessage = "Person Login must be between 3 and 50 characters")]
+    [StringLength(50, MinimumLength = 1, ErrorMessage = "Person Login must be between 3 and 50 characters")]
     public string? PersonId { get; set; }
 
     [DateLessThanOrEqualToToday]

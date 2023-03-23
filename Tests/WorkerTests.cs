@@ -23,7 +23,7 @@ namespace DB_course.Tests
             mockUnitOfWork.Setup(u => u.UsefulRepository).Returns(mockUsefulRepository.Object);
             var model = new Mock<AWorkerModel>(mockUnitOfWork.Object, "testLogin") { CallBase = true }.Object;
             var usefulId = 123;
-
+                       
             // Act
             model.DelitUseful(usefulId);
 

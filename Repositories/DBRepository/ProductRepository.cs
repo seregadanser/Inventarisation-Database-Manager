@@ -1,4 +1,5 @@
 ﻿using DB_course.Models.DBModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,14 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(Product item)
         {
-            throw new NotImplementedException();
+            db.Products.Add(item);
         }
 
         public void Delete(string key)
         {
             Product book = db.Products.Find(Convert.ToInt32(key));
             if(book == null)
-                throw new Exception("person not Exists");
+                throw new Exception("product not Exists");
             db.Products.Remove(book);
         }
 
@@ -36,19 +37,26 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Product> Get(string value)
         {
-            throw new NotImplementedException();
+            var petList = new List<Person>();
+            int petId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
+            string petName = value;
+
+            return (from user in db.Products
+                    where petId == user.Id
+                    select user).ToList();
+
         }
 
         public IEnumerable<Product> GetList()
         {
-            throw new NotImplementedException();
+            return db.Products.ToList();
         }
 
    
 
         public void Update(Product item)
         {
-            throw new NotImplementedException();
+            db.Entry(item).State = EntityState.Modified;
         }
         public void Save()
         {

@@ -11,7 +11,7 @@ namespace DB_course.Models
 {
     public abstract class AWorkerModel : IModel
     {
-        protected private IUnitOfWork? unitOfWork;
+        protected private IUnitOfWork unitOfWork;
         protected string curId = "";
 
         public IUnitOfWork UnitOfWork { get { return unitOfWork;  } }

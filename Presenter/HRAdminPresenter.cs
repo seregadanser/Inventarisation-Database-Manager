@@ -129,8 +129,8 @@ namespace DB_course.Presenter
         {
             try
             {
-                var worker = (Person)workersBindingSource.Current;
-                if (worker == null) throw new Exception();
+                Person worker = (Person)workersBindingSource.Current ?? throw new Exception();
+
                 view.WorkerName = worker.Name;
                 view.WorkerSecondName = worker.SecondName;
                 view.WorkerPosition = worker.Position;

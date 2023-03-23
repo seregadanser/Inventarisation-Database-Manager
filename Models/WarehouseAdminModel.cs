@@ -84,11 +84,11 @@ namespace DB_course.Models
             newProduct.Name = value.Name;
             newProduct.Id = (int)value.ProductId;
             Product p = null;
-            try
-            { p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id)).First(); }
-            catch { }
+
+            p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id))?.First(); 
+       
             if(p == null)
-            {
+            {              
                 newProduct.Value = 1;
                 new DataValidateModel().Validate(newProduct);
                 unitOfWork.ProductRepository.Create(newProduct);

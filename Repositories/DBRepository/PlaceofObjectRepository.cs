@@ -21,14 +21,13 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(PlaceofObject item)
         {
-            throw new NotImplementedException();
+            db.PlaceofObjects.Add(item);
         }
 
         public void Delete(string key)
         {
-            PlaceofObject book = db.PlaceofObjects.Find(Convert.ToInt32(key));
-            if(book == null)
-                throw new Exception("person not Exists");
+            PlaceofObject book = db.PlaceofObjects.Find(Convert.ToInt32(key)) 
+                ?? throw new Exception("person not Exists");
             db.PlaceofObjects.Remove(book);
         }
 
@@ -41,10 +40,8 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<PlaceofObject> GetList()
         {
-            throw new NotImplementedException();
+            return db.PlaceofObjects.ToList();
         }
-
-  
 
         public void Update(PlaceofObject item)
         {

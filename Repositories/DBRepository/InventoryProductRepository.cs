@@ -20,14 +20,14 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(InventoryProduct item)
         {
-            throw new NotImplementedException();
+            db.InventoryProducts.Add(item);
         }
 
         public void Delete(string key)
         {
             InventoryProduct book = db.InventoryProducts.Find(Convert.ToInt32(key));
             if(book == null)
-                throw new Exception("person not Exists");
+                throw new Exception("Inventory not Exists");
             db.InventoryProducts.Remove(book);
         }
 
@@ -40,7 +40,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<InventoryProduct> GetList()
         {
-            throw new NotImplementedException();
+            return db.InventoryProducts.ToList();
         }
 
 

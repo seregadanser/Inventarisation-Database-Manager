@@ -30,9 +30,9 @@ namespace DB_course
             string connectionString = "";
 #if Laptop
 
-                connectionString = config.GetConnectionString("LaptopConnection");
+                connectionString = config.GetConnectionString("LaptopConnection") ?? throw new Exception();
 #else
-                connectionString = config.GetConnectionString("DefaultConnection");
+                connectionString = config.GetConnectionString("DefaultConnection") ?? throw new Exception();
 #endif
 
             // To customize application configuration such as set high DPI settings or default font,

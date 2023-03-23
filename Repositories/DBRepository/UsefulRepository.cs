@@ -45,7 +45,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Useful> GetList()
         {
-            throw new NotImplementedException();
+            return db.Usefuls.ToList();
         }
 
         public void Save()

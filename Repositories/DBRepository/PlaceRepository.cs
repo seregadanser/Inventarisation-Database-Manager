@@ -20,7 +20,7 @@ namespace DB_course.Repositories.DBRepository
         }
         public void Create(Place item)
         {
-            throw new NotImplementedException();
+            db.Places.Add(item);
         }
 
         public void Delete(string id)
@@ -40,7 +40,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Place> GetList()
         {
-            throw new NotImplementedException();
+            return db.Places.ToList();
         }
 
         public void Save()

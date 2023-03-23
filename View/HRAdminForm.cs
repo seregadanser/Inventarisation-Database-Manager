@@ -124,8 +124,10 @@ namespace DB_course.View
         {
             if(instance == null || instance.IsDisposed)
             {
-                instance = new HRAdminForm();
-                instance.MdiParent = parentContainer;
+                instance = new HRAdminForm
+                {
+                    MdiParent = parentContainer
+                };
                 //instance.FormBorderStyle = FormBorderStyle.None;
                 //instance.Dock = DockStyle.Fill;
             }
