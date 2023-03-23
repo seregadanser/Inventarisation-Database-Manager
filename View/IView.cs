@@ -54,8 +54,13 @@ namespace DB_course.View
     public interface IWarehouseAdminView : IView
     {
 
-        int PlaceId { get; set; }
-        int ProductId { get; set; }
+        public int PlaceId { get; set; }
+        public int ProductId { get; set; }
+        public string ProductName { get; set; }
+        public string DateCome { get; set; }
+        public string DateProduction { get; set; }
+        public int InventoryNumber { get; set; }
+
 
         event EventHandler SearchEvent;
         event EventHandler AddNewEvent;

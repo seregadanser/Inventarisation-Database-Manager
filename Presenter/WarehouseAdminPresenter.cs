@@ -62,5 +62,42 @@ namespace DB_course.Presenter
             }
         }
 
+        private void AddNewProduct(object sender, EventArgs e)
+        {
+            try
+            {
+                var product = new AdminCompose();
+                person.Name = view.WorkerName;
+                person.SecondName = view.WorkerSecondName;
+                person.Position = view.WorkerPosition;
+                person.DateOfBirthday = null;
+
+                person.Login = view.WorkerLogin;
+                person.Password = Hash.HashFunc(view.WorkerPassword);
+                person.NumberOfCome = 0;
+                model.AddProduct(product);
+                view.Message = "product added sucessfully";
+
+                view.IsSuccessful = true;
+                productList = model.GetProducts();
+                productsBindingSource.DataSource = productList;
+
+                view.WorkerSecondName = "";
+                view.WorkerPosition = "";
+                view.WorkerName = "";
+                view.WorkerBirthday = "";
+                view.WorkerLogin = "";
+                view.WorkerPassword = "";
+                view.WorkerLogin = "";
+
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = ex.Message;
+            }
+        }
+    }
+
     }
 }

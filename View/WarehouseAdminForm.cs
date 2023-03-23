@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -20,7 +21,7 @@ namespace DB_course.View
         public WarehouseAdminForm()
         {
             InitializeComponent();
-            button1.Click += delegate
+            buttonDelete.Click += delegate
             {
                 var result = MessageBox.Show("Are you sure you want to delete the selected worker?", "Warning",
                       MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
@@ -32,9 +33,14 @@ namespace DB_course.View
             };
         }
 
-        public int PlaceId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int ProductId { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string SearchValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public int PlaceId { get { return int.TryParse(textPlaceId.Text, out _) ? Convert.ToInt32(textPlaceId.Text) : -1;  } set { textPlaceId.Text = Convert.ToString( value); } }
+        public int ProductId { get { return int.TryParse(textProductId.Text, out _) ? Convert.ToInt32(textProductId.Text) : -1; } set { textProductId.Text = Convert.ToString(value); } }
+        string IWarehouseAdminView.ProductName { get { return textProductName.Text; } set { textProductName.Text = value; } }
+        public string DateCome { get { return textDateCome.Text; } set { textDateCome.Text = value; } }
+        public string DateProduction { get { return textDateProduction.Text; } set { textDateProduction.Text = value; } }
+        public int InventoryNumber { get { return int.TryParse(textInventoryNumber.Text, out _) ? Convert.ToInt32(textInventoryNumber.Text) : -1; } set { textInventoryNumber.Text = Convert.ToString(value); } }
+
+        public string SearchValue { get {return textSearch.Text; } set { textSearch.Text = value; } }
         public bool IsEdit { get { return isEdit; } set { isEdit = value; } }
         public bool IsSuccessful { get { return isSuccessful; } set { isSuccessful = value; } }
         public string Message { get { return message; } set { message = value; } }
