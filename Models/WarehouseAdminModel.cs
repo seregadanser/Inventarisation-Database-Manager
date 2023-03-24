@@ -84,7 +84,7 @@ namespace DB_course.Models
             newProduct.Name = value.Name;
             newProduct.Id = (int)value.ProductId;
 
-            newInventory.InventoryNumber = value.InventoryNumber;
+            newInventory.InventoryNumber = (int)value.InventoryNumber;
             newInventory.ProductId = value.ProductId;
             new DataValidateModel().Validate(newInventory);
 
@@ -126,7 +126,7 @@ namespace DB_course.Models
             string[] places = value.PlaceId.Split(',');
             for(int i = 0; i < places.Length; i++)
             {
-                unitOfWork.PlaceofObjectRepository.Delete(places[i]);
+                unitOfWork.PlaceofObjectRepository.Delete(value.PlaceOfObjectlId);
                 unitOfWork.PlaceofObjectRepository.Save();
             }
 

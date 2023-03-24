@@ -139,6 +139,24 @@ namespace DB_course.View
             }
             return instance;
         }
+
+        public static HRAdminForm GetInstace()
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new HRAdminForm();
+                //instance.FormBorderStyle = FormBorderStyle.None;
+                //instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
+        }
+
         void OnCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
           

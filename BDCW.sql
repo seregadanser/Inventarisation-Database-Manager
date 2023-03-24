@@ -93,9 +93,9 @@ insert into warehouse2.PlaceofObject values
 
 
 insert into dbo.Persons values
-( 'a', 'b', 'm','fgsad', '1912-10-25' ,'va',0),
-( 'f', 'g', 'b','dsf', '1962-10-25' ,'jt',0),
-( 'as', 'g', 'b','assa', '1956-10-25' ,'ji',0)
+( 'a', 'b', 'm','admin', '1912-10-25' ,'va',0),
+( 'f', 'g', 'b','worker', '1962-10-25' ,'jt',0),
+( 'as', 'g', 'b','hradmin', '1956-10-25' ,'ji',0)
 
 insert into warehouse2.Useful values
 ( 1, 'f', null)
@@ -118,7 +118,7 @@ grant select on warehouse2.PlaceofObject to Warehouseman
 grant select on warehouse2.Place to Warehouseman
 
 
-select * from warehouse2.Place
+select * from dbo.Persons
 
 
 --Сотрудник

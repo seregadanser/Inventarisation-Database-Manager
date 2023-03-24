@@ -41,9 +41,9 @@ namespace DB_course.Repositories.CompositRepository
 
                         Name = PR.Name,
 
-                        DateCome = PR.DateCome,
+                        DateCome = (DateTime)PR.DateCome,
 
-                        DateProduction = PR.DateProduction,
+                        DateProduction = (DateTime)PR.DateProduction,
 
                         InventoryNumber = IP.InventoryNumber,
 
@@ -83,18 +83,13 @@ namespace DB_course.Repositories.CompositRepository
                     select new AdminCompose
                     {
                         ProductId = PR.Id,
-
                         Name = PR.Name,
-
-                        DateCome = PR.DateCome,
-
-                        DateProduction = PR.DateProduction,
-
+                        DateCome = (DateTime)PR.DateCome,
+                        DateProduction = (DateTime)PR.DateProduction,
                         InventoryNumber = IP.InventoryNumber,
-
                         value = (int)PR.Value,
-
-                        PlaceId = Convert.ToString(P.PlaceId)
+                        PlaceId = Convert.ToString(P.PlaceId),
+                        PlaceOfObjectlId = Convert.ToString(P.Id)
                     };
 
            
@@ -114,8 +109,9 @@ namespace DB_course.Repositories.CompositRepository
 
                 value = eg.First().value,
 
-                PlaceId = string.Join(",", eg.Select(i => i.PlaceId))
-                
+                PlaceId = string.Join(",", eg.Select(i => i.PlaceId)),
+                PlaceOfObjectlId = string.Join(",", eg.Select(i => i.PlaceOfObjectlId)),
+
             });
             return result.ToList();
         }

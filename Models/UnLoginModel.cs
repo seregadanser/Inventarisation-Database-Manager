@@ -14,6 +14,8 @@ namespace DB_course.Models
         protected IUnitOfWork unitOfWork;
         public IUnitOfWork UnitOfWork { get { return unitOfWork; } }
 
+        public string Proffesion { get; set; }
+
         public AUnLoginModel(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
@@ -21,11 +23,10 @@ namespace DB_course.Models
 
         public virtual State Check(string login, string password)
         {
-            Person p = unitOfWork.personRepository.Get(login).FirstOrDefault();
-            if(p == null)
-                throw new Exception("Person not found");
+            Person p = unitOfWork.personRepository.Get(login).FirstOrDefault() ?? throw new Exception("Person not found");
             if(p.Password == Hash.HashFunc(password))
             {
+                Proffesion = p.Position;
                 if(p.NumberOfCome == 0)
                     return State.FIRST;
                 return State.OK;

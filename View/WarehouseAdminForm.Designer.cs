@@ -32,8 +32,12 @@
             this.buttonDelete = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.productsPage = new System.Windows.Forms.TabPage();
+            this.buttonAdd = new System.Windows.Forms.Button();
+            this.buttonSearch = new System.Windows.Forms.Button();
             this.textSearch = new System.Windows.Forms.TextBox();
             this.addProductPage = new System.Windows.Forms.TabPage();
+            this.buttonCancel = new System.Windows.Forms.Button();
+            this.buttonSave = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -46,10 +50,6 @@
             this.textDateCome = new System.Windows.Forms.TextBox();
             this.textProductName = new System.Windows.Forms.TextBox();
             this.textProductId = new System.Windows.Forms.TextBox();
-            this.buttonSave = new System.Windows.Forms.Button();
-            this.buttonCancel = new System.Windows.Forms.Button();
-            this.buttonSearch = new System.Windows.Forms.Button();
-            this.buttonAdd = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.productsPage.SuspendLayout();
@@ -66,11 +66,12 @@
             this.dataGridView1.Size = new System.Drawing.Size(541, 269);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
             // 
             // buttonDelete
             // 
             this.buttonDelete.Location = new System.Drawing.Point(552, 33);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 27);
             this.buttonDelete.TabIndex = 1;
@@ -83,7 +84,7 @@
             this.tabControl1.Controls.Add(this.productsPage);
             this.tabControl1.Controls.Add(this.addProductPage);
             this.tabControl1.Location = new System.Drawing.Point(32, 15);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(738, 365);
@@ -97,18 +98,36 @@
             this.productsPage.Controls.Add(this.dataGridView1);
             this.productsPage.Controls.Add(this.buttonDelete);
             this.productsPage.Location = new System.Drawing.Point(4, 24);
-            this.productsPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.productsPage.Margin = new System.Windows.Forms.Padding(2);
             this.productsPage.Name = "productsPage";
-            this.productsPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.productsPage.Padding = new System.Windows.Forms.Padding(2);
             this.productsPage.Size = new System.Drawing.Size(730, 337);
             this.productsPage.TabIndex = 0;
             this.productsPage.Text = "productsPage";
             this.productsPage.UseVisualStyleBackColor = true;
             // 
+            // buttonAdd
+            // 
+            this.buttonAdd.Location = new System.Drawing.Point(552, 65);
+            this.buttonAdd.Name = "buttonAdd";
+            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.TabIndex = 4;
+            this.buttonAdd.Text = "Add";
+            this.buttonAdd.UseVisualStyleBackColor = true;
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(552, 5);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 3;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            // 
             // textSearch
             // 
             this.textSearch.Location = new System.Drawing.Point(5, 4);
-            this.textSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textSearch.Margin = new System.Windows.Forms.Padding(2);
             this.textSearch.Name = "textSearch";
             this.textSearch.Size = new System.Drawing.Size(541, 23);
             this.textSearch.TabIndex = 2;
@@ -130,14 +149,32 @@
             this.addProductPage.Controls.Add(this.textProductName);
             this.addProductPage.Controls.Add(this.textProductId);
             this.addProductPage.Location = new System.Drawing.Point(4, 24);
-            this.addProductPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addProductPage.Margin = new System.Windows.Forms.Padding(2);
             this.addProductPage.Name = "addProductPage";
-            this.addProductPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addProductPage.Padding = new System.Windows.Forms.Padding(2);
             this.addProductPage.Size = new System.Drawing.Size(730, 337);
             this.addProductPage.TabIndex = 1;
             this.addProductPage.Text = "addProductPage";
             this.addProductPage.UseVisualStyleBackColor = true;
             this.addProductPage.Click += new System.EventHandler(this.tabPage2_Click);
+            // 
+            // buttonCancel
+            // 
+            this.buttonCancel.Location = new System.Drawing.Point(314, 257);
+            this.buttonCancel.Name = "buttonCancel";
+            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.TabIndex = 13;
+            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.UseVisualStyleBackColor = true;
+            // 
+            // buttonSave
+            // 
+            this.buttonSave.Location = new System.Drawing.Point(182, 257);
+            this.buttonSave.Name = "buttonSave";
+            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.TabIndex = 12;
+            this.buttonSave.Text = "Save";
+            this.buttonSave.UseVisualStyleBackColor = true;
             // 
             // label6
             // 
@@ -203,7 +240,7 @@
             // textPlaceId
             // 
             this.textPlaceId.Location = new System.Drawing.Point(245, 149);
-            this.textPlaceId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textPlaceId.Margin = new System.Windows.Forms.Padding(2);
             this.textPlaceId.Name = "textPlaceId";
             this.textPlaceId.Size = new System.Drawing.Size(106, 23);
             this.textPlaceId.TabIndex = 5;
@@ -211,7 +248,7 @@
             // textInventoryNumber
             // 
             this.textInventoryNumber.Location = new System.Drawing.Point(245, 122);
-            this.textInventoryNumber.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textInventoryNumber.Margin = new System.Windows.Forms.Padding(2);
             this.textInventoryNumber.Name = "textInventoryNumber";
             this.textInventoryNumber.Size = new System.Drawing.Size(106, 23);
             this.textInventoryNumber.TabIndex = 4;
@@ -219,7 +256,7 @@
             // textDateProduction
             // 
             this.textDateProduction.Location = new System.Drawing.Point(245, 95);
-            this.textDateProduction.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textDateProduction.Margin = new System.Windows.Forms.Padding(2);
             this.textDateProduction.Name = "textDateProduction";
             this.textDateProduction.Size = new System.Drawing.Size(106, 23);
             this.textDateProduction.TabIndex = 3;
@@ -227,7 +264,7 @@
             // textDateCome
             // 
             this.textDateCome.Location = new System.Drawing.Point(245, 68);
-            this.textDateCome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textDateCome.Margin = new System.Windows.Forms.Padding(2);
             this.textDateCome.Name = "textDateCome";
             this.textDateCome.Size = new System.Drawing.Size(106, 23);
             this.textDateCome.TabIndex = 2;
@@ -235,7 +272,7 @@
             // textProductName
             // 
             this.textProductName.Location = new System.Drawing.Point(245, 41);
-            this.textProductName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textProductName.Margin = new System.Windows.Forms.Padding(2);
             this.textProductName.Name = "textProductName";
             this.textProductName.Size = new System.Drawing.Size(106, 23);
             this.textProductName.TabIndex = 1;
@@ -243,46 +280,10 @@
             // textProductId
             // 
             this.textProductId.Location = new System.Drawing.Point(245, 14);
-            this.textProductId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textProductId.Margin = new System.Windows.Forms.Padding(2);
             this.textProductId.Name = "textProductId";
             this.textProductId.Size = new System.Drawing.Size(106, 23);
             this.textProductId.TabIndex = 0;
-            // 
-            // buttonSave
-            // 
-            this.buttonSave.Location = new System.Drawing.Point(182, 257);
-            this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
-            this.buttonSave.TabIndex = 12;
-            this.buttonSave.Text = "Save";
-            this.buttonSave.UseVisualStyleBackColor = true;
-            // 
-            // buttonCancel
-            // 
-            this.buttonCancel.Location = new System.Drawing.Point(314, 257);
-            this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 13;
-            this.buttonCancel.Text = "Cancel";
-            this.buttonCancel.UseVisualStyleBackColor = true;
-            // 
-            // buttonSearch
-            // 
-            this.buttonSearch.Location = new System.Drawing.Point(552, 5);
-            this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
-            this.buttonSearch.TabIndex = 3;
-            this.buttonSearch.Text = "Search";
-            this.buttonSearch.UseVisualStyleBackColor = true;
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Location = new System.Drawing.Point(552, 65);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
-            this.buttonAdd.TabIndex = 4;
-            this.buttonAdd.Text = "Add";
-            this.buttonAdd.UseVisualStyleBackColor = true;
             // 
             // WarehouseAdminForm
             // 

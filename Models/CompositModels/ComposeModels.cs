@@ -68,18 +68,22 @@ namespace DB_course.Models.CompositModels
 
     public class AdminCompose              //IPrPlo
     {
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
 
-        public DateTime DateCome { get; set; }
+        public DateTime? DateCome { get; set; }
 
-        public DateTime DateProduction { get; set; }
+        public DateTime? DateProduction { get; set; }
 
-        public int InventoryNumber { get; set; }
+        public int? InventoryNumber { get; set; }
 
-        public int value { get; set; }
 
-        public string PlaceId { get; set; }
+        public string? PlaceId { get; set; }
+
+        public int? value { get; set; }
+
+        public string? PlaceOfObjectlId { get; set; }
+
     }
 }

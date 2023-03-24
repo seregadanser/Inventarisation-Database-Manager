@@ -21,6 +21,15 @@ namespace DB_course.View
         bool IsSuccessful { get; set; }
         string Message { get; set; }
         void Show();
+        void Close();
+    }
+
+    public interface IUnLoginView : IView
+    {
+        public string WorkerLogin { get; set; }
+        public string WorkerPassword { get; set; }
+
+        event EventHandler SaveEvent;
     }
 
     public interface IWorkerView  : IView

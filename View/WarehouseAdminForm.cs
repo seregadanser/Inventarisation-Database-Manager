@@ -143,7 +143,22 @@ namespace DB_course.View
             }
             return instance;
         }
-
+        public static WarehouseAdminForm GetInstace()
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new WarehouseAdminForm();
+                //instance.FormBorderStyle = FormBorderStyle.None;
+                //instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -157,6 +172,15 @@ namespace DB_course.View
         private void tabPage2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            if (dataGridView1.Columns.Count > 7)
+            {
+                dataGridView1.Columns[6].Visible = false;
+                dataGridView1.Columns[7].Visible = false;
+            }
         }
     }
 }

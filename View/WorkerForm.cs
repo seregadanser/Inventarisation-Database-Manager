@@ -89,7 +89,22 @@ namespace DB_course.View
             }
             return instance;
         }
-
+        public static WorkerForm GetInstace()
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new WorkerForm();
+                //instance.FormBorderStyle = FormBorderStyle.None;
+                //instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
+        }
         private void button1_Click(object sender, EventArgs e)
         {
 
