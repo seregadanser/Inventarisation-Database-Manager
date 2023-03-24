@@ -83,10 +83,13 @@ namespace DB_course.Models
             newProduct.DateCome = value.DateCome;
             newProduct.Name = value.Name;
             newProduct.Id = (int)value.ProductId;
-            Product p = null;
 
-            p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id))?.First(); 
-       
+            newInventory.InventoryNumber = value.InventoryNumber;
+            newInventory.ProductId = value.ProductId;
+            new DataValidateModel().Validate(newInventory);
+
+            Product? p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id))?.First();
+
             if(p == null)
             {              
                 newProduct.Value = 1;
@@ -99,10 +102,7 @@ namespace DB_course.Models
                 unitOfWork.ProductRepository.Update(p);
             }
             unitOfWork.ProductRepository.Save();
-
-            newInventory.InventoryNumber = value.InventoryNumber;
-            newInventory.ProductId = value.ProductId;
-            new DataValidateModel().Validate(newInventory);
+        
             unitOfWork.InventoryProductRepository.Create(newInventory);
             unitOfWork.InventoryProductRepository.Save();
 
@@ -133,9 +133,9 @@ namespace DB_course.Models
             unitOfWork.InventoryProductRepository.Delete(Convert.ToString(value.InventoryNumber));
             unitOfWork.InventoryProductRepository.Save();
 
-            Product p = unitOfWork.ProductRepository.Get(Convert.ToString(value.ProductId)).First();
-            if(p == null)
-                throw new Exception("Product not found");
+            Product p = unitOfWork.ProductRepository.Get(Convert.ToString(value.ProductId))?.First() 
+                    ?? throw new Exception("Product not found");
+
 
             if(p.Value > 1)
             {

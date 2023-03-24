@@ -32,6 +32,9 @@ namespace DB_course.Presenter
             LoadAllLists();
 
             this.view.DeleteEvent += DeleteSelectedWorker;
+            this.view.SaveEvent += AddNewProduct;
+            this.view.CancelEvent += CancelAction;
+            this.view.SearchEvent += SearchProduct;
 
             this.view.Show();
         }
@@ -41,6 +44,21 @@ namespace DB_course.Presenter
             productList = model.GetProducts();
             productsBindingSource.DataSource = productList;
         }
+        private void SearchProduct(object sender, EventArgs e)
+        {
+            productList = model.GetProducts(view.SearchValue);
+            productsBindingSource.DataSource = productList;
+        }
+        private void CancelAction(object sender, EventArgs e)
+        {
+            view.ProductId = 0;
+            view.DateCome = "";
+            view.PlaceId = "";
+            view.InventoryNumber = 0;
+            view.DateProduction = "";
+            view.ProductName = "";
+        }
+
         private void DeleteSelectedWorker(object sender, EventArgs e)
         {
             try
@@ -67,14 +85,13 @@ namespace DB_course.Presenter
             try
             {
                 var product = new AdminCompose();
-                person.Name = view.WorkerName;
-                person.SecondName = view.WorkerSecondName;
-                person.Position = view.WorkerPosition;
-                person.DateOfBirthday = null;
+                //product.DateCome = view.DateCome;
+                product.ProductId = view.ProductId;
+                product.PlaceId = view.PlaceId;
+                product.InventoryNumber = view.InventoryNumber;
+                //product.DateProduction = view.DateProduction;
+                product.Name = view.ProductName;
 
-                person.Login = view.WorkerLogin;
-                person.Password = Hash.HashFunc(view.WorkerPassword);
-                person.NumberOfCome = 0;
                 model.AddProduct(product);
                 view.Message = "product added sucessfully";
 
@@ -82,13 +99,7 @@ namespace DB_course.Presenter
                 productList = model.GetProducts();
                 productsBindingSource.DataSource = productList;
 
-                view.WorkerSecondName = "";
-                view.WorkerPosition = "";
-                view.WorkerName = "";
-                view.WorkerBirthday = "";
-                view.WorkerLogin = "";
-                view.WorkerPassword = "";
-                view.WorkerLogin = "";
+                CancelAction(sender, e);
 
             }
             catch (Exception ex)
@@ -97,7 +108,5 @@ namespace DB_course.Presenter
                 view.Message = ex.Message;
             }
         }
-    }
-
     }
 }

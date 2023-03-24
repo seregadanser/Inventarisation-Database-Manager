@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading.Channels;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +22,47 @@ namespace DB_course.View
         public WarehouseAdminForm()
         {
             InitializeComponent();
+            AssociateAndRaiseViewEvents();
+            tabControl1.TabPages.Remove(addProductPage);
+
+        }
+        private void AssociateAndRaiseViewEvents()
+        {
+            //Search
+            buttonSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
+            textSearch.KeyDown += (s, e) =>
+            {
+                if(e.KeyCode == Keys.Enter)
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+            };
+            //Add new
+            buttonAdd.Click += delegate
+            {
+                AddNewEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(productsPage);
+                tabControl1.TabPages.Add(addProductPage);
+            };
+            //Edit
+          
+            //Save changes
+            buttonSave.Click += delegate
+            {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+                if(isSuccessful)
+                {
+                    tabControl1.TabPages.Remove(addProductPage);
+                    tabControl1.TabPages.Add(productsPage);
+                }
+                MessageBox.Show(Message);
+            };
+            //Cancel
+            buttonCancel.Click += delegate
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(addProductPage);
+                tabControl1.TabPages.Add(productsPage);
+            };
+            //Delete
             buttonDelete.Click += delegate
             {
                 var result = MessageBox.Show("Are you sure you want to delete the selected worker?", "Warning",
@@ -33,17 +75,27 @@ namespace DB_course.View
             };
         }
 
-        public int PlaceId { get { return int.TryParse(textPlaceId.Text, out _) ? Convert.ToInt32(textPlaceId.Text) : -1;  } set { textPlaceId.Text = Convert.ToString( value); } }
-        public int ProductId { get { return int.TryParse(textProductId.Text, out _) ? Convert.ToInt32(textProductId.Text) : -1; } set { textProductId.Text = Convert.ToString(value); } }
-        string IWarehouseAdminView.ProductName { get { return textProductName.Text; } set { textProductName.Text = value; } }
-        public string DateCome { get { return textDateCome.Text; } set { textDateCome.Text = value; } }
-        public string DateProduction { get { return textDateProduction.Text; } set { textDateProduction.Text = value; } }
-        public int InventoryNumber { get { return int.TryParse(textInventoryNumber.Text, out _) ? Convert.ToInt32(textInventoryNumber.Text) : -1; } set { textInventoryNumber.Text = Convert.ToString(value); } }
+        public string PlaceId { get => textPlaceId.Text; set => textPlaceId.Text = value; }
+        public int ProductId
+        {
+            get => int.TryParse(textProductId.Text, out _) ?
+                                        Convert.ToInt32(textProductId.Text) : -1;
+            set => textProductId.Text = Convert.ToString(value);
+        }
+        string IWarehouseAdminView.ProductName { get => textProductName.Text;  set => textProductName.Text = value; }
+        public string DateCome { get => textDateCome.Text; set => textDateCome.Text = value; }
+        public string DateProduction { get => textDateProduction.Text; set => textDateProduction.Text = value; }
+        public int InventoryNumber
+        {
+            get => int.TryParse(textInventoryNumber.Text, out _) ?
+                                            Convert.ToInt32(textInventoryNumber.Text) : -1;
+            set => textInventoryNumber.Text = Convert.ToString(value);
+        }
 
-        public string SearchValue { get {return textSearch.Text; } set { textSearch.Text = value; } }
-        public bool IsEdit { get { return isEdit; } set { isEdit = value; } }
-        public bool IsSuccessful { get { return isSuccessful; } set { isSuccessful = value; } }
-        public string Message { get { return message; } set { message = value; } }
+        public string SearchValue { get => textSearch.Text;  set => textSearch.Text = value;  }
+        public bool IsEdit { get => isEdit; set => isEdit = value; }
+        public bool IsSuccessful { get => isSuccessful; set => isSuccessful = value; }
+        public string Message { get => message;  set => message = value;  }
 
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;

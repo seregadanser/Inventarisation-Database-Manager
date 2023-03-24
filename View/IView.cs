@@ -54,7 +54,7 @@ namespace DB_course.View
     public interface IWarehouseAdminView : IView
     {
 
-        public int PlaceId { get; set; }
+        public string PlaceId { get; set; }
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public string DateCome { get; set; }
