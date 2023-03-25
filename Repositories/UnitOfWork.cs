@@ -13,16 +13,16 @@ namespace DB_course.Repositories
 
     public interface IUnitOfWork
     {
-        IRepository<Person> personRepository { get; }
-        IRepository<Place> PlaceRepository { get; }
-        IRepository<Useful> UsefulRepository { get; }
-        IRepository<WarehousemanLookCompose> WarehousemanLookComposeRepository { get; }
-        IRepository<WorkerLookUsefulCompose> WorkerLookUsefulComposeRepository { get; }
-        IRepository<WorkerLookCompose> WorkerLookComposeRepository { get; }
-        IRepository<Product> ProductRepository { get; }
-        IRepository<PlaceofObject> PlaceofObjectRepository { get; }
-        IRepository<InventoryProduct> InventoryProductRepository { get; }
-        IRepository<AdminCompose> AdminComposeRepository { get; }
+        public IRepository<Person> PersonRepository { get; }
+        public IRepository<Place> PlaceRepository { get; }
+        public IRepository<Useful> UsefulRepository { get; }
+        public IRepository<WarehousemanLookCompose> WarehousemanLookComposeRepository { get; }
+        public IRepository<WorkerLookUsefulCompose> WorkerLookUsefulComposeRepository { get; }
+        public IRepository<WorkerLookCompose> WorkerLookComposeRepository { get; }
+        public IRepository<Product> ProductRepository { get; }
+        public IRepository<PlaceofObject> PlaceofObjectRepository { get; }
+        public IRepository<InventoryProduct> InventoryProductRepository { get; }
+        public IRepository<AdminCompose> AdminComposeRepository { get; }
         public void UpdateRepository(IRepositoryAbstractFabric fabric);
 
     }
@@ -42,7 +42,7 @@ namespace DB_course.Repositories
         private IRepository<InventoryProduct> inventoryProductRep;
         private IRepository<AdminCompose> adminComposeRep;
 
-        public IRepository<Person> personRepository
+        public IRepository<Person> PersonRepository
         {
             get  
             {

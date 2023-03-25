@@ -22,15 +22,15 @@ namespace DB_course.Models
         public virtual void AddPerson(Person person)
         {
             new DataValidateModel().Validate(person);
-            unitOfWork.personRepository.Create(person);
-            unitOfWork.personRepository.Save();
+            unitOfWork.PersonRepository.Create(person);
+            unitOfWork.PersonRepository.Save();
  
         }
 
         public virtual void RemovePerson(string Id)
         {
-            unitOfWork.personRepository.Delete(Id);
-            unitOfWork.personRepository.Save();
+            unitOfWork.PersonRepository.Delete(Id);
+            unitOfWork.PersonRepository.Save();
         }
 
         public virtual void UpdatePerson(string Id_cur, Person updateperson)
@@ -39,22 +39,22 @@ namespace DB_course.Models
             Person curperson = null;
             try
             {
-                curperson = unitOfWork.personRepository.Get(Id_cur).First();
+                curperson = unitOfWork.PersonRepository.Get(Id_cur).First();
                 if(curperson == null)
-                    throw new Exception("No such person for update");
+                    throw new NoSuchObjectException("No such person for update");
             }
             catch { return; }
             curperson.Position = updateperson.Position;
             curperson.Name = updateperson.Name;
             curperson.SecondName = updateperson.SecondName;
             curperson.DateOfBirthday = updateperson.DateOfBirthday;
-            unitOfWork.personRepository.Update(curperson);
-            unitOfWork.personRepository.Save();
+            unitOfWork.PersonRepository.Update(curperson);
+            unitOfWork.PersonRepository.Save();
         }
 
         public virtual IEnumerable<Person> LookPerson()
         {
-            return unitOfWork.personRepository.GetList();
+            return unitOfWork.PersonRepository.GetList();
         }
 
         public virtual IEnumerable<Person> LookPerson(string value)
@@ -63,9 +63,9 @@ namespace DB_course.Models
             IEnumerable<Person> personList;
             bool emptyValue = string.IsNullOrWhiteSpace(value);
             if (emptyValue == false)
-                personList = unitOfWork.personRepository.Get(value);
+                personList = unitOfWork.PersonRepository.Get(value);
             else {
-                personList = unitOfWork.personRepository.GetList(); }
+                personList = unitOfWork.PersonRepository.GetList(); }
             return personList;
         }
     }

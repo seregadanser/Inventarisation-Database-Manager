@@ -27,7 +27,7 @@ namespace DB_course.Tests
             Action act = () => adminModel.AddPerson(person);
 
             // Assert
-            Assert.Throws<ValidationExeption>(act);
+            Assert.Throws<ValidationException>(act);
 
 
         }
@@ -38,7 +38,7 @@ namespace DB_course.Tests
             // Arrange
             Mock<IUnitOfWork> mockUnitOfWork = new Mock<IUnitOfWork>();
 
-            mockUnitOfWork.Setup(a => a.personRepository).Returns(new Mock<IRepository<Person>>().Object);
+            mockUnitOfWork.Setup(a => a.PersonRepository).Returns(new Mock<IRepository<Person>>().Object);
 
             AHRAdminModel adminModel = new HRAdminModel(mockUnitOfWork.Object);
 
@@ -48,8 +48,8 @@ namespace DB_course.Tests
             adminModel.RemovePerson(existingId);
 
             // Assert
-            mockUnitOfWork.Verify(x => x.personRepository.Delete(existingId), Times.Once);
-            mockUnitOfWork.Verify(x => x.personRepository.Save(), Times.Once);
+            mockUnitOfWork.Verify(x => x.PersonRepository.Delete(existingId), Times.Once);
+            mockUnitOfWork.Verify(x => x.PersonRepository.Save(), Times.Once);
         }
         [Fact]
         public void UpdatePerson_ValidIdAndPerson_PersonUpdated()
@@ -67,7 +67,7 @@ namespace DB_course.Tests
             };
             var unitOfWorkMock = new Mock<IUnitOfWork>();
             var personRepositoryMock = new Mock<IRepository<Person>>();
-            unitOfWorkMock.SetupGet(uow => uow.personRepository).Returns(personRepositoryMock.Object);
+            unitOfWorkMock.SetupGet(uow => uow.PersonRepository).Returns(personRepositoryMock.Object);
             personRepositoryMock.Setup(r => r.Get(id)).Returns(new[] { person });
             var model = new HRAdminModel(unitOfWorkMock.Object);
 

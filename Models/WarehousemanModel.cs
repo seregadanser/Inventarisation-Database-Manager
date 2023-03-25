@@ -22,7 +22,7 @@ namespace DB_course.Models
 
         public virtual void DelitUseful(int Id)
         {
-            if (Id <= 0) throw new Exception("Invalid Id");
+            if (Id <= 0) throw new IdException("Invalid Id");
             unitOfWork.UsefulRepository.Delete(Convert.ToString(Id));
             unitOfWork.UsefulRepository.Save();
         }

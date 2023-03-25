@@ -56,7 +56,7 @@ namespace DB_course.Tests
             // Arrange
             var mockUnitOfWork = new Mock<IUnitOfWork>();
             var mockPersonRepository = new Mock<IRepository<Person>>();
-            mockUnitOfWork.Setup(u => u.personRepository).Returns(mockPersonRepository.Object);
+            mockUnitOfWork.Setup(u => u.PersonRepository).Returns(mockPersonRepository.Object);
             var model = new Mock<AWorkerModel>(mockUnitOfWork.Object, "testLogin") { CallBase = true }.Object;
             var newPassword = "newPassword";
             var existingPerson = new Person { Name = "John", SecondName = "Doe", Position = "Developer", DateOfBirthday = new DateTime(1985, 1, 1), Login = "testLogin", Password = "oldPassword", NumberOfCome = 0 };

@@ -23,7 +23,7 @@ namespace DB_course.Models
 
         public virtual State Check(string login, string password)
         {
-            Person p = unitOfWork.personRepository.Get(login).FirstOrDefault() ?? throw new Exception("Person not found");
+            Person p = unitOfWork.PersonRepository.Get(login).FirstOrDefault() ?? throw new Exception("Person not found");
             if(p.Password == Hash.HashFunc(password))
             {
                 Proffesion = p.Position;

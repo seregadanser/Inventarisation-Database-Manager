@@ -29,22 +29,22 @@ namespace DB_course.Models
         public void RemovePlace(int key)
         {
             if(key <= 0)
-                throw new Exception("Invalid Id");
+                throw new IdException("Invalid Id");
             unitOfWork.PlaceRepository.Delete(Convert.ToString(key));
             unitOfWork.PlaceRepository.Save();
         }
         public void UpdatePlace(int key, Place newPlace)
         {
             if(key <= 0)
-                throw new Exception("Invalid Id");
+                throw new IdException("Invalid Id");
             new DataValidateModel().Validate(newPlace);
             Place curperson = null;
             try
             {
                 curperson = unitOfWork.PlaceRepository.Get(Convert.ToString(key)).First();}
-            catch { throw new Exception("No such place for update"); }
+            catch { throw new NoSuchObjectException("No such place for update"); }
                 if(curperson == null)
-                    throw new Exception("No such place for update");
+                    throw new NoSuchObjectException("No such place for update");
            
            
             curperson.NumberLayer = newPlace.NumberLayer;
@@ -123,10 +123,10 @@ namespace DB_course.Models
         {
             //добавить проверку на присутствие инвентарного предмета в useful
             
-            string[] places = value.PlaceId.Split(',');
+            string[] places = value.PlaceOfObjectlId.Split(',');
             for(int i = 0; i < places.Length; i++)
             {
-                unitOfWork.PlaceofObjectRepository.Delete(value.PlaceOfObjectlId);
+                unitOfWork.PlaceofObjectRepository.Delete(places[i]);
                 unitOfWork.PlaceofObjectRepository.Save();
             }
 
@@ -134,7 +134,7 @@ namespace DB_course.Models
             unitOfWork.InventoryProductRepository.Save();
 
             Product p = unitOfWork.ProductRepository.Get(Convert.ToString(value.ProductId))?.First() 
-                    ?? throw new Exception("Product not found");
+                    ?? throw new NoSuchObjectException("Product not found");
 
 
             if(p.Value > 1)

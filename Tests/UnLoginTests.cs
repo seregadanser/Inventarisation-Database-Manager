@@ -22,7 +22,7 @@ namespace DB_course.Tests
             List<Person> a = new List<Person>();
             a.Add(new Person() { Password = "1234", Login = "vas", NumberOfCome = 0 });
             var ui = new Mock<IUnitOfWork>();
-            ui.Setup(a => a.personRepository.Get(It.IsAny<string>())).Returns(a);
+            ui.Setup(a => a.PersonRepository.Get(It.IsAny<string>())).Returns(a);
             UnLoginModel m = new UnLoginModel(ui.Object);
             // Act
             State ac = m.Check("vas", "1234");
@@ -36,7 +36,7 @@ namespace DB_course.Tests
             List<Person> a = new List<Person>();
             a.Add(new Person() { Password = "1234", Login = "vas", NumberOfCome = 0 });
             var ui = new Mock<IUnitOfWork>();
-            ui.Setup(a => a.personRepository.Get(It.IsAny<string>())).Returns(a);
+            ui.Setup(a => a.PersonRepository.Get(It.IsAny<string>())).Returns(a);
             UnLoginModel m = new UnLoginModel(ui.Object);
             // Act
             State ac = m.Check("vas", "134");
@@ -48,7 +48,7 @@ namespace DB_course.Tests
         {
             // Arrange
             var ui = new Mock<IUnitOfWork>();
-            ui.Setup(a => a.personRepository.Get(It.IsAny<string>())).Returns(new List<Person>());
+            ui.Setup(a => a.PersonRepository.Get(It.IsAny<string>())).Returns(new List<Person>());
             UnLoginModel m = new UnLoginModel(ui.Object);
             // Act
             Action act = () => m.Check("vas", "134");

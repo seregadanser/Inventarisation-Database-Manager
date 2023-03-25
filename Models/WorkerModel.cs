@@ -25,7 +25,7 @@ namespace DB_course.Models
 
         public virtual void DelitUseful(int Id)
         {
-            if (Id <= 0) throw new Exception("Invalid Id");
+            if (Id <= 0) throw new IdException("Invalid Id");
             unitOfWork.UsefulRepository.Delete(Convert.ToString(Id));
             unitOfWork.UsefulRepository.Save();
         }
@@ -44,16 +44,16 @@ namespace DB_course.Models
             Person curperson = null;
             try
             {
-                curperson = unitOfWork.personRepository.Get(curId).First();
+                curperson = unitOfWork.PersonRepository.Get(curId).First();
                 if (curperson == null)
-                    throw new Exception("No such person for update");
+                    throw new NoSuchObjectException("No such person for update");
             }
             catch { return; }
             curperson.Password = newpassword;
             curperson.NumberOfCome = curperson.NumberOfCome + 1;
             new DataValidateModel().Validate(curperson);
-            unitOfWork.personRepository.Update(curperson);
-            unitOfWork.personRepository.Save();
+            unitOfWork.PersonRepository.Update(curperson);
+            unitOfWork.PersonRepository.Save();
         }
         public virtual IEnumerable<WorkerLookCompose> LookProducts() 
         {

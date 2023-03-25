@@ -144,7 +144,7 @@ namespace DB_course.Tests
             _unitOfWorkMock.Setup(u => u.InventoryProductRepository).Returns(mockPersonRepository.Object);
 
 
-            _unitOfWorkMock.Setup(x => x.ProductRepository.Get("1")).Returns(new List<Product>());
+            _unitOfWorkMock.Setup(x => x.ProductRepository.Get("1")).Returns(new List<Product>() { });
             _unitOfWorkMock.Setup(x => x.PlaceofObjectRepository.GetList()).Returns(new List<PlaceofObject> { placeOfObject1, placeOfObject2, placeOfObject3 });
 
             WarehouseAdminModel _warehouseAdminModel = new WarehouseAdminModel(_unitOfWorkMock.Object);
@@ -168,7 +168,8 @@ namespace DB_course.Tests
             {
                 InventoryNumber = 1,
                 ProductId = 1,
-                PlaceId = "1,2,3"
+                PlaceId = "1,2,3",
+                PlaceOfObjectlId = "1,2,3"
             };
 
             var product = new Product
