@@ -87,8 +87,12 @@ namespace DB_course.Models
             newInventory.InventoryNumber = (int)value.InventoryNumber;
             newInventory.ProductId = value.ProductId;
             new DataValidateModel().Validate(newInventory);
-
-            Product? p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id))?.First();
+            Product? p = null;
+            try
+            {
+                p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id))?.First();
+            }
+            catch{ p = null; }
 
             if(p == null)
             {              

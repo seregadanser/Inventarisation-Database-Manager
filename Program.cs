@@ -1,4 +1,4 @@
-//#define Laptop
+#define Laptop
 
 using DB_course.Presenter;
 using DB_course.View;
@@ -38,11 +38,11 @@ namespace DB_course
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            //IMainView view = new MainForm();
-            //new MainPresenter(view, connectionString);
+            IMainView view = new MainForm();
+            new MainPresenter(view, connectionString);
 
-            IUnLoginView view = new UnLoginForm();
-            new UnLoginPresenter(view, connectionString);
+           // IUnLoginView view = new UnLoginForm();
+            //new UnLoginPresenter(view, connectionString);
 
             Application.Run((Form)view);
 
