@@ -94,16 +94,25 @@ namespace DB_course.Models
             }
             catch{ p = null; }
 
-            if(p == null)
-            {              
+            if(p == null )
+            {  
                 newProduct.Value = 1;
                 new DataValidateModel().Validate(newProduct);
                 unitOfWork.ProductRepository.Create(newProduct);
             }
             else
             {
-                p.Value++;
-                unitOfWork.ProductRepository.Update(p);
+                if (p.Name == value.Name && p.DateProduction == value.DateProduction && p.DateCome == value.DateCome)
+                {
+                    p.Value++;
+                    unitOfWork.ProductRepository.Update(p);
+                }
+                else
+                {
+                    newProduct.Value = 1;
+                    new DataValidateModel().Validate(newProduct);
+                    unitOfWork.ProductRepository.Create(newProduct);
+                }
             }
             unitOfWork.ProductRepository.Save();
         

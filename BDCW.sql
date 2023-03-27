@@ -118,7 +118,7 @@ grant select on warehouse2.PlaceofObject to Warehouseman
 grant select on warehouse2.Place to Warehouseman
 
 
-select * from dbo.Persons
+select * from warehouse2.Products
 
 
 --Сотрудник
