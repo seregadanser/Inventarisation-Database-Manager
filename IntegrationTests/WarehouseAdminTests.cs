@@ -12,7 +12,7 @@ using DB_course.Models.CompositModels;
 
 namespace DB_course.Tests
 {
-    public class WarehouseAdminModelTests
+    public class WarehouseAdminModelTestsI
     {
         [Fact]
         public void AddPlace_ValidPlace_AddsPlaceToUnitOfWork()

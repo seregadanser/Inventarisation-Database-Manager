@@ -12,12 +12,12 @@ using Xunit;
 
 namespace DB_course.Tests
 {
-    public class AWarehousemanModelTests
+    public class AWarehousemanModelTestsI
     {
         private Mock<IUnitOfWork> _mockUnitOfWork;
         private AWarehousemanModel _warehousemanModel;
 
-        public AWarehousemanModelTests()
+        public AWarehousemanModelTestsI()
         {
             _mockUnitOfWork = new Mock<IUnitOfWork>();
             _warehousemanModel = new WarehousemanModel(_mockUnitOfWork.Object);

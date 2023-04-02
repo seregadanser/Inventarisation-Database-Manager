@@ -12,7 +12,7 @@ using Xunit;
 
 namespace DB_course.Tests
 {
-    public class AWorkerModelTests
+    public class AWorkerModelTestsI
     {
         [Fact]
         public void DelitUseful_ValidId_DeleteUseful()

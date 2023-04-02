@@ -13,7 +13,7 @@ using DB_course.Models.CompositModels;
 
 namespace DB_course.Tests
 {
-    public class UnLoginTests
+    public class UnLoginTestsI
     {
         [Fact]
         public void LoginFirst()
