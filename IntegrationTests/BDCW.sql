@@ -63,11 +63,11 @@ go
 
 insert into warehouse2.Products values
 (1, 'microscop', 2, null, null),
-(2, 'LUPA', 1, null, null)
+(2, 'LUPA', 2, null, null)
 
 
 insert into warehouse2.InventoryProduct values
-( 1, 1),
+--( 1, 1),
 ( 3, 1),
 ( 23, 2)
 

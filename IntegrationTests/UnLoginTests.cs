@@ -7,7 +7,7 @@ using DB_course.Models.DBModels;
 using DB_course.Repositories;
 using DB_course.Models;
 using Xunit;
-using Moq;
+using Microsoft.EntityFrameworkCore;
 using DB_course.Repositories.DBRepository;
 using DB_course.Models.CompositModels;
 
@@ -19,13 +19,13 @@ namespace DB_course.Tests
         public void LoginFirst()
         {
             // Arrange
-            List<Person> a = new List<Person>();
-            a.Add(new Person() { Password = "1234", Login = "vas", NumberOfCome = 0 });
-            var ui = new Mock<IUnitOfWork>();
-            ui.Setup(a => a.PersonRepository.Get(It.IsAny<string>())).Returns(a);
-            UnLoginModel m = new UnLoginModel(ui.Object);
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer("Server=LAPTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True").Options;
+            IConnection connection = new WarehouseContext(options);
+            UnitOfWork a = new UnitOfWork(new SQLRepositoryAbstractFabric(connection));
+            UnLoginModel m = new UnLoginModel(a);
             // Act
-            State ac = m.Check("vas", "1234");
+            State ac = m.Check("as", "ji");
             // Assert
             Assert.Equal(State.FIRST, ac);
         }
@@ -33,13 +33,13 @@ namespace DB_course.Tests
         public void LoginUnsucces()
         {
             // Arrange
-            List<Person> a = new List<Person>();
-            a.Add(new Person() { Password = "1234", Login = "vas", NumberOfCome = 0 });
-            var ui = new Mock<IUnitOfWork>();
-            ui.Setup(a => a.PersonRepository.Get(It.IsAny<string>())).Returns(a);
-            UnLoginModel m = new UnLoginModel(ui.Object);
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer("Server=LAPTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True").Options;
+            IConnection connection = new WarehouseContext(options);
+            UnitOfWork a = new UnitOfWork(new SQLRepositoryAbstractFabric(connection));
+            UnLoginModel m = new UnLoginModel(a);
             // Act
-            State ac = m.Check("vas", "134");
+            State ac = m.Check("as", "134");
             // Assert
             Assert.Equal(State.INVALID, ac);
         }
@@ -47,11 +47,13 @@ namespace DB_course.Tests
         public void LoginNotFound()
         {
             // Arrange
-            var ui = new Mock<IUnitOfWork>();
-            ui.Setup(a => a.PersonRepository.Get(It.IsAny<string>())).Returns(new List<Person>());
-            UnLoginModel m = new UnLoginModel(ui.Object);
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer("Server=LAPTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True").Options;
+            IConnection connection = new WarehouseContext(options);
+            UnitOfWork a = new UnitOfWork(new SQLRepositoryAbstractFabric(connection));
+            UnLoginModel m = new UnLoginModel(a);
             // Act
-            Action act = () => m.Check("vas", "134");
+            Action act = () => m.Check("vass", "134");
             // Assert
             Exception exception = Assert.Throws<Exception>(act);
             Assert.Equal("Person not found", exception.Message);
