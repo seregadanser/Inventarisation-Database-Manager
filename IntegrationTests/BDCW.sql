@@ -93,7 +93,8 @@ insert into dbo.Persons values
 ( 'as', 'g', 'b','hradmin', '1956-10-25' ,'ji',0)
 
 insert into warehouse2.Useful values
-( 1, 'f', null)
+( 1, 'f', null),
+
 go
 
 

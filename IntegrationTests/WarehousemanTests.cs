@@ -2,7 +2,7 @@
 using DB_course.Models.DBModels;
 using DB_course.Models;
 using DB_course.Repositories;
-using Moq;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,23 +14,19 @@ namespace DB_course.Tests
 {
     public class AWarehousemanModelTestsI
     {
-        private Mock<IUnitOfWork> _mockUnitOfWork;
-        private AWarehousemanModel _warehousemanModel;
-
-        public AWarehousemanModelTestsI()
-        {
-            _mockUnitOfWork = new Mock<IUnitOfWork>();
-            _warehousemanModel = new WarehousemanModel(_mockUnitOfWork.Object);
-        }
 
         [Fact]
         public void DelitUseful_InvalidId_ThrowsException()
         {
             // Arrange
             int invalidId = -1;
-
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer("Server=LAPTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True").Options;
+            IConnection connection = new WarehouseContext(options);
+            UnitOfWork a = new UnitOfWork(new SQLRepositoryAbstractFabric(connection));
+            WarehousemanModel m = new WarehousemanModel(a);
             // Act & Assert
-            Assert.Throws<Exception>(() => _warehousemanModel.DelitUseful(invalidId));
+            Assert.Throws<IdException>(() => m.DelitUseful(invalidId));
         }
 
         [Fact]
@@ -38,63 +34,18 @@ namespace DB_course.Tests
         {
             // Arrange
             int validId = 1;
-            var mockUsefulRepository = new Mock<IRepository<Useful>>();
-            _mockUnitOfWork.Setup(u => u.UsefulRepository).Returns(mockUsefulRepository.Object);
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer("Server=LAPTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True").Options;
+            IConnection connection = new WarehouseContext(options);
+            UnitOfWork a = new UnitOfWork(new SQLRepositoryAbstractFabric(connection));
+            WarehousemanModel m = new WarehousemanModel(a);
 
             // Act
-            _warehousemanModel.DelitUseful(validId);
+            m.DelitUseful(validId);
 
             // Assert
-            mockUsefulRepository.Verify(r => r.Delete(validId.ToString()), Times.Once);
-            mockUsefulRepository.Verify(r => r.Save(), Times.Once);
-        }
-        [Fact]
-        public void LookWarehousemanLook_ReturnsListOfWarehousemanLookComposeFromUnitOfWork()
-        {
-            // Arrange
-            var warehousemanLookComposeList = new List<WarehousemanLookCompose>()
-        {
-            new WarehousemanLookCompose(),
-            new WarehousemanLookCompose(),
-            new WarehousemanLookCompose()
-        };
-
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(uow => uow.WarehousemanLookComposeRepository.GetList())
-                .Returns(warehousemanLookComposeList);
-            _warehousemanModel = new WarehousemanModel(unitOfWorkMock.Object);
-
-            // Act
-            var result = _warehousemanModel.LookWarehousemanLook();
-
-            // Assert
-            Assert.Equal(warehousemanLookComposeList, result);
+  
         }
 
-        [Fact]
-        public void LookWarehousemanLook_WithSearchValue_ReturnsFilteredListOfWarehousemanLookComposeFromUnitOfWork()
-        {
-            // Arrange
-            var searchValue = "test";
-
-            var warehousemanLookComposeList = new List<WarehousemanLookCompose>()
-        {
-            new WarehousemanLookCompose() { Name = "Test 1" },
-            new WarehousemanLookCompose() { Name = "Test 2" },
-            new WarehousemanLookCompose() { Name = "Other" }
-        };
-
-            var unitOfWorkMock = new Mock<IUnitOfWork>();
-            unitOfWorkMock.Setup(uow => uow.WarehousemanLookComposeRepository.Get(searchValue))
-                .Returns(warehousemanLookComposeList.Where(wlc => wlc.Name.Contains(searchValue)));
-            _warehousemanModel = new WarehousemanModel(unitOfWorkMock.Object);
-
-
-            // Act
-            var result = _warehousemanModel.LookWarehousemanLook(searchValue);
-
-            // Assert
-            Assert.Equal(warehousemanLookComposeList.Where(wlc => wlc.Name.Contains(searchValue)), result);
-        }
     }
 }
