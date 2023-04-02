@@ -25,7 +25,9 @@ namespace DB_course.Repositories.DBRepository
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            Place book = db.Places.Find(Convert.ToInt32(id));
+            if (book == null) throw new Exception("person not Exists");
+            db.Places.Remove(book);
         }
 
         public void Dispose()
@@ -35,7 +37,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Place> Get(string value)
         {
-            throw new NotImplementedException();
+            return db.Places.ToList();
         }
 
         public IEnumerable<Place> GetList()
@@ -45,7 +47,7 @@ namespace DB_course.Repositories.DBRepository
 
         public void Save()
         {
-            throw new NotImplementedException();
+            db.SaveChanges();
         }
 
         public void Update(Place item)
