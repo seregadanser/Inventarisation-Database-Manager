@@ -80,12 +80,12 @@ insert into warehouse2.Place values
 
 insert into warehouse2.PlaceofObject values
 (1,1,23),
-(2,2,1),
-(3,3,1),
+--(2,2,1),
+--(3,3,1),
 (4,4,3),
 (5,5,3)
 
-
+select * from warehouse2.Place
 
 insert into dbo.Persons values
 ( '123', 'b', 'm','admin', '1912-10-25' ,'va',0),

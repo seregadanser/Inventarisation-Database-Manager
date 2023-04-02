@@ -23,7 +23,7 @@ namespace DB_course.Tests
             IConnection connection = new WarehouseContext(options);
             UnitOfWork a = new UnitOfWork(new SQLRepositoryAbstractFabric(connection));
 
-            var place = new Place { Id = 1, NumberStay = 2, NumberLayer = 3, Size = 4 };
+            var place = new Place { Id = 98, NumberStay = 2, NumberLayer = 9, Size = 4 };
 
             var model = new WarehouseAdminModel(a);
             // Act
@@ -31,7 +31,7 @@ namespace DB_course.Tests
 
             // Assert
 
-            Place p = model.GetPlace(Convert.ToString(1)).First();
+            Place p = model.GetPlace(Convert.ToString(98)).First();
 
             Assert.NotNull(p);
 
@@ -49,7 +49,7 @@ namespace DB_course.Tests
             var invalidId = 0;
 
             // Act + Assert
-            Assert.Throws<Exception>(() => model.RemovePlace(invalidId));
+            Assert.Throws<IdException>(() => model.RemovePlace(invalidId));
 
         }
 
@@ -58,7 +58,7 @@ namespace DB_course.Tests
         {
             // Arrange
           
-            var validId = 1;
+            var validId = 98;
             var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
             var options = optionsBuilder.UseSqlServer("Server=LAPTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True").Options;
             IConnection connection = new WarehouseContext(options);
@@ -72,7 +72,7 @@ namespace DB_course.Tests
             bool flag = true;
             foreach (Place ll in l)
             {
-                if (ll.Id == 1)
+                if (ll.Id == 98)
                 { flag = false; break; }
 
             }
@@ -93,7 +93,7 @@ namespace DB_course.Tests
             var newPlace = new Place { Id = 1, NumberStay = 2, NumberLayer = 3, Size = 4 };
 
             // Act + Assert
-            Assert.Throws<Exception>(() => model.UpdatePlace(invalidId, newPlace));
+            Assert.Throws<IdException>(() => model.UpdatePlace(invalidId, newPlace));
         }
 
         [Fact]
@@ -105,8 +105,8 @@ namespace DB_course.Tests
                 DateProduction = DateTime.Today,
                 DateCome = DateTime.Today,
                 Name = "TestProduct",
-                ProductId = 1,
-                InventoryNumber = 1,
+                ProductId = 4,
+                InventoryNumber = 89,
                 PlaceId = "1,2,3"
             };
             var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
