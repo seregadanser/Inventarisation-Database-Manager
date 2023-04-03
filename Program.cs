@@ -1,4 +1,4 @@
-//#define Laptop
+#define Laptop
 #define Test
 
 using DB_course.Presenter;

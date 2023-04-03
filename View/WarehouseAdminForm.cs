@@ -24,7 +24,7 @@ namespace DB_course.View
             InitializeComponent();
             AssociateAndRaiseViewEvents();
             tabControl1.TabPages.Remove(addProductPage);
-
+            tabControl1.TabPages.Remove(PlaceComponent);
         }
         private void AssociateAndRaiseViewEvents()
         {
@@ -40,6 +40,7 @@ namespace DB_course.View
             {
                 AddNewEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(productsPage);
+                tabControl1.TabPages.Remove(PlacePage);
                 tabControl1.TabPages.Add(addProductPage);
             };
             //Edit
@@ -52,6 +53,9 @@ namespace DB_course.View
                 {
                     tabControl1.TabPages.Remove(addProductPage);
                     tabControl1.TabPages.Add(productsPage);
+                    tabControl1.TabPages.Add(PlacePage);
+
+
                 }
                 MessageBox.Show(Message);
             };
@@ -61,6 +65,7 @@ namespace DB_course.View
                 CancelEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(addProductPage);
                 tabControl1.TabPages.Add(productsPage);
+                tabControl1.TabPages.Add(PlacePage);
             };
             //Delete
             buttonDelete.Click += delegate

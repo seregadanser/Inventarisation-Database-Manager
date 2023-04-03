@@ -50,10 +50,25 @@
             this.textDateCome = new System.Windows.Forms.TextBox();
             this.textProductName = new System.Windows.Forms.TextBox();
             this.textProductId = new System.Windows.Forms.TextBox();
+            this.PlacePage = new System.Windows.Forms.TabPage();
+            this.PlaceComponent = new System.Windows.Forms.TabPage();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.searchPlaceTextBox = new System.Windows.Forms.TextBox();
+            this.searchPlaceBtn = new System.Windows.Forms.Button();
+            this.addPlaceBtn = new System.Windows.Forms.Button();
+            this.updatePlaceBtn = new System.Windows.Forms.Button();
+            this.deletePlaceBtn = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.productsPage.SuspendLayout();
             this.addProductPage.SuspendLayout();
+            this.PlacePage.SuspendLayout();
+            this.PlaceComponent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -62,11 +77,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(5, 32);
+            this.dataGridView1.Location = new System.Drawing.Point(7, 53);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(541, 269);
+            this.dataGridView1.Size = new System.Drawing.Size(811, 448);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView1_RowsAdded);
@@ -74,10 +90,9 @@
             // buttonDelete
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonDelete.Location = new System.Drawing.Point(552, 33);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonDelete.Location = new System.Drawing.Point(827, 55);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 27);
+            this.buttonDelete.Size = new System.Drawing.Size(107, 45);
             this.buttonDelete.TabIndex = 1;
             this.buttonDelete.Text = "Delete";
             this.buttonDelete.UseVisualStyleBackColor = true;
@@ -90,11 +105,12 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabControl1.Controls.Add(this.productsPage);
             this.tabControl1.Controls.Add(this.addProductPage);
-            this.tabControl1.Location = new System.Drawing.Point(32, 15);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
+            this.tabControl1.Controls.Add(this.PlacePage);
+            this.tabControl1.Controls.Add(this.PlaceComponent);
+            this.tabControl1.Location = new System.Drawing.Point(8, 25);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(646, 365);
+            this.tabControl1.Size = new System.Drawing.Size(961, 608);
             this.tabControl1.TabIndex = 2;
             // 
             // productsPage
@@ -104,11 +120,10 @@
             this.productsPage.Controls.Add(this.textSearch);
             this.productsPage.Controls.Add(this.dataGridView1);
             this.productsPage.Controls.Add(this.buttonDelete);
-            this.productsPage.Location = new System.Drawing.Point(4, 24);
-            this.productsPage.Margin = new System.Windows.Forms.Padding(2);
+            this.productsPage.Location = new System.Drawing.Point(4, 34);
             this.productsPage.Name = "productsPage";
-            this.productsPage.Padding = new System.Windows.Forms.Padding(2);
-            this.productsPage.Size = new System.Drawing.Size(638, 337);
+            this.productsPage.Padding = new System.Windows.Forms.Padding(3);
+            this.productsPage.Size = new System.Drawing.Size(953, 570);
             this.productsPage.TabIndex = 0;
             this.productsPage.Text = "productsPage";
             this.productsPage.UseVisualStyleBackColor = true;
@@ -116,9 +131,10 @@
             // buttonAdd
             // 
             this.buttonAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonAdd.Location = new System.Drawing.Point(552, 65);
+            this.buttonAdd.Location = new System.Drawing.Point(827, 108);
+            this.buttonAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(75, 23);
+            this.buttonAdd.Size = new System.Drawing.Size(107, 38);
             this.buttonAdd.TabIndex = 4;
             this.buttonAdd.Text = "Add";
             this.buttonAdd.UseVisualStyleBackColor = true;
@@ -126,9 +142,10 @@
             // buttonSearch
             // 
             this.buttonSearch.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.buttonSearch.Location = new System.Drawing.Point(552, 5);
+            this.buttonSearch.Location = new System.Drawing.Point(827, 8);
+            this.buttonSearch.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSearch.Name = "buttonSearch";
-            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.Size = new System.Drawing.Size(107, 38);
             this.buttonSearch.TabIndex = 3;
             this.buttonSearch.Text = "Search";
             this.buttonSearch.UseVisualStyleBackColor = true;
@@ -137,10 +154,9 @@
             // 
             this.textSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textSearch.Location = new System.Drawing.Point(5, 4);
-            this.textSearch.Margin = new System.Windows.Forms.Padding(2);
+            this.textSearch.Location = new System.Drawing.Point(7, 7);
             this.textSearch.Name = "textSearch";
-            this.textSearch.Size = new System.Drawing.Size(541, 23);
+            this.textSearch.Size = new System.Drawing.Size(809, 31);
             this.textSearch.TabIndex = 2;
             // 
             // addProductPage
@@ -159,11 +175,10 @@
             this.addProductPage.Controls.Add(this.textDateCome);
             this.addProductPage.Controls.Add(this.textProductName);
             this.addProductPage.Controls.Add(this.textProductId);
-            this.addProductPage.Location = new System.Drawing.Point(4, 24);
-            this.addProductPage.Margin = new System.Windows.Forms.Padding(2);
+            this.addProductPage.Location = new System.Drawing.Point(4, 34);
             this.addProductPage.Name = "addProductPage";
-            this.addProductPage.Padding = new System.Windows.Forms.Padding(2);
-            this.addProductPage.Size = new System.Drawing.Size(730, 337);
+            this.addProductPage.Padding = new System.Windows.Forms.Padding(3);
+            this.addProductPage.Size = new System.Drawing.Size(915, 570);
             this.addProductPage.TabIndex = 1;
             this.addProductPage.Text = "addProductPage";
             this.addProductPage.UseVisualStyleBackColor = true;
@@ -171,18 +186,20 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(314, 257);
+            this.buttonCancel.Location = new System.Drawing.Point(449, 428);
+            this.buttonCancel.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonCancel.Name = "buttonCancel";
-            this.buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel.Size = new System.Drawing.Size(107, 38);
             this.buttonCancel.TabIndex = 13;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             // 
             // buttonSave
             // 
-            this.buttonSave.Location = new System.Drawing.Point(182, 257);
+            this.buttonSave.Location = new System.Drawing.Point(260, 428);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(75, 23);
+            this.buttonSave.Size = new System.Drawing.Size(107, 38);
             this.buttonSave.TabIndex = 12;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -190,30 +207,27 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(196, 157);
-            this.label6.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label6.Location = new System.Drawing.Point(280, 262);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(45, 15);
+            this.label6.Size = new System.Drawing.Size(68, 25);
             this.label6.TabIndex = 11;
             this.label6.Text = "PlaceId";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(140, 130);
-            this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label5.Location = new System.Drawing.Point(200, 217);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 15);
+            this.label5.Size = new System.Drawing.Size(152, 25);
             this.label5.TabIndex = 10;
             this.label5.Text = "InventoryNumber";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(178, 76);
-            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label4.Location = new System.Drawing.Point(254, 127);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 15);
+            this.label4.Size = new System.Drawing.Size(96, 25);
             this.label4.TabIndex = 9;
             this.label4.Text = "DateCome";
             this.label4.Click += new System.EventHandler(this.label4_Click);
@@ -221,87 +235,188 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(151, 103);
-            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label3.Location = new System.Drawing.Point(216, 172);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 15);
+            this.label3.Size = new System.Drawing.Size(136, 25);
             this.label3.TabIndex = 9;
             this.label3.Text = "DateProduction";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(160, 49);
-            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label2.Location = new System.Drawing.Point(229, 82);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(81, 15);
+            this.label2.Size = new System.Drawing.Size(121, 25);
             this.label2.TabIndex = 8;
             this.label2.Text = "ProductName";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(182, 22);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Location = new System.Drawing.Point(260, 37);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 15);
+            this.label1.Size = new System.Drawing.Size(90, 25);
             this.label1.TabIndex = 7;
             this.label1.Text = "ProductId";
             // 
             // textPlaceId
             // 
-            this.textPlaceId.Location = new System.Drawing.Point(245, 149);
-            this.textPlaceId.Margin = new System.Windows.Forms.Padding(2);
+            this.textPlaceId.Location = new System.Drawing.Point(350, 248);
             this.textPlaceId.Name = "textPlaceId";
-            this.textPlaceId.Size = new System.Drawing.Size(106, 23);
+            this.textPlaceId.Size = new System.Drawing.Size(150, 31);
             this.textPlaceId.TabIndex = 5;
             // 
             // textInventoryNumber
             // 
-            this.textInventoryNumber.Location = new System.Drawing.Point(245, 122);
-            this.textInventoryNumber.Margin = new System.Windows.Forms.Padding(2);
+            this.textInventoryNumber.Location = new System.Drawing.Point(350, 203);
             this.textInventoryNumber.Name = "textInventoryNumber";
-            this.textInventoryNumber.Size = new System.Drawing.Size(106, 23);
+            this.textInventoryNumber.Size = new System.Drawing.Size(150, 31);
             this.textInventoryNumber.TabIndex = 4;
             // 
             // textDateProduction
             // 
-            this.textDateProduction.Location = new System.Drawing.Point(245, 95);
-            this.textDateProduction.Margin = new System.Windows.Forms.Padding(2);
+            this.textDateProduction.Location = new System.Drawing.Point(350, 158);
             this.textDateProduction.Name = "textDateProduction";
-            this.textDateProduction.Size = new System.Drawing.Size(106, 23);
+            this.textDateProduction.Size = new System.Drawing.Size(150, 31);
             this.textDateProduction.TabIndex = 3;
             // 
             // textDateCome
             // 
-            this.textDateCome.Location = new System.Drawing.Point(245, 68);
-            this.textDateCome.Margin = new System.Windows.Forms.Padding(2);
+            this.textDateCome.Location = new System.Drawing.Point(350, 113);
             this.textDateCome.Name = "textDateCome";
-            this.textDateCome.Size = new System.Drawing.Size(106, 23);
+            this.textDateCome.Size = new System.Drawing.Size(150, 31);
             this.textDateCome.TabIndex = 2;
             // 
             // textProductName
             // 
-            this.textProductName.Location = new System.Drawing.Point(245, 41);
-            this.textProductName.Margin = new System.Windows.Forms.Padding(2);
+            this.textProductName.Location = new System.Drawing.Point(350, 68);
             this.textProductName.Name = "textProductName";
-            this.textProductName.Size = new System.Drawing.Size(106, 23);
+            this.textProductName.Size = new System.Drawing.Size(150, 31);
             this.textProductName.TabIndex = 1;
             // 
             // textProductId
             // 
-            this.textProductId.Location = new System.Drawing.Point(245, 14);
-            this.textProductId.Margin = new System.Windows.Forms.Padding(2);
+            this.textProductId.Location = new System.Drawing.Point(350, 23);
             this.textProductId.Name = "textProductId";
-            this.textProductId.Size = new System.Drawing.Size(106, 23);
+            this.textProductId.Size = new System.Drawing.Size(150, 31);
             this.textProductId.TabIndex = 0;
+            // 
+            // PlacePage
+            // 
+            this.PlacePage.Controls.Add(this.deletePlaceBtn);
+            this.PlacePage.Controls.Add(this.updatePlaceBtn);
+            this.PlacePage.Controls.Add(this.addPlaceBtn);
+            this.PlacePage.Controls.Add(this.searchPlaceBtn);
+            this.PlacePage.Controls.Add(this.searchPlaceTextBox);
+            this.PlacePage.Controls.Add(this.dataGridView2);
+            this.PlacePage.Location = new System.Drawing.Point(4, 34);
+            this.PlacePage.Name = "PlacePage";
+            this.PlacePage.Size = new System.Drawing.Size(953, 570);
+            this.PlacePage.TabIndex = 2;
+            this.PlacePage.Text = "PlacePage";
+            this.PlacePage.UseVisualStyleBackColor = true;
+            // 
+            // PlaceComponent
+            // 
+            this.PlaceComponent.Controls.Add(this.textBox5);
+            this.PlaceComponent.Controls.Add(this.textBox4);
+            this.PlaceComponent.Controls.Add(this.textBox3);
+            this.PlaceComponent.Controls.Add(this.textBox2);
+            this.PlaceComponent.Location = new System.Drawing.Point(4, 34);
+            this.PlaceComponent.Name = "PlaceComponent";
+            this.PlaceComponent.Size = new System.Drawing.Size(953, 570);
+            this.PlaceComponent.TabIndex = 3;
+            this.PlaceComponent.Text = "PlaceComponent";
+            this.PlaceComponent.UseVisualStyleBackColor = true;
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(3, 40);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersWidth = 62;
+            this.dataGridView2.RowTemplate.Height = 33;
+            this.dataGridView2.Size = new System.Drawing.Size(727, 526);
+            this.dataGridView2.TabIndex = 0;
+            // 
+            // searchPlaceTextBox
+            // 
+            this.searchPlaceTextBox.Location = new System.Drawing.Point(3, 3);
+            this.searchPlaceTextBox.Name = "searchPlaceTextBox";
+            this.searchPlaceTextBox.Size = new System.Drawing.Size(727, 31);
+            this.searchPlaceTextBox.TabIndex = 1;
+            // 
+            // searchPlaceBtn
+            // 
+            this.searchPlaceBtn.Location = new System.Drawing.Point(736, 3);
+            this.searchPlaceBtn.Name = "searchPlaceBtn";
+            this.searchPlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.searchPlaceBtn.TabIndex = 2;
+            this.searchPlaceBtn.Text = "Search";
+            this.searchPlaceBtn.UseVisualStyleBackColor = true;
+            // 
+            // addPlaceBtn
+            // 
+            this.addPlaceBtn.Location = new System.Drawing.Point(736, 43);
+            this.addPlaceBtn.Name = "addPlaceBtn";
+            this.addPlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.addPlaceBtn.TabIndex = 3;
+            this.addPlaceBtn.Text = "Add";
+            this.addPlaceBtn.UseVisualStyleBackColor = true;
+            // 
+            // updatePlaceBtn
+            // 
+            this.updatePlaceBtn.Location = new System.Drawing.Point(736, 83);
+            this.updatePlaceBtn.Name = "updatePlaceBtn";
+            this.updatePlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.updatePlaceBtn.TabIndex = 4;
+            this.updatePlaceBtn.Text = "Update";
+            this.updatePlaceBtn.UseVisualStyleBackColor = true;
+            // 
+            // deletePlaceBtn
+            // 
+            this.deletePlaceBtn.Location = new System.Drawing.Point(736, 123);
+            this.deletePlaceBtn.Name = "deletePlaceBtn";
+            this.deletePlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.deletePlaceBtn.TabIndex = 5;
+            this.deletePlaceBtn.Text = "Delete";
+            this.deletePlaceBtn.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(215, 149);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(150, 31);
+            this.textBox2.TabIndex = 0;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(454, 153);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(150, 31);
+            this.textBox3.TabIndex = 1;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(210, 259);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(150, 31);
+            this.textBox4.TabIndex = 2;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(478, 308);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(150, 31);
+            this.textBox5.TabIndex = 3;
             // 
             // WarehouseAdminForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(683, 382);
+            this.ClientSize = new System.Drawing.Size(976, 637);
             this.Controls.Add(this.tabControl1);
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "WarehouseAdminForm";
             this.Text = "WarehouseAdminModel";
             this.Load += new System.EventHandler(this.WarehouseAdminForm_Load);
@@ -311,6 +426,11 @@
             this.productsPage.PerformLayout();
             this.addProductPage.ResumeLayout(false);
             this.addProductPage.PerformLayout();
+            this.PlacePage.ResumeLayout(false);
+            this.PlacePage.PerformLayout();
+            this.PlaceComponent.ResumeLayout(false);
+            this.PlaceComponent.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -339,5 +459,17 @@
         private Button buttonSave;
         private Button buttonAdd;
         private Button buttonSearch;
+        private TabPage PlacePage;
+        private TabPage PlaceComponent;
+        private Button searchPlaceBtn;
+        private TextBox searchPlaceTextBox;
+        private DataGridView dataGridView2;
+        private Button deletePlaceBtn;
+        private Button updatePlaceBtn;
+        private Button addPlaceBtn;
+        private TextBox textBox5;
+        private TextBox textBox4;
+        private TextBox textBox3;
+        private TextBox textBox2;
     }
 }
