@@ -245,5 +245,10 @@ namespace DB_course.View
                 dataGridView1.Columns[7].Visible = false;
             }
         }
+
+        private void PlaceComponent_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
