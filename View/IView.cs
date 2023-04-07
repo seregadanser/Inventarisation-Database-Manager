@@ -70,6 +70,11 @@ namespace DB_course.View
         public string DateProduction { get; set; }
         public int InventoryNumber { get; set; }
 
+        public string PlaceId1 { get; set; }
+        public string PlaceSize { get; set; }
+        public string PlaceLayer { get; set; }
+        public string PlaceStay { get; set; }
+
 
         event EventHandler SearchEvent;
         event EventHandler AddNewEvent;
@@ -77,6 +82,13 @@ namespace DB_course.View
         event EventHandler DeleteEvent;
         event EventHandler SaveEvent;
         event EventHandler CancelEvent;
+
+        event EventHandler SearchPlaceEvent;
+        event EventHandler AddNewPlaceEvent;
+        event EventHandler EditPlaceEvent;
+        event EventHandler DeletePlaceEvent;
+        event EventHandler SavePlaceEvent;
+        event EventHandler CancelPlaceEvent;
 
         void SetPlaceListBindingSource(BindingSource WorkerList);
         void SetProductListBindingSource(BindingSource WorkerList);

@@ -51,24 +51,30 @@
             this.textProductName = new System.Windows.Forms.TextBox();
             this.textProductId = new System.Windows.Forms.TextBox();
             this.PlacePage = new System.Windows.Forms.TabPage();
-            this.PlaceComponent = new System.Windows.Forms.TabPage();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.searchPlaceTextBox = new System.Windows.Forms.TextBox();
-            this.searchPlaceBtn = new System.Windows.Forms.Button();
-            this.addPlaceBtn = new System.Windows.Forms.Button();
-            this.updatePlaceBtn = new System.Windows.Forms.Button();
             this.deletePlaceBtn = new System.Windows.Forms.Button();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.updatePlaceBtn = new System.Windows.Forms.Button();
+            this.addPlaceBtn = new System.Windows.Forms.Button();
+            this.searchPlaceBtn = new System.Windows.Forms.Button();
+            this.searchPlaceTextBox = new System.Windows.Forms.TextBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.PlaceComponent = new System.Windows.Forms.TabPage();
+            this.cancelPlaceBtn = new System.Windows.Forms.Button();
+            this.savePlaceBtn = new System.Windows.Forms.Button();
+            this.StayPlaceText = new System.Windows.Forms.TextBox();
+            this.sizePlaceText = new System.Windows.Forms.TextBox();
+            this.laerPlaceText = new System.Windows.Forms.TextBox();
+            this.placeIdText = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.Stay = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.productsPage.SuspendLayout();
             this.addProductPage.SuspendLayout();
             this.PlacePage.SuspendLayout();
-            this.PlaceComponent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.PlaceComponent.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -178,7 +184,7 @@
             this.addProductPage.Location = new System.Drawing.Point(4, 34);
             this.addProductPage.Name = "addProductPage";
             this.addProductPage.Padding = new System.Windows.Forms.Padding(3);
-            this.addProductPage.Size = new System.Drawing.Size(915, 570);
+            this.addProductPage.Size = new System.Drawing.Size(953, 570);
             this.addProductPage.TabIndex = 1;
             this.addProductPage.Text = "addProductPage";
             this.addProductPage.UseVisualStyleBackColor = true;
@@ -316,18 +322,48 @@
             this.PlacePage.Text = "PlacePage";
             this.PlacePage.UseVisualStyleBackColor = true;
             // 
-            // PlaceComponent
+            // deletePlaceBtn
             // 
-            this.PlaceComponent.Controls.Add(this.textBox5);
-            this.PlaceComponent.Controls.Add(this.textBox4);
-            this.PlaceComponent.Controls.Add(this.textBox3);
-            this.PlaceComponent.Controls.Add(this.textBox2);
-            this.PlaceComponent.Location = new System.Drawing.Point(4, 34);
-            this.PlaceComponent.Name = "PlaceComponent";
-            this.PlaceComponent.Size = new System.Drawing.Size(953, 570);
-            this.PlaceComponent.TabIndex = 3;
-            this.PlaceComponent.Text = "PlaceComponent";
-            this.PlaceComponent.UseVisualStyleBackColor = true;
+            this.deletePlaceBtn.Location = new System.Drawing.Point(736, 123);
+            this.deletePlaceBtn.Name = "deletePlaceBtn";
+            this.deletePlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.deletePlaceBtn.TabIndex = 5;
+            this.deletePlaceBtn.Text = "Delete";
+            this.deletePlaceBtn.UseVisualStyleBackColor = true;
+            // 
+            // updatePlaceBtn
+            // 
+            this.updatePlaceBtn.Location = new System.Drawing.Point(736, 83);
+            this.updatePlaceBtn.Name = "updatePlaceBtn";
+            this.updatePlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.updatePlaceBtn.TabIndex = 4;
+            this.updatePlaceBtn.Text = "Update";
+            this.updatePlaceBtn.UseVisualStyleBackColor = true;
+            // 
+            // addPlaceBtn
+            // 
+            this.addPlaceBtn.Location = new System.Drawing.Point(736, 43);
+            this.addPlaceBtn.Name = "addPlaceBtn";
+            this.addPlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.addPlaceBtn.TabIndex = 3;
+            this.addPlaceBtn.Text = "Add";
+            this.addPlaceBtn.UseVisualStyleBackColor = true;
+            // 
+            // searchPlaceBtn
+            // 
+            this.searchPlaceBtn.Location = new System.Drawing.Point(736, 3);
+            this.searchPlaceBtn.Name = "searchPlaceBtn";
+            this.searchPlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.searchPlaceBtn.TabIndex = 2;
+            this.searchPlaceBtn.Text = "Search";
+            this.searchPlaceBtn.UseVisualStyleBackColor = true;
+            // 
+            // searchPlaceTextBox
+            // 
+            this.searchPlaceTextBox.Location = new System.Drawing.Point(3, 3);
+            this.searchPlaceTextBox.Name = "searchPlaceTextBox";
+            this.searchPlaceTextBox.Size = new System.Drawing.Size(727, 31);
+            this.searchPlaceTextBox.TabIndex = 1;
             // 
             // dataGridView2
             // 
@@ -339,76 +375,106 @@
             this.dataGridView2.Size = new System.Drawing.Size(727, 526);
             this.dataGridView2.TabIndex = 0;
             // 
-            // searchPlaceTextBox
+            // PlaceComponent
             // 
-            this.searchPlaceTextBox.Location = new System.Drawing.Point(3, 3);
-            this.searchPlaceTextBox.Name = "searchPlaceTextBox";
-            this.searchPlaceTextBox.Size = new System.Drawing.Size(727, 31);
-            this.searchPlaceTextBox.TabIndex = 1;
+            this.PlaceComponent.Controls.Add(this.Stay);
+            this.PlaceComponent.Controls.Add(this.label9);
+            this.PlaceComponent.Controls.Add(this.label8);
+            this.PlaceComponent.Controls.Add(this.label7);
+            this.PlaceComponent.Controls.Add(this.cancelPlaceBtn);
+            this.PlaceComponent.Controls.Add(this.savePlaceBtn);
+            this.PlaceComponent.Controls.Add(this.StayPlaceText);
+            this.PlaceComponent.Controls.Add(this.sizePlaceText);
+            this.PlaceComponent.Controls.Add(this.laerPlaceText);
+            this.PlaceComponent.Controls.Add(this.placeIdText);
+            this.PlaceComponent.Location = new System.Drawing.Point(4, 34);
+            this.PlaceComponent.Name = "PlaceComponent";
+            this.PlaceComponent.Size = new System.Drawing.Size(953, 570);
+            this.PlaceComponent.TabIndex = 3;
+            this.PlaceComponent.Text = "PlaceComponent";
+            this.PlaceComponent.UseVisualStyleBackColor = true;
             // 
-            // searchPlaceBtn
+            // cancelPlaceBtn
             // 
-            this.searchPlaceBtn.Location = new System.Drawing.Point(736, 3);
-            this.searchPlaceBtn.Name = "searchPlaceBtn";
-            this.searchPlaceBtn.Size = new System.Drawing.Size(112, 34);
-            this.searchPlaceBtn.TabIndex = 2;
-            this.searchPlaceBtn.Text = "Search";
-            this.searchPlaceBtn.UseVisualStyleBackColor = true;
+            this.cancelPlaceBtn.Location = new System.Drawing.Point(463, 378);
+            this.cancelPlaceBtn.Name = "cancelPlaceBtn";
+            this.cancelPlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.cancelPlaceBtn.TabIndex = 5;
+            this.cancelPlaceBtn.Text = "Cancel";
+            this.cancelPlaceBtn.UseVisualStyleBackColor = true;
             // 
-            // addPlaceBtn
+            // savePlaceBtn
             // 
-            this.addPlaceBtn.Location = new System.Drawing.Point(736, 43);
-            this.addPlaceBtn.Name = "addPlaceBtn";
-            this.addPlaceBtn.Size = new System.Drawing.Size(112, 34);
-            this.addPlaceBtn.TabIndex = 3;
-            this.addPlaceBtn.Text = "Add";
-            this.addPlaceBtn.UseVisualStyleBackColor = true;
+            this.savePlaceBtn.Location = new System.Drawing.Point(246, 378);
+            this.savePlaceBtn.Name = "savePlaceBtn";
+            this.savePlaceBtn.Size = new System.Drawing.Size(112, 34);
+            this.savePlaceBtn.TabIndex = 4;
+            this.savePlaceBtn.Text = "Save";
+            this.savePlaceBtn.UseVisualStyleBackColor = true;
             // 
-            // updatePlaceBtn
+            // StayPlaceText
             // 
-            this.updatePlaceBtn.Location = new System.Drawing.Point(736, 83);
-            this.updatePlaceBtn.Name = "updatePlaceBtn";
-            this.updatePlaceBtn.Size = new System.Drawing.Size(112, 34);
-            this.updatePlaceBtn.TabIndex = 4;
-            this.updatePlaceBtn.Text = "Update";
-            this.updatePlaceBtn.UseVisualStyleBackColor = true;
+            this.StayPlaceText.Location = new System.Drawing.Point(517, 273);
+            this.StayPlaceText.Name = "StayPlaceText";
+            this.StayPlaceText.Size = new System.Drawing.Size(150, 31);
+            this.StayPlaceText.TabIndex = 3;
             // 
-            // deletePlaceBtn
+            // sizePlaceText
             // 
-            this.deletePlaceBtn.Location = new System.Drawing.Point(736, 123);
-            this.deletePlaceBtn.Name = "deletePlaceBtn";
-            this.deletePlaceBtn.Size = new System.Drawing.Size(112, 34);
-            this.deletePlaceBtn.TabIndex = 5;
-            this.deletePlaceBtn.Text = "Delete";
-            this.deletePlaceBtn.UseVisualStyleBackColor = true;
+            this.sizePlaceText.Location = new System.Drawing.Point(210, 259);
+            this.sizePlaceText.Name = "sizePlaceText";
+            this.sizePlaceText.Size = new System.Drawing.Size(150, 31);
+            this.sizePlaceText.TabIndex = 2;
             // 
-            // textBox2
+            // laerPlaceText
             // 
-            this.textBox2.Location = new System.Drawing.Point(215, 149);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(150, 31);
-            this.textBox2.TabIndex = 0;
+            this.laerPlaceText.Location = new System.Drawing.Point(517, 156);
+            this.laerPlaceText.Name = "laerPlaceText";
+            this.laerPlaceText.Size = new System.Drawing.Size(150, 31);
+            this.laerPlaceText.TabIndex = 1;
             // 
-            // textBox3
+            // placeIdText
             // 
-            this.textBox3.Location = new System.Drawing.Point(454, 153);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(150, 31);
-            this.textBox3.TabIndex = 1;
+            this.placeIdText.Location = new System.Drawing.Point(215, 149);
+            this.placeIdText.Name = "placeIdText";
+            this.placeIdText.Size = new System.Drawing.Size(150, 31);
+            this.placeIdText.TabIndex = 0;
             // 
-            // textBox4
+            // label7
             // 
-            this.textBox4.Location = new System.Drawing.Point(210, 259);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(150, 31);
-            this.textBox4.TabIndex = 2;
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(95, 150);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(28, 25);
+            this.label7.TabIndex = 6;
+            this.label7.Text = "Id";
             // 
-            // textBox5
+            // label8
             // 
-            this.textBox5.Location = new System.Drawing.Point(478, 308);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(150, 31);
-            this.textBox5.TabIndex = 3;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(110, 259);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(43, 25);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Size";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(442, 159);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(53, 25);
+            this.label9.TabIndex = 8;
+            this.label9.Text = "Layer";
+            // 
+            // Stay
+            // 
+            this.Stay.AutoSize = true;
+            this.Stay.Location = new System.Drawing.Point(442, 273);
+            this.Stay.Name = "Stay";
+            this.Stay.Size = new System.Drawing.Size(45, 25);
+            this.Stay.TabIndex = 9;
+            this.Stay.Text = "Stay";
             // 
             // WarehouseAdminForm
             // 
@@ -428,9 +494,9 @@
             this.addProductPage.PerformLayout();
             this.PlacePage.ResumeLayout(false);
             this.PlacePage.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.PlaceComponent.ResumeLayout(false);
             this.PlaceComponent.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -467,9 +533,15 @@
         private Button deletePlaceBtn;
         private Button updatePlaceBtn;
         private Button addPlaceBtn;
-        private TextBox textBox5;
-        private TextBox textBox4;
-        private TextBox textBox3;
-        private TextBox textBox2;
+        private TextBox StayPlaceText;
+        private TextBox sizePlaceText;
+        private TextBox laerPlaceText;
+        private TextBox placeIdText;
+        private Button cancelPlaceBtn;
+        private Button savePlaceBtn;
+        private Label Stay;
+        private Label label9;
+        private Label label8;
+        private Label label7;
     }
 }

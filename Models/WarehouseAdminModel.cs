@@ -28,6 +28,7 @@ namespace DB_course.Models
         }
         public void RemovePlace(int key)
         {
+            //добавть проверку на нахождение в place of object
             if(key <= 0)
                 throw new IdException("Invalid Id");
             unitOfWork.PlaceRepository.Delete(Convert.ToString(key));

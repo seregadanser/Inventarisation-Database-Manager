@@ -35,6 +35,7 @@ namespace DB_course.View
                 if(e.KeyCode == Keys.Enter)
                     SearchEvent?.Invoke(this, EventArgs.Empty);
             };
+            searchPlaceBtn.Click += delegate { SearchPlaceEvent?.Invoke(this, EventArgs.Empty); };
             //Add new
             buttonAdd.Click += delegate
             {
@@ -43,8 +44,27 @@ namespace DB_course.View
                 tabControl1.TabPages.Remove(PlacePage);
                 tabControl1.TabPages.Add(addProductPage);
             };
+            addPlaceBtn.Click += delegate
+            {
+                AddNewPlaceEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(productsPage);
+                tabControl1.TabPages.Remove(PlacePage);
+                tabControl1.TabPages.Add(PlaceComponent);
+            };
             //Edit
-          
+            updatePlaceBtn.Click += delegate
+            {
+                EditPlaceEvent?.Invoke(this, EventArgs.Empty);
+                if(isSuccessful)
+                {
+                    tabControl1.TabPages.Remove(productsPage);
+                    tabControl1.TabPages.Remove(PlacePage);
+                    tabControl1.TabPages.Add(PlaceComponent);
+                }
+                else
+                    MessageBox.Show(Message);
+
+            };
             //Save changes
             buttonSave.Click += delegate
             {
@@ -54,16 +74,33 @@ namespace DB_course.View
                     tabControl1.TabPages.Remove(addProductPage);
                     tabControl1.TabPages.Add(productsPage);
                     tabControl1.TabPages.Add(PlacePage);
-
-
                 }
                 MessageBox.Show(Message);
             };
+            savePlaceBtn.Click += delegate
+            {
+                SavePlaceEvent?.Invoke(this, EventArgs.Empty);
+                if(isSuccessful)
+                {
+                    tabControl1.TabPages.Remove(PlaceComponent);
+                    tabControl1.TabPages.Add(productsPage);
+                    tabControl1.TabPages.Add(PlacePage);
+                }
+                MessageBox.Show(Message);
+            };
+
             //Cancel
             buttonCancel.Click += delegate
             {
                 CancelEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(addProductPage);
+                tabControl1.TabPages.Add(productsPage);
+                tabControl1.TabPages.Add(PlacePage);
+            };
+            cancelPlaceBtn.Click += delegate
+            {
+                CancelPlaceEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(PlaceComponent);
                 tabControl1.TabPages.Add(productsPage);
                 tabControl1.TabPages.Add(PlacePage);
             };
@@ -75,6 +112,17 @@ namespace DB_course.View
                 if(result == DialogResult.Yes)
                 {
                     DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
+            };
+
+            deletePlaceBtn.Click += delegate
+            {
+                var result = MessageBox.Show("Are you sure you want to delete the selected palce?", "Warning",
+                      MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if(result == DialogResult.Yes)
+                {
+                    DeletePlaceEvent?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show(Message);
                 }
             };
@@ -101,6 +149,10 @@ namespace DB_course.View
         public bool IsEdit { get => isEdit; set => isEdit = value; }
         public bool IsSuccessful { get => isSuccessful; set => isSuccessful = value; }
         public string Message { get => message;  set => message = value;  }
+        public string PlaceId1 { get => placeIdText.Text; set => placeIdText.Text = value; }
+        public string PlaceSize { get => sizePlaceText.Text; set => sizePlaceText.Text = value; }
+        public string PlaceLayer { get => laerPlaceText.Text; set => laerPlaceText.Text = value; }
+        public string PlaceStay { get => StayPlaceText.Text; set => StayPlaceText.Text = value; }
 
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;
@@ -108,10 +160,16 @@ namespace DB_course.View
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
+        public event EventHandler SearchPlaceEvent;
+        public event EventHandler AddNewPlaceEvent;
+        public event EventHandler EditPlaceEvent;
+        public event EventHandler DeletePlaceEvent;
+        public event EventHandler SavePlaceEvent;
+        public event EventHandler CancelPlaceEvent;
 
         public void SetPlaceListBindingSource(BindingSource WorkerList)
         {
-            throw new NotImplementedException();
+            dataGridView2.DataSource = WorkerList;
         }
 
         public void SetProductListBindingSource(BindingSource WorkerList)
