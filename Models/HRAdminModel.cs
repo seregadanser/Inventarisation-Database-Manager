@@ -29,6 +29,7 @@ namespace DB_course.Models
 
         public virtual void RemovePerson(string Id)
         {
+            //проверить наличие в useful
             unitOfWork.PersonRepository.Delete(Id);
             unitOfWork.PersonRepository.Save();
         }

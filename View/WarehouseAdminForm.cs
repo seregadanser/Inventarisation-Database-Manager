@@ -50,6 +50,8 @@ namespace DB_course.View
                 tabControl1.TabPages.Remove(productsPage);
                 tabControl1.TabPages.Remove(PlacePage);
                 tabControl1.TabPages.Add(PlaceComponent);
+                placeIdText.Visible = true;
+                label7.Visible = true;
             };
             //Edit
             updatePlaceBtn.Click += delegate
@@ -60,6 +62,8 @@ namespace DB_course.View
                     tabControl1.TabPages.Remove(productsPage);
                     tabControl1.TabPages.Remove(PlacePage);
                     tabControl1.TabPages.Add(PlaceComponent);
+                    placeIdText.Visible = false;
+                    label7.Visible = false;
                 }
                 else
                     MessageBox.Show(Message);

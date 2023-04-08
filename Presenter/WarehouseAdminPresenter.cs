@@ -61,42 +61,33 @@ namespace DB_course.Presenter
         {
             try
             {
-                var person = new Person();
-                person.Name = view.WorkerName;
-                person.SecondName = view.WorkerSecondName;
-                person.Position = view.WorkerPosition;
-                person.DateOfBirthday = null;
+                var place = new Place();
+                place.NumberLayer = int.TryParse(view.PlaceLayer, out _) ? Convert.ToInt32(view.PlaceLayer) : throw new Exception("invalid layer");
+                place.NumberStay = int.TryParse(view.PlaceStay, out _) ? Convert.ToInt32(view.PlaceStay) : throw new Exception("invalid stay");
+                place.Id = int.TryParse(view.PlaceId1, out _) ? Convert.ToInt32(view.PlaceId1) : throw new Exception("invalid id");
+                place.Size = int.TryParse(view.PlaceSize, out _) ? Convert.ToInt32(view.PlaceSize) : throw new Exception("invalid size");
 
 
                 if (view.IsEdit)
                 {
-                    person.Login = log;
-                    person.Password = pass;
-                    person.NumberOfCome = count;
-                    model.UpdatePerson(log, person);
-                    view.Message = "worker edited successfuly";
+                    model.UpdatePlace(place.Id,place);
+                    view.Message = "place edited successfuly";
                 }
                 else
                 {
-                    person.Login = view.WorkerLogin;
-                    person.Password = Hash.HashFunc(view.WorkerPassword);
-                    person.NumberOfCome = 0;
-                    model.AddPerson(person);
+
+                    model.AddPlace(place);
                     view.Message = "worker added sucessfully";
                 }
 
                 view.IsSuccessful = true;
-                personList = model.LookPerson();
-                workersBindingSource.DataSource = personList;
+                placesList = model.GetPlace();
+                placesBindingSource.DataSource = placesList;
 
-                view.WorkerSecondName = "";
-                view.WorkerPosition = "";
-                view.WorkerName = "";
-                view.WorkerBirthday = "";
-                view.WorkerLogin = "";
-                view.WorkerPassword = "";
-                view.WorkerLogin = "";
-
+                view.PlaceId1 = "";
+                view.PlaceLayer = "";
+                view.PlaceStay = "";
+                view.PlaceSize = "";
             }
             catch (Exception ex)
             {
@@ -108,13 +99,12 @@ namespace DB_course.Presenter
         {
             try
             {
-                var worker = (Person)workersBindingSource.Current;
-                if (worker == null) throw new Exception("Cant delit empty person");
-                model.RemovePerson(worker.Login);
+                var place = (Place)placesBindingSource.Current ?? throw new Exception("Empty product");
+                model.RemovePlace(place.Id);
                 view.IsSuccessful = true;
                 view.Message = "worker deleted successfully";
-                personList = model.LookPerson();
-                workersBindingSource.DataSource = personList;
+                placesList = model.GetPlace();
+                placesBindingSource.DataSource = placesList;
 
             }
             catch (Exception ex)
@@ -123,6 +113,7 @@ namespace DB_course.Presenter
                 view.Message = ex.Message;
             }
         }
+        
         private void LoadSelectedPlaceToEdit(object sender, EventArgs e)
         {
             try

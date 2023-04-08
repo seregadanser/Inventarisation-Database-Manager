@@ -3,6 +3,7 @@ using DB_course.Models.DBModels;
 using DB_course.Repositories;
 using DB_course.View;
 using Microsoft.Data.SqlClient;
+using System.Globalization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -65,9 +66,9 @@ namespace DB_course.Presenter
                 person.Name = view.WorkerName;
                 person.SecondName = view.WorkerSecondName;
                 person.Position = view.WorkerPosition;              
-                person.DateOfBirthday = null;
+                person.DateOfBirthday = DateTime.ParseExact(view.WorkerBirthday, "dd.MM.yyyy", CultureInfo.InvariantCulture);
 
-                
+
                 if (view.IsEdit)
                 {
                     person.Login = log;
