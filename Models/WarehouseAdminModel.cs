@@ -91,22 +91,45 @@ namespace DB_course.Models
             newInventory.InventoryNumber = (int)value.InventoryNumber;
             newInventory.ProductId = value.ProductId;
             new DataValidateModel().Validate(newInventory);
+
+            IEnumerable<PlaceofObject> l = null;
+       
+
+            int maxId = -1;
+            l = unitOfWork.PlaceofObjectRepository.GetList();
+            try
+            {
+                 maxId = l.Last().Id + 1;
+            }
+            catch{ maxId = 0;  }
+
+            string[] places = value.PlaceId.Split(',');
+            List<PlaceofObject> ll = new List<PlaceofObject>();
+
+            for(int i = 0; i < places.Length; i++)
+            {
+                try{ unitOfWork.PlaceRepository.Get(places[i]).First(); } catch { throw new Exception("Place" + places[i] + "not exists"); }
+                ll.Add(new PlaceofObject { PlaceId = Convert.ToInt32(places[i]), Id = maxId, InventoryId = value.InventoryNumber });
+                new DataValidateModel().Validate(ll[i]);
+                maxId++;
+            }
+
             Product? p = null;
             try
             {
                 p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id))?.First();
             }
-            catch{ p = null; }
+            catch { p = null; }
 
-            if(p == null )
-            {  
+            if(p == null)
+            {
                 newProduct.Value = 1;
                 new DataValidateModel().Validate(newProduct);
                 unitOfWork.ProductRepository.Create(newProduct);
             }
             else
             {
-                if (p.Name == value.Name && p.DateProduction == value.DateProduction && p.DateCome == value.DateCome)
+                if(p.Name == value.Name && p.DateProduction == value.DateProduction && p.DateCome == value.DateCome)
                 {
                     p.Value++;
                     unitOfWork.ProductRepository.Update(p);
@@ -119,27 +142,45 @@ namespace DB_course.Models
                 }
             }
             unitOfWork.ProductRepository.Save();
-        
-            unitOfWork.InventoryProductRepository.Create(newInventory);
-            unitOfWork.InventoryProductRepository.Save();
 
-            IEnumerable<PlaceofObject> l = unitOfWork.PlaceofObjectRepository.GetList();
-            int maxId = l.Last().Id + 1;
-            string[] places = value.PlaceId.Split(',');
-            for(int i = 0; i < places.Length; i++)
+            unitOfWork.InventoryProductRepository.Create(newInventory);
+            try
             {
-                newPlaceofObject.Id = maxId;
-                newPlaceofObject.PlaceId = Convert.ToInt32(places[i]);
-                newPlaceofObject.InventoryId = value.InventoryNumber;
-                unitOfWork.PlaceofObjectRepository.Create(newPlaceofObject);
-                unitOfWork.PlaceofObjectRepository.Save();
-                maxId++;
-            }                    
+                unitOfWork.InventoryProductRepository.Save();
+            }
+            catch
+            {
+                p = unitOfWork.ProductRepository.Get(Convert.ToString(newProduct.Id))?.First();
+                if(p.Value > 1)
+                {
+                    p.Value--;
+                    unitOfWork.ProductRepository.Update(p);
+                }
+                else
+                    unitOfWork.ProductRepository.Delete(Convert.ToString(p.Id));
+                unitOfWork.ProductRepository.Save();
+                throw new Exception("inventory number already in use");
+            }
+            string placesi = "";
+            foreach(PlaceofObject pp in ll)
+            {
+                unitOfWork.PlaceofObjectRepository.Create(pp);
+                placesi += pp.PlaceId + ",";
+                try
+                {
+                    unitOfWork.PlaceofObjectRepository.Save();
+                }
+                catch{
+                    RemoveProduct(new AdminCompose(){ PlaceId = placesi, InventoryNumber = value.InventoryNumber, ProductId = value.ProductId });
+                    throw new Exception("Places exeption");
+                }
+            }
+
         }
         public void RemoveProduct(AdminCompose value)
         {
-            IEnumerable<PlaceofObject> u = unitOfWork.PlaceofObjectRepository.GetList();
-            foreach (PlaceofObject useful in u)
+            IEnumerable<Useful> u = unitOfWork.UsefulRepository.GetList();
+            foreach (Useful useful in u)
                 if (useful.InventoryId == value.InventoryNumber)
                     throw new Exception("Object in useful");
 

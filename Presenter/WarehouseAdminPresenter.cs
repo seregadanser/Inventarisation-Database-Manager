@@ -39,14 +39,19 @@ namespace DB_course.Presenter
             this.view.SaveEvent += AddNewProduct;
             this.view.CancelEvent += CancelAction;
             this.view.SearchEvent += SearchProduct;
-
+            this.view.AddNewPlaceEvent += AddNewPlace;
+            this.view.CancelPlaceEvent += PlaceCancelAction;
+            this.view.EditPlaceEvent += LoadSelectedPlaceToEdit;
+            this.view.SavePlaceEvent += SavePlace;
+            this.view.DeletePlaceEvent += DeleteSelectedPlace;
+            this.view.SearchPlaceEvent += SearchPlace;
             this.view.Show();
         }
         //Methods
 
-        private void SearchWorker(object sender, EventArgs e)
+        private void SearchPlace(object sender, EventArgs e)
         {
-            placesList = model.GetPlace();
+            placesList = model.GetPlace(view.SearchPlaceValue);
             placesBindingSource.DataSource = placesList;
 
         }
@@ -57,7 +62,7 @@ namespace DB_course.Presenter
             view.PlaceSize = "";
             view.PlaceStay = "";
         }
-        private void SaveWorker(object sender, EventArgs e)
+        private void SavePlace(object sender, EventArgs e)
         {
             try
             {
@@ -95,7 +100,7 @@ namespace DB_course.Presenter
                 view.Message = ex.Message;
             }
         }
-        private void DeleteSelectedWorker(object sender, EventArgs e)
+        private void DeleteSelectedPlace(object sender, EventArgs e)
         {
             try
             {

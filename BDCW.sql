@@ -65,6 +65,8 @@ go
 --drop table warehouse2.Useful
 --drop table dbo.Persons
 
+delete warehouse2.Products
+delete warehouse2.InventoryProduct
 
 insert into warehouse2.Products values
 (1, 'microscop', 2, null, null),
@@ -85,7 +87,7 @@ insert into warehouse2.Place values
 
 insert into warehouse2.PlaceofObject values
 (1,1,23),
-(2,2,1),
+(2,2,1),  
 (3,3,1),
 (4,4,3),
 (5,5,3)
@@ -93,9 +95,8 @@ insert into warehouse2.PlaceofObject values
 
 
 insert into dbo.Persons values
-( 'a', 'b', 'm','admin', '1912-10-25' ,'va',0),
-( 'f', 'g', 'b','worker', '1962-10-25' ,'jt',0),
-( 'as', 'g', 'b','hradmin', '1956-10-25' ,'ji',0)
+( 'admin', 'vova', 'markus','admin', '1912-10-25' ,'password',0),
+( 'hradmin', 'valera', 'borisov','hradmin', '1962-10-25' ,'123456',0)
 
 insert into warehouse2.Useful values
 ( 1, 'f', null)

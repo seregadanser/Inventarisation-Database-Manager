@@ -74,6 +74,7 @@ namespace DB_course.View
         public string PlaceSize { get; set; }
         public string PlaceLayer { get; set; }
         public string PlaceStay { get; set; }
+        public string SearchPlaceValue { get; set; }
 
 
         event EventHandler SearchEvent;

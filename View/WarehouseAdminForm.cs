@@ -157,6 +157,7 @@ namespace DB_course.View
         public string PlaceSize { get => sizePlaceText.Text; set => sizePlaceText.Text = value; }
         public string PlaceLayer { get => laerPlaceText.Text; set => laerPlaceText.Text = value; }
         public string PlaceStay { get => StayPlaceText.Text; set => StayPlaceText.Text = value; }
+        public string SearchPlaceValue { get => searchPlaceTextBox.Text; set => searchPlaceTextBox.Text =value; }
 
         public event EventHandler SearchEvent;
         public event EventHandler AddNewEvent;

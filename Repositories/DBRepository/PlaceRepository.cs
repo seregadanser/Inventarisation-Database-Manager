@@ -1,4 +1,5 @@
 ﻿using DB_course.Models.DBModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,7 +38,13 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Place> Get(string value)
         {
-            return db.Places.ToList();
+            var petList = new List<Place>();
+            int petId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
+            string petName = value;
+
+            return (from user in db.Places
+                    where user.Id == petId
+                    select user).ToList();
         }
 
         public IEnumerable<Place> GetList()

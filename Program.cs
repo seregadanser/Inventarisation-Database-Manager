@@ -1,5 +1,5 @@
 #define Laptop
-#define Test
+//#define Test
 
 using DB_course.Presenter;
 using DB_course.View;
