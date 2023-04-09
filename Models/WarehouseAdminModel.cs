@@ -28,8 +28,11 @@ namespace DB_course.Models
         }
         public void RemovePlace(int key)
         {
-            //добавть проверку на нахождение в place of object
-            if(key <= 0)
+            IEnumerable<PlaceofObject> u = unitOfWork.PlaceofObjectRepository.GetList();
+            foreach (PlaceofObject useful in u)
+                if (useful.PlaceId == key)
+                    throw new Exception("Place in useful");
+            if (key <= 0)
                 throw new IdException("Invalid Id");
             unitOfWork.PlaceRepository.Delete(Convert.ToString(key));
             unitOfWork.PlaceRepository.Save();
@@ -135,8 +138,11 @@ namespace DB_course.Models
         }
         public void RemoveProduct(AdminCompose value)
         {
-            //добавить проверку на присутствие инвентарного предмета в useful
-            
+            IEnumerable<PlaceofObject> u = unitOfWork.PlaceofObjectRepository.GetList();
+            foreach (PlaceofObject useful in u)
+                if (useful.InventoryId == value.InventoryNumber)
+                    throw new Exception("Object in useful");
+
             string[] places = value.PlaceOfObjectlId.Split(',');
             for(int i = 0; i < places.Length; i++)
             {

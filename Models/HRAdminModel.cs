@@ -29,7 +29,10 @@ namespace DB_course.Models
 
         public virtual void RemovePerson(string Id)
         {
-            //проверить наличие в useful
+            IEnumerable<Useful> u = unitOfWork.UsefulRepository.GetList();
+            foreach (Useful useful in u)
+                if (useful.PersonId == Id)
+                    throw new Exception("Person in useful");
             unitOfWork.PersonRepository.Delete(Id);
             unitOfWork.PersonRepository.Save();
         }
