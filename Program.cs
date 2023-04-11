@@ -1,11 +1,13 @@
 #define Laptop
 //#define Test
+#define TUI
 
 using DB_course.Presenter;
 using DB_course.View;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Configuration;
+using DB_course.tecknologicalUI;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace DB_course
@@ -36,17 +38,20 @@ namespace DB_course
                 connectionString = config.GetConnectionString("DefaultConnection") ?? throw new Exception();
 #endif
 
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 #if Test
             IMainView view = new MainForm();
             new MainPresenter(view, connectionString);
+#elif TUI
+            new AutoriseConsole(connectionString);
 #else
             IUnLoginView view = new UnLoginForm();
             new UnLoginPresenter(view, connectionString);
 #endif
+
+#if !TUI
             Application.Run((Form)view);
+#endif
 
         }
     }

@@ -30,7 +30,7 @@ namespace DB_course.Presenter
             var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
             connection = new WarehouseContext(options);
 
-            this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection))); ;
+            this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection))); 
 
             this.view.Show();
         }
