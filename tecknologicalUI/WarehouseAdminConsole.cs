@@ -29,11 +29,7 @@ namespace DB_course.tecknologicalUI
 
             //this.view.DeleteEvent += DeleteSelectedProduct;
             //this.view.SaveEvent += AddNewProduct;
-            //look product
-            //this.view.AddNewPlaceEvent += AddNewPlace;
-            //look place
-            //this.view.EditPlaceEvent += LoadSelectedPlaceToEdit;
-            //this.view.DeletePlaceEvent += DeleteSelectedPlace;
+
 
             string state = "";
             while(state != "8")

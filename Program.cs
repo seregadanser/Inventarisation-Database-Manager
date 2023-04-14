@@ -31,27 +31,26 @@ namespace DB_course
             builder.AddJsonFile("jsconfig1.json");
             var config = builder.Build();
             string connectionString = "";
-#if Laptop
-
+            #if Laptop
                 connectionString = config.GetConnectionString("LaptopConnection") ?? throw new Exception();
-#else
+            #else
                 connectionString = config.GetConnectionString("DefaultConnection") ?? throw new Exception();
-#endif
+            #endif
 
             ApplicationConfiguration.Initialize();
-#if Test
-            IMainView view = new MainForm();
-            new MainPresenter(view, connectionString);
-#elif TUI
-            new AutoriseConsole(connectionString);
-#else
-            IUnLoginView view = new UnLoginForm();
-            new UnLoginPresenter(view, connectionString);
-#endif
+            #if Test
+                IMainView view = new MainForm();
+                new MainPresenter(view, connectionString);
+            #elif TUI
+                new AutoriseConsole(connectionString);
+            #else
+                IUnLoginView view = new UnLoginForm();
+                new UnLoginPresenter(view, connectionString);
+            #endif
 
-#if !TUI
-            Application.Run((Form)view);
-#endif
+            #if !TUI
+                Application.Run((Form)view);
+            #endif
 
         }
     }
