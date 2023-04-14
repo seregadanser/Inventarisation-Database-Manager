@@ -18,7 +18,6 @@ namespace DB_course.tecknologicalUI
         public HRAdminConsole(IConnection connection)
         {
             model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
-
             Menue();
         }
         
@@ -37,28 +36,29 @@ namespace DB_course.tecknologicalUI
                 switch(state)
                 {
                     case "1":
-                        try
-                        {
-                            AddPerson();
-                        }
-                        catch(Exception ex)
-                        { Console.WriteLine(ex.Message); }
+                        Action(AddPerson);
                         break;
                     case "2":
-                        try
-                        {
-                            RemovePerson();
-                        }
-                        catch(Exception ex)
-                        { Console.WriteLine(ex.Message); }
+                        Action(RemovePerson);
                         break;
                     case "3":
+                        Action(UpdatePerson);
                         break;
                     case "4":
-                        LookPerson();
+                        Action(LookPerson);
                         break;
                 }
             }
+        }
+        delegate void ActDel();
+        void Action(ActDel a)
+        {
+            try
+            {
+                a.Invoke();
+            }
+            catch(Exception ex)
+            { Console.WriteLine(ex.Message); }
         }
 
         void LookPerson()
@@ -97,6 +97,22 @@ namespace DB_course.tecknologicalUI
         {
             Console.Write("Input login: ");
             model.RemovePerson(Console.ReadLine());
+        }
+
+        void UpdatePerson()
+        {
+            Console.Write("Input login of update person: ");
+            string cur = Console.ReadLine();
+            var person = new Person();
+            Console.Write("Input Name: ");
+            person.Name = Console.ReadLine();
+            Console.Write("Input second name: ");
+            person.SecondName = Console.ReadLine();
+            Console.Write("Input position: ");
+            person.Position = Console.ReadLine();
+            Console.Write("Input date of birthday: ");
+            person.DateOfBirthday = DateTime.ParseExact(Console.ReadLine(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            model.UpdatePerson(cur,person);
         }
     }
 }

@@ -63,7 +63,7 @@ namespace DB_course.tecknologicalUI
 
         private void ShowWorkerView(string login)
         {
-        
+            new WorkerConsole(connection, login);
         }
         private void ShowAdmin()
         {

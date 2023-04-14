@@ -86,4 +86,4 @@ namespace DB_course.Models.CompositModels
         public string? PlaceOfObjectlId { get; set; }
 
     }
-}
+}                          

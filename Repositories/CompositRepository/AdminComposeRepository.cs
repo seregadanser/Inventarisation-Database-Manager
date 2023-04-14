@@ -32,9 +32,13 @@ namespace DB_course.Repositories.CompositRepository
 
         public IEnumerable<AdminCompose> Get(string value)
         {
+            var petList = new List<Person>();
+            int petId = int.TryParse(value, out _) ? Convert.ToInt32(value) : 0;
+            string petName = value;
             var N = from IP in db.InventoryProducts
                     join P in db.PlaceofObjects on IP.InventoryNumber equals P.InventoryId
                     join PR in db.Products on IP.ProductId equals PR.Id
+                    where petId == IP.InventoryNumber
                     select new AdminCompose
                     {
                         ProductId = PR.Id,
