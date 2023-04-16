@@ -15,5 +15,5 @@ public partial class Product
 
     public DateTime? DateProduction { get; set; }
 
-    public virtual ICollection<InventoryProduct> InventoryProducts { get; } = new List<InventoryProduct>();
+   // public virtual ICollection<InventoryProduct> InventoryProducts { get; } = new List<InventoryProduct>();
 }

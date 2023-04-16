@@ -45,5 +45,5 @@ public partial class Person
 
     public int? NumberOfCome { get; set; }
 
-    public virtual ICollection<Useful> Usefuls { get; } = new List<Useful>();
+   // public virtual ICollection<Useful> Usefuls { get; } = new List<Useful>();
 }

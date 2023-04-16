@@ -49,9 +49,9 @@ public partial class WarehouseContext : DbContext, IConnection
                 .HasColumnName("inventory_number");
             entity.Property(e => e.ProductId).HasColumnName("product_Id");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.InventoryProducts)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Inventory__produ__52593CB8");
+        //    entity.HasOne(d => d.Product).WithMany(p => p.InventoryProducts)
+         //       .HasForeignKey(d => d.ProductId)
+         //       .HasConstraintName("FK__Inventory__produ__52593CB8");
         });
 
         modelBuilder.Entity<Person>(entity =>
@@ -100,13 +100,13 @@ public partial class WarehouseContext : DbContext, IConnection
 
             entity.Property(e => e.Id).ValueGeneratedNever();
 
-            entity.HasOne(d => d.Inventory).WithMany(p => p.PlaceofObjects)
-                .HasForeignKey(d => d.InventoryId)
-                .HasConstraintName("FK__PlaceofOb__Inven__5812160E");
+          //  entity.HasOne(d => d.Inventory).WithMany(p => p.PlaceofObjects)
+          //      .HasForeignKey(d => d.InventoryId)
+          //      .HasConstraintName("FK__PlaceofOb__Inven__5812160E");
 
-            entity.HasOne(d => d.Place).WithMany(p => p.PlaceofObjects)
-                .HasForeignKey(d => d.PlaceId)
-                .HasConstraintName("FK__PlaceofOb__Place__571DF1D5");
+            //entity.HasOne(d => d.Place).WithMany(p => p.PlaceofObjects)
+             //   .HasForeignKey(d => d.PlaceId)
+             //  .HasConstraintName("FK__PlaceofOb__Place__571DF1D5");
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -140,14 +140,14 @@ public partial class WarehouseContext : DbContext, IConnection
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.Inventory).WithOne(p => p.Useful)
-                .HasForeignKey<Useful>(d => d.InventoryId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Useful__Inventor__6C190EBB");
+          //  entity.HasOne(d => d.Inventory).WithOne(p => p.Useful)
+          //      .HasForeignKey<Useful>(d => d.InventoryId)
+          //      .OnDelete(DeleteBehavior.ClientSetNull)
+          //      .HasConstraintName("FK__Useful__Inventor__6C190EBB");
 
-            entity.HasOne(d => d.Person).WithMany(p => p.Usefuls)
-                .HasForeignKey(d => d.PersonId)
-                .HasConstraintName("FK__Useful__PersonId__6D0D32F4");
+           // entity.HasOne(d => d.Person).WithMany(p => p.Usefuls)
+            //    .HasForeignKey(d => d.PersonId)
+            //    .HasConstraintName("FK__Useful__PersonId__6D0D32F4");
         });
 
         OnModelCreatingPartial(modelBuilder);

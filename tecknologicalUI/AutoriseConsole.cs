@@ -67,7 +67,7 @@ namespace DB_course.tecknologicalUI
         }
         private void ShowAdmin()
         {
-              
+            new WarehouseAdminConsole(connection);
         }
     }
 }

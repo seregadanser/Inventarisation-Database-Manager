@@ -13,5 +13,5 @@ public partial class Place
 
     public int? Size { get; set; }
 
-    public virtual ICollection<PlaceofObject> PlaceofObjects { get; } = new List<PlaceofObject>();
+    //public virtual ICollection<PlaceofObject> PlaceofObjects { get; } = new List<PlaceofObject>();
 }

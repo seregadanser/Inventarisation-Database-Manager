@@ -53,7 +53,8 @@ namespace DB_course.Repositories.CompositRepository
 
                         value = (int)PR.Value,
 
-                        PlaceId = Convert.ToString(P.PlaceId)
+                        PlaceId = Convert.ToString(P.PlaceId) ,
+                        PlaceOfObjectlId = Convert.ToString(P.Id)
                     };
 
 
@@ -73,7 +74,8 @@ namespace DB_course.Repositories.CompositRepository
 
                 value = eg.First().value,
 
-                PlaceId = string.Join(",", eg.Select(i => i.PlaceId))
+                PlaceId = string.Join(",", eg.Select(i => i.PlaceId)),
+                PlaceOfObjectlId = string.Join(",", eg.Select(i => i.PlaceOfObjectlId))
 
             });
             return result.ToList();
@@ -114,7 +116,7 @@ namespace DB_course.Repositories.CompositRepository
                 value = eg.First().value,
 
                 PlaceId = string.Join(",", eg.Select(i => i.PlaceId)),
-                PlaceOfObjectlId = string.Join(",", eg.Select(i => i.PlaceOfObjectlId)),
+                PlaceOfObjectlId = string.Join(",", eg.Select(i => i.PlaceOfObjectlId))
 
             });
             return result.ToList();

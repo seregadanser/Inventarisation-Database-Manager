@@ -67,6 +67,8 @@ go
 
 delete warehouse2.Products
 delete warehouse2.InventoryProduct
+delete warehouse2.PlaceofObject
+delete warehouse2.Place
 
 insert into warehouse2.Products values
 (1, 'microscop', 2, null, null),
@@ -86,7 +88,7 @@ insert into warehouse2.Place values
 (5, 2, 6, 50)
 
 insert into warehouse2.PlaceofObject values
-(1,1,23),
+(1,2,2),
 (2,2,1),  
 (3,3,1),
 (4,4,3),
@@ -120,6 +122,14 @@ grant select on warehouse2.Place to Warehouseman
 
 
 select * from warehouse2.Products
+select * from warehouse2.InventoryProduct
+select * from warehouse2.Place
+select * from warehouse2.PlaceofObject
+select * from dbo.Persons
+select * from warehouse2.Useful
+
+update warehouse2.Products
+set warehouse2.Products.value = 1
 
 
 --Сотрудник

@@ -16,7 +16,7 @@ public partial class PlaceofObject
 
     public int? InventoryId { get; set; }
 
-    public virtual InventoryProduct? Inventory { get; set; }
+    //public virtual InventoryProduct? Inventory { get; set; }
 
-    public virtual Place? Place { get; set; }
+   // public virtual Place? Place { get; set; }
 }

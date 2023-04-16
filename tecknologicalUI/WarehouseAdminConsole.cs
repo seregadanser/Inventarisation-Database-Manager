@@ -18,7 +18,7 @@ namespace DB_course.tecknologicalUI
         private IEnumerable<Place> placesList;
 
 
-        public WarehouseAdminConsole(IConnection connection, string login)
+        public WarehouseAdminConsole(IConnection connection)
         {
             model = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
             Menue();

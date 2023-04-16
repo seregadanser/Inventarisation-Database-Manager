@@ -20,7 +20,7 @@ public partial class Useful
     [DateLessThanOrEqualToToday]
     public DateTime? DateOfStart { get; set; }
 
-    public virtual InventoryProduct Inventory { get; set; } = null!;
+  //  public virtual InventoryProduct Inventory { get; set; } = null!;
 
-    public virtual Person? Person { get; set; }
+   //public virtual Person? Person { get; set; }
 }
