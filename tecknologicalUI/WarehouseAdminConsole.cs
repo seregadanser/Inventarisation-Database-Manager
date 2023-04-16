@@ -47,10 +47,10 @@ namespace DB_course.tecknologicalUI
                 switch(state)
                 {
                     case "1":
-                        Action();
+                        Action(AddProduct);
                         break;
                     case "2":
-                        Action();
+                        Action(RemoveProduct);
                         break;
                     case "3":
                         Action(LookProducts);
@@ -147,6 +147,32 @@ namespace DB_course.tecknologicalUI
             s = Console.ReadLine();
             person.Size = int.TryParse(s, out _) ? Convert.ToInt32(s) : throw new Exception("invalid size");
             model.UpdatePlace(Id, person);
+        }
+
+        void AddProduct()
+        {
+            var product = new AdminCompose();
+            Console.Write("Input date come: ");
+            product.DateCome = DateTime.ParseExact(Console.ReadLine(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            Console.Write("Input product id: ");
+            string s = Console.ReadLine();
+            product.ProductId = int.TryParse(s, out _) ? Convert.ToInt32(s) : throw new Exception("invalid id");
+            Console.Write("Input places id: ");
+            product.PlaceId = Console.ReadLine();
+            Console.Write("Input inventory number: ");
+            s = Console.ReadLine();
+            product.InventoryNumber = int.TryParse(s, out _) ? Convert.ToInt32(s) : throw new Exception("invalid inventory");
+            Console.Write("Input date production: ");
+            product.DateProduction = DateTime.ParseExact(Console.ReadLine(), "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            Console.Write("Input product name: ");
+            product.Name = Console.ReadLine();
+            model.AddProduct(product);
+        }
+
+        void RemoveProduct()
+        {
+            Console.Write("Input inventory number: ");
+            model.RemoveProduct(model.GetProducts(Console.ReadLine()).First());
         }
     }
 }
