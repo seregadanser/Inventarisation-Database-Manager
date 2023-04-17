@@ -18,9 +18,9 @@ namespace DB_course.Presenter
         private IMainView mainView;
         private readonly string sqlConnectionString;
         IConnection connection;
-        public MainPresenter(IMainView mainView, string sqlConnectionString)
+        public MainPresenter(IView mainView, string sqlConnectionString)
         {
-            this.mainView = mainView;
+            this.mainView = (IMainView)mainView;
             this.sqlConnectionString = sqlConnectionString;
             this.mainView.ShowWorker += ShowWorkerView;
             this.mainView.ShowHrAdmin += ShowHrView;

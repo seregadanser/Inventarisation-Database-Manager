@@ -19,9 +19,9 @@ namespace DB_course.Presenter
 
         private readonly string sqlConnectionString;
         IConnection connection;
-        public UnLoginPresenter(IUnLoginView view, string sqlConnectionString)
+        public UnLoginPresenter(IView view, string sqlConnectionString)
         {
-            this.view = view;
+            this.view = (IUnLoginView)view;
 
             this.sqlConnectionString = sqlConnectionString;
             this.view.SaveEvent += CheckPerson;

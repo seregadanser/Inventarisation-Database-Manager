@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using System.Globalization;
 
 namespace DB_course.Models.DBModels;
 
@@ -34,7 +35,7 @@ public partial class Person
     public string? Position { get; set; }
 
     [ConcurrencyCheck]
-    [DateLessThanOrEqualToToday]
+    [DateLessThanOrEqualToToday("01.01.1940")]
     public DateTime? DateOfBirthday { get; set; }
 
 

@@ -17,7 +17,7 @@ public partial class Useful
     [StringLength(50, MinimumLength = 1, ErrorMessage = "Person Login must be between 3 and 50 characters")]
     public string? PersonId { get; set; }
 
-    [DateLessThanOrEqualToToday]
+    [DateLessThanOrEqualToToday("12.12.1990")]
     public DateTime? DateOfStart { get; set; }
 
   //  public virtual InventoryProduct Inventory { get; set; } = null!;

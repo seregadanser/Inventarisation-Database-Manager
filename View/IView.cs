@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DB_course.View
 {
-    public interface IMainView
+    public interface IMainView : IView
     {
         event EventHandler ShowWorker;
         event EventHandler ShowAdmin;

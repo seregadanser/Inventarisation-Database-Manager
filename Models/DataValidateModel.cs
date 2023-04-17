@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,7 +47,11 @@ namespace DB_course.Models
         {
             return "Date value should not be a future date";
         }
-
+        DateTime date;
+        public DateLessThanOrEqualToToday(string date)
+        {
+            this.date = DateTime.ParseExact(date, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+        }
         protected override ValidationResult IsValid(object objValue,
                                                        ValidationContext validationContext)
         {
@@ -54,7 +59,7 @@ namespace DB_course.Models
 
             //alter this as needed. I am doing the date comparison if the value is not null
 
-            if(dateValue.Date > DateTime.Now.Date)
+            if(dateValue.Date > DateTime.Now.Date || dateValue.Date < date)
             {
                 return new ValidationResult(FormatErrorMessage(validationContext.DisplayName));
             }

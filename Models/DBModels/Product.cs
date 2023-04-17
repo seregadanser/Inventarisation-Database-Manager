@@ -10,9 +10,9 @@ public partial class Product
     public string? Name { get; set; }
 
     public int? Value { get; set; }
-
+    [DateLessThanOrEqualToToday("01.01.1940")]
     public DateTime? DateCome { get; set; }
-
+    [DateLessThanOrEqualToToday("01.01.1940")]
     public DateTime? DateProduction { get; set; }
 
    // public virtual ICollection<InventoryProduct> InventoryProducts { get; } = new List<InventoryProduct>();

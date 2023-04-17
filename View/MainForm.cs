@@ -20,7 +20,10 @@ namespace DB_course.View
             button3.Click += delegate { ShowAdmin?.Invoke(this, EventArgs.Empty); };
         }
 
-
+        public string SearchValue { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool IsEdit { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public bool IsSuccessful { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Message { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         public event EventHandler ShowWorker;
         public event EventHandler ShowAdmin;

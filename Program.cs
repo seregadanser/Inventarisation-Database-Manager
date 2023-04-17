@@ -1,6 +1,5 @@
-#define Laptop
-//#define Test
-#define TUI
+//#define Laptop
+
 
 using DB_course.Presenter;
 using DB_course.View;
@@ -18,39 +17,47 @@ namespace DB_course
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        static void Main(string[] args)
         {
 
             var builder = new ConfigurationBuilder();
-            #if Laptop
-                builder.SetBasePath("D:\\Study\\Test\\DB_course");
-            #else
+#if Laptop
+            builder.SetBasePath("D:\\Study\\Test\\DB_course");
+#else
                 builder.SetBasePath("D:\\Labs\\DB_course");
-            #endif
+#endif
 
             builder.AddJsonFile("jsconfig1.json");
             var config = builder.Build();
             string connectionString = "";
-            #if Laptop
-                connectionString = config.GetConnectionString("LaptopConnection") ?? throw new Exception();
-            #else
-                connectionString = config.GetConnectionString("DefaultConnection") ?? throw new Exception();
-            #endif
+#if Laptop
+            connectionString = config.GetConnectionString("LaptopConnection") ?? throw new Exception();
+#else
+                connectionString = config.GetConnectionString("DesktopConnection") ?? throw new Exception();
+#endif
 
+
+            IView view = null;
             ApplicationConfiguration.Initialize();
-            #if Test
-                IMainView view = new MainForm();
+            if (args[0] == "Test")
+            {
+                view = new MainForm();
                 new MainPresenter(view, connectionString);
-            #elif TUI
-                new AutoriseConsole(connectionString);
-            #else
-                IUnLoginView view = new UnLoginForm();
-                new UnLoginPresenter(view, connectionString);
-            #endif
+            }
+            else
+            {
+                if (args[0] == "TUI")
+                    new AutoriseConsole(connectionString);
+                else
+                {
+                    view = new UnLoginForm();
+                    new UnLoginPresenter(view, connectionString);
+                }
+            }
 
-            #if !TUI
+            if (args[0] != "TUI")
                 Application.Run((Form)view);
-            #endif
+
 
         }
     }
