@@ -24,7 +24,7 @@ namespace DB_course
 #if Laptop
             builder.SetBasePath("D:\\Study\\Test\\DB_course");
 #else
-                builder.SetBasePath("D:\\Labs\\DB_course");
+            builder.SetBasePath("D:\\Labs\\DB_course");
 #endif
 
             builder.AddJsonFile("jsconfig1.json");
@@ -33,7 +33,7 @@ namespace DB_course
 #if Laptop
             connectionString = config.GetConnectionString("LaptopConnection") ?? throw new Exception();
 #else
-                connectionString = config.GetConnectionString("DesktopConnection") ?? throw new Exception();
+            connectionString = config.GetConnectionString("DefaultConnection") ?? throw new Exception();
 #endif
 
 
@@ -44,16 +44,16 @@ namespace DB_course
                 view = new MainForm();
                 new MainPresenter(view, connectionString);
             }
-            else
+
+            if (args[0] == "TUI")
+                new AutoriseConsole(connectionString);
+
+            if (args[0] == "work")
             {
-                if (args[0] == "TUI")
-                    new AutoriseConsole(connectionString);
-                else
-                {
-                    view = new UnLoginForm();
-                    new UnLoginPresenter(view, connectionString);
-                }
+                view = new UnLoginForm();
+                new UnLoginPresenter(view, connectionString);
             }
+
 
             if (args[0] != "TUI")
                 Application.Run((Form)view);
