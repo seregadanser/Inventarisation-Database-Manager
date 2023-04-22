@@ -1,0 +1,24 @@
+{
+  "ConnectionStrings": {
+    "unlogin": {
+      "DesktopConnection": "Server=DESKTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True",
+      "LaptopConnection": "Server=LAPTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True"
+    },
+    "worker": {
+      "DesktopConnection": "",
+      "LaptopConnection": ""
+    },
+    "admin": {
+      "DesktopConnection": "",
+      "LaptopConnection": ""
+    },
+    "hrAdmin": {
+      "DesktopConnection": "",
+      "LaptopConnection": ""
+    },
+    "warehouseman": {
+      "DesktopConnection": "",
+      "LaptopConnection": ""
+    }
+  }
+}
