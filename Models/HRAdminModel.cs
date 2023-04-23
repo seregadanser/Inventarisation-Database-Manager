@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
+
 
 namespace DB_course.Models
 {
@@ -85,23 +87,32 @@ namespace DB_course.Models
     public abstract class AHRAdminModelDecorator : AHRAdminModel
     {
         protected AHRAdminModel workerModel;
-        public AHRAdminModelDecorator(AHRAdminModel workerModel) : base(workerModel.UnitOfWork)
+        protected readonly ILogger<AHRAdminModel> logger;
+        public AHRAdminModelDecorator(AHRAdminModel workerModel, ILoggerFactory loggerFactory) : base(workerModel.UnitOfWork)
         {
             this.workerModel = workerModel;
+            logger = loggerFactory.CreateLogger<AHRAdminModel>();
         }
     }
 
-    public class HRAdminModelLogDecorator : AHRAdminModelDecorator
+    public class HRAdminModelDecorator : AHRAdminModelDecorator
     {
-        public HRAdminModelLogDecorator(AHRAdminModel workerModel) : base(workerModel)
+        public HRAdminModelDecorator(AHRAdminModel workerModel, ILoggerFactory loggerFactory) : base(workerModel, loggerFactory)
         {
 
         }
 
         public override void AddPerson(Person person)
         {
-            base.AddPerson(person);
-            Console.WriteLine("Add person at " + DateTime.Now);
+            try
+            {
+                workerModel.AddPerson(person);
+            }
+            catch(Exception ex) {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Person {person.Login} added succed");
         }
     }
 }

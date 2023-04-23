@@ -1,0 +1,8 @@
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Error",
+      "ConsoleApp3.AModel": "Debug"
+    }
+  }
+}
