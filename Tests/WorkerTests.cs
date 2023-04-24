@@ -63,7 +63,7 @@ namespace DB_course.Tests
             mockPersonRepository.Setup(r => r.Get("testLogin")).Returns(new[] { existingPerson });
 
             // Act
-            model.UpdatePasswoord(newPassword);
+            model.UpdatePassword(newPassword);
 
             // Assert
             mockPersonRepository.Verify(r => r.Update(existingPerson), Times.Once);

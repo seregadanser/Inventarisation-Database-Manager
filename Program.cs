@@ -8,6 +8,9 @@ using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Configuration;
 using DB_course.tecknologicalUI;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Microsoft.Extensions.Logging;
+using DB_course.Models.DBModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace DB_course
 {
@@ -19,22 +22,27 @@ namespace DB_course
         [STAThread]
         static void Main(string[] args)
         {
-
+            var configuration = new ConfigurationBuilder().SetBasePath("D:\\Labs\\DB_course").AddJsonFile("logconfig.json").Build();
+            ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
+            builder.AddConsole().AddConfiguration(configuration.GetSection("Logging")));
+            //   builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt")).AddFilter(typeof(AModel).ToString(), LogLevel.Debug));
             var builder = new ConfigurationBuilder();
 #if Laptop
             builder.SetBasePath("D:\\Study\\Test\\DB_course");
 #else
             builder.SetBasePath("D:\\Labs\\DB_course");
 #endif
-
-            builder.AddJsonFile("jsconfig1.json");
+            builder.AddJsonFile("connstring.json");
             var config = builder.Build();
             string connectionString = "";
 #if Laptop
-            connectionString = config.GetConnectionString("LaptopConnection") ?? throw new Exception();
+            connectionString = config.GetConnectionString("unlogin:LaptopConnection") ?? throw new Exception();
 #else
-            connectionString = config.GetConnectionString("DefaultConnection") ?? throw new Exception();
+            connectionString = config.GetConnectionString("unlogin:DesktopConnection")?? throw new Exception();
 #endif
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer(connectionString).Options;
+            IConnection connection = new WarehouseContext(options);
 
 
             IView view = null;
@@ -46,7 +54,7 @@ namespace DB_course
             }
 
             if (args[0] == "TUI")
-                new AutoriseConsole(connectionString);
+                new AutoriseConsole(connection, loggerFactory);
 
             if (args[0] == "work")
             {

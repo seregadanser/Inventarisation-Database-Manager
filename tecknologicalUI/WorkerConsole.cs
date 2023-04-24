@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DB_course.Models.CompositModels;
+using Microsoft.Extensions.Logging;
 
 namespace DB_course.tecknologicalUI
 {
@@ -21,6 +22,12 @@ namespace DB_course.tecknologicalUI
         public WorkerConsole(IConnection connection, string login)
         {
             model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)), login);
+            Menue();
+        }
+        public WorkerConsole(IConnection connection, string login, ILoggerFactory loggerFactory)
+        {
+            model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)), login);
+            model = new WorkerModelDecorator(model, loggerFactory);
             Menue();
         }
 

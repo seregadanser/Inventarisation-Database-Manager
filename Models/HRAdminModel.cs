@@ -114,5 +114,31 @@ namespace DB_course.Models
             }
             logger.LogInformation($"Person {person.Login} added succed");
         }
+        public override void RemovePerson(string Id)
+        {
+            try
+            {
+                workerModel.RemovePerson(Id);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Person {Id} removed succed");
+        }
+        public override void UpdatePerson(string Id_cur, Person updateperson)
+        {
+            try
+            {
+                workerModel.UpdatePerson(Id_cur, updateperson); 
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Person {Id_cur} updated succed");
+        }
     }
 }

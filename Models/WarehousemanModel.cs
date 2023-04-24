@@ -1,6 +1,7 @@
 ﻿using DB_course.Models.CompositModels;
 using DB_course.Models.DBModels;
 using DB_course.Repositories;
+using Microsoft.Extensions.Logging;
 using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
@@ -58,17 +59,33 @@ namespace DB_course.Models
     public abstract class AWarehousemanModelDecorator : AWarehousemanModel
     {
         protected AWarehousemanModel workerModel;
-        public AWarehousemanModelDecorator(AWarehousemanModel workerModel) : base(workerModel.UnitOfWork)
+        protected readonly ILogger<AWarehousemanModel> logger;
+        public AWarehousemanModelDecorator(AWarehousemanModel workerModel, ILoggerFactory loggerFactory) : base(workerModel.UnitOfWork)
         {
             this.workerModel = workerModel;
+            logger = loggerFactory.CreateLogger<AWarehousemanModel>();
         }
     }
 
     public class WarehousemanModelLogDecorator : AWarehousemanModelDecorator
     {
-        public WarehousemanModelLogDecorator(AWarehousemanModel workerModel) : base(workerModel)
+        public WarehousemanModelLogDecorator(AWarehousemanModel model, ILoggerFactory loggerFactory) : base(model, loggerFactory)
         {
 
+        }
+
+        public override void DelitUseful(int Id)
+        {
+            try
+            {
+                workerModel.DelitUseful(Id);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Useful {Id} removed succed");
         }
 
 

@@ -8,12 +8,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Globalization;
+using Microsoft.Extensions.Logging;
 
 namespace DB_course.tecknologicalUI
 {
     public class WarehouseAdminConsole
     {
-        private WarehouseAdminModel model;
+        private AWarehouseAdminModel model;
         private IEnumerable<AdminCompose> productList;
         private IEnumerable<Place> placesList;
 
@@ -21,6 +22,12 @@ namespace DB_course.tecknologicalUI
         public WarehouseAdminConsole(IConnection connection)
         {
             model = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            Menue();
+        }
+        public WarehouseAdminConsole(IConnection connection, ILoggerFactory loggerFactory)
+        {
+            model = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            model = new WarehouseAdminModelDecorator(model, loggerFactory);
             Menue();
         }
 

@@ -7,6 +7,7 @@ using DB_course.Models.CompositModels;
 using DB_course.Models.DBModels;
 using DB_course.Models;
 using DB_course.Repositories;
+using Microsoft.Extensions.Logging;
 
 namespace DB_course.tecknologicalUI
 {
@@ -19,6 +20,12 @@ namespace DB_course.tecknologicalUI
         public WarehousemanConsole(IConnection connection)
         {
             model = new WarehousemanModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            Menue();
+        }
+        public WarehousemanConsole(IConnection connection, ILoggerFactory loggerFactory)
+        {
+            model = new WarehousemanModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            model = new WarehousemanModelLogDecorator(model, loggerFactory);
             Menue();
         }
 

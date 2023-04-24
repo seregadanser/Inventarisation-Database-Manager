@@ -1,5 +1,6 @@
 ﻿using DB_course.Models.DBModels;
 using DB_course.Repositories;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,23 +48,37 @@ namespace DB_course.Models
     public abstract class AUnLoginModelDecorator : AUnLoginModel
     {
         protected AUnLoginModel workerModel;
-        public AUnLoginModelDecorator(AUnLoginModel workerModel) : base(workerModel.UnitOfWork)
+        protected readonly ILogger<AUnLoginModel> logger;
+        public AUnLoginModelDecorator(AUnLoginModel workerModel, ILoggerFactory loggerFactory) : base(workerModel.UnitOfWork)
         {
             this.workerModel = workerModel;
+            logger = loggerFactory.CreateLogger<AUnLoginModel>();
         }
+  
     }
 
-    public class HUnLoginModelLogDecorator : AUnLoginModelDecorator
+    public class UnLoginModelLogDecorator : AUnLoginModelDecorator
     {
-        public HUnLoginModelLogDecorator(AUnLoginModel workerModel) : base(workerModel)
+        public UnLoginModelLogDecorator(AUnLoginModel workerModel, ILoggerFactory loggerFactory) : base(workerModel,loggerFactory)
         {
 
         }
 
         public override State Check(string login, string password)
         {
-            State s = base.Check(login, password);
-            Console.WriteLine(s);
+            State s = State.INVALID;
+            try
+            {
+                s = workerModel.Check(login, password);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            this.Proffesion = workerModel.Proffesion;
+            logger.LogInformation($"Login {login} checked {s}");
+
             return s;
         }
 

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 
 namespace DB_course.tecknologicalUI
 {
@@ -17,15 +18,21 @@ namespace DB_course.tecknologicalUI
         AUnLoginModel model;
         private readonly string sqlConnectionString;
         IConnection connection;
+        ILoggerFactory loggerFactory =null;
 
-        public AutoriseConsole(string sqlConnectionString)
+        public AutoriseConsole(IConnection connection)
           {
-            this.sqlConnectionString = sqlConnectionString;
-            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
-            var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
-            connection = new WarehouseContext(options);
-
+            this.connection = connection;
             this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+
+            CheckPerson();
+        }
+        public AutoriseConsole(IConnection connection, ILoggerFactory loggerFactory)
+        {
+            this.connection = connection;
+            this.loggerFactory = loggerFactory;
+            this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            model = new UnLoginModelLogDecorator(model, loggerFactory);
 
             CheckPerson();
         }
@@ -36,8 +43,12 @@ namespace DB_course.tecknologicalUI
             string login = Console.ReadLine();
             Console.Write("Input password: ");
             string password = Console.ReadLine();
-
-            State a = model.Check(login, password);  
+            State a = State.INVALID;
+            try
+            {
+                 a = model.Check(login, password);
+            }
+            catch { }
             if(a == State.OK || a == State.FIRST)
                 switch(model.Proffesion)
                 {
@@ -58,16 +69,25 @@ namespace DB_course.tecknologicalUI
 
         private void ShowHrView()
         {
+            if(loggerFactory==null)
             new HRAdminConsole(connection);
+            else
+            new HRAdminConsole(connection, loggerFactory);
         }
 
         private void ShowWorkerView(string login)
         {
-            new WorkerConsole(connection, login);
+            if (loggerFactory == null)
+                new WorkerConsole(connection, login);
+            else
+                new WorkerConsole(connection, login, loggerFactory);    
         }
         private void ShowAdmin()
         {
-            new WarehouseAdminConsole(connection);
+            if (loggerFactory == null)
+                new WarehouseAdminConsole(connection);
+            else
+                new WarehouseAdminConsole(connection, loggerFactory);   
         }
     }
 }

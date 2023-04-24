@@ -1,6 +1,8 @@
-﻿using DB_course.Models.CompositModels;
+﻿
+using DB_course.Models.CompositModels;
 using DB_course.Models.DBModels;
 using DB_course.Repositories;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,7 +41,7 @@ namespace DB_course.Models
             unitOfWork.UsefulRepository.Create(u);
             unitOfWork.UsefulRepository.Save();
         }
-        public virtual void UpdatePasswoord(string newpassword)
+        public virtual void UpdatePassword(string newpassword)
         {
             Person curperson = null;
             try
@@ -90,23 +92,46 @@ namespace DB_course.Models
     public abstract class AWorkerModelDecorator : AWorkerModel
     {
         protected AWorkerModel workerModel;
-        public AWorkerModelDecorator(AWorkerModel workerModel) : base(workerModel.UnitOfWork, workerModel.CurrentLogin)
+        protected readonly ILogger<AWorkerModel> logger;
+        public AWorkerModelDecorator(AWorkerModel workerModel, ILoggerFactory loggerFactory) : base(workerModel.UnitOfWork, workerModel.CurrentLogin)
         {
             this.workerModel = workerModel;
+            logger = loggerFactory.CreateLogger<AWorkerModel>();
         }
     }
 
-    public class WorkerModelLogDecorator : AWorkerModelDecorator
+    public class WorkerModelDecorator : AWorkerModelDecorator
     {
-        public WorkerModelLogDecorator (AWorkerModel workerModel) : base(workerModel)
+        public WorkerModelDecorator (AWorkerModel workerModel, ILoggerFactory loggerFactory) : base(workerModel,loggerFactory)
         {
-
+    
         }
 
         public override void AddUseful(WorkerLookCompose value)
         {
-            base.AddUseful(value);
-            Console.WriteLine("Add useful at " + DateTime.Now);
+            try
+            {
+                workerModel.AddUseful(value);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Useful {value.Name} added succed");
+        }
+        public override void DelitUseful(int Id)
+        {
+            try
+            {
+                workerModel.DelitUseful(Id);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Useful {Id} removed succed");
         }
     }
 }

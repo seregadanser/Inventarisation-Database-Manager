@@ -35,7 +35,7 @@ namespace DB_course.Presenter
         {
             IHRAdminView view =HRAdminForm.GetInstace((MainForm)mainView);
             AHRAdminModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
-            model = new HRAdminModelLogDecorator(model);
+            //model = new HRAdminModel(model);
             new HRAdminPresenter(view, model);
         }
 

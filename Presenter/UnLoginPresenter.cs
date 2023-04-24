@@ -39,7 +39,12 @@ namespace DB_course.Presenter
         {
             string login = this.view.WorkerLogin;
             string password = this.view.WorkerPassword;
-            State a = model.Check(login, password);
+            State a = State.INVALID;
+            try
+            {
+                 a = model.Check(login, password);
+            }
+            catch { }
              if(a == State.OK || a == State.FIRST)
                 switch(model.Proffesion)
                 {
@@ -64,7 +69,7 @@ namespace DB_course.Presenter
         {
             IHRAdminView view = HRAdminForm.GetInstace();
             AHRAdminModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
-            model = new HRAdminModelLogDecorator(model);
+          //  model = new HRAdminModelDecorator(model);
             new HRAdminPresenter(view, model);
         }
 

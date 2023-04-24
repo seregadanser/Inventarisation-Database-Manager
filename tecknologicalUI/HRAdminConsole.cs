@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+
+
 namespace DB_course.tecknologicalUI
 {
     public class HRAdminConsole
@@ -19,15 +21,15 @@ namespace DB_course.tecknologicalUI
         public HRAdminConsole(IConnection connection)
         {
             model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
-            var configuration = new ConfigurationBuilder().SetBasePath("C:\\Users\\Test\\source\\repos\\ConsoleApp3\\ConsoleApp3").AddJsonFile("logconfig.json").Build();
-
-            ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-            builder.AddConsole().AddConfiguration(configuration.GetSection("Logging")));
-            //   builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt")).AddFilter(typeof(AModel).ToString(), LogLevel.Debug));
+            Menue();
+        }
+        public HRAdminConsole(IConnection connection, ILoggerFactory loggerFactory)
+        {
+            model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
             model = new HRAdminModelDecorator(model, loggerFactory);
             Menue();
         }
-        
+
         void Menue()
         {
             string state = "";

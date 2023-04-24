@@ -7,26 +7,27 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Microsoft.Extensions.Logging;
 
 namespace DB_course.Models
 {
-    public class WarehouseAdminModel : IModel
+    public abstract class AWarehouseAdminModel : IModel
     {
         private IUnitOfWork unitOfWork;
         public IUnitOfWork UnitOfWork { get { return unitOfWork; } }
  
-        public WarehouseAdminModel(IUnitOfWork unitOfWork)
+        public AWarehouseAdminModel(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
         
-        public void AddPlace(Place place)
+        public virtual void AddPlace(Place place)
         {
             new DataValidateModel().Validate(place);
             unitOfWork.PlaceRepository.Create(place);
             unitOfWork.PlaceRepository.Save();
         }
-        public void RemovePlace(int key)
+        public virtual void RemovePlace(int key)
         {
             IEnumerable<PlaceofObject> u = unitOfWork.PlaceofObjectRepository.GetList();
             foreach (PlaceofObject useful in u)
@@ -37,7 +38,7 @@ namespace DB_course.Models
             unitOfWork.PlaceRepository.Delete(Convert.ToString(key));
             unitOfWork.PlaceRepository.Save();
         }
-        public void UpdatePlace(int key, Place newPlace)
+        public virtual void UpdatePlace(int key, Place newPlace)
         {
             if(key <= 0)
                 throw new IdException("Invalid Id");
@@ -60,11 +61,11 @@ namespace DB_course.Models
             unitOfWork.PlaceRepository.Save();
 
         }
-        public IEnumerable<Place> GetPlace()
+        public virtual IEnumerable<Place> GetPlace()
         {
             return unitOfWork.PlaceRepository.GetList();
         }
-        public IEnumerable<Place> GetPlace(string value)
+        public virtual IEnumerable<Place> GetPlace(string value)
         {
             IEnumerable<Place> personList;
             bool emptyValue = string.IsNullOrWhiteSpace(value);
@@ -77,7 +78,7 @@ namespace DB_course.Models
             return personList;
         }
 
-        public void AddProduct(AdminCompose value)
+        public virtual void AddProduct(AdminCompose value)
         {
             InventoryProduct newInventory = new InventoryProduct();
             PlaceofObject newPlaceofObject = new PlaceofObject();
@@ -177,7 +178,7 @@ namespace DB_course.Models
             }
 
         }
-        public void RemoveProduct(AdminCompose value)
+        public virtual void RemoveProduct(AdminCompose value)
         {
             IEnumerable<Useful> u = unitOfWork.UsefulRepository.GetList();
             foreach (Useful useful in u)
@@ -208,11 +209,11 @@ namespace DB_course.Models
             unitOfWork.ProductRepository.Save();
 
         }
-        public IEnumerable<AdminCompose> GetProducts()
+        public virtual IEnumerable<AdminCompose> GetProducts()
         {
             return unitOfWork.AdminComposeRepository.GetList();
         }
-        public IEnumerable<AdminCompose> GetProducts(string value)
+        public virtual IEnumerable<AdminCompose> GetProducts(string value)
         {
             IEnumerable<AdminCompose> personList;
             bool emptyValue = string.IsNullOrWhiteSpace(value);
@@ -224,5 +225,98 @@ namespace DB_course.Models
             }
             return personList;
         }
+    }
+    public class WarehouseAdminModel : AWarehouseAdminModel
+    {
+        public WarehouseAdminModel(IUnitOfWork unitOfWork) : base(unitOfWork)
+        {
+
+        }
+    }
+
+    public abstract class AWarehouseAdminModelDecorator : AWarehouseAdminModel
+    {
+        protected AWarehouseAdminModel model;
+        protected readonly ILogger<AWarehouseAdminModel> logger;
+        public AWarehouseAdminModelDecorator(AWarehouseAdminModel model, ILoggerFactory loggerFactory) : base(model.UnitOfWork)
+        {
+            this.model = model;
+            logger = loggerFactory.CreateLogger<AWarehouseAdminModel>();
+        }
+    }
+
+    public class WarehouseAdminModelDecorator : AWarehouseAdminModelDecorator
+    { 
+        public WarehouseAdminModelDecorator(AWarehouseAdminModel model,  ILoggerFactory loggerFactory) : base(model, loggerFactory)
+        {
+
+        }
+        public override void AddPlace(Place place)
+        {
+            try
+            {
+                model.AddPlace(place);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Place {place.Id} added succed");
+        }
+        public override void RemovePlace(int key)
+        {
+            try
+            {
+                model.RemovePlace(key);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Place {key} removed succed");
+        }
+        public override void UpdatePlace(int key, Place newPlace)
+        {
+            try
+            {
+                model.UpdatePlace(key, newPlace);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Place {key} updated succed");
+        }
+
+        public override void AddProduct(AdminCompose value)
+        {
+            try
+            {
+                model.AddProduct(value);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Product {value.InventoryNumber} added succed");
+        }
+        public override void RemoveProduct(AdminCompose value)
+        {
+            try
+            {
+                model.RemoveProduct(value); 
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex.Message);
+                throw ex;
+            }
+            logger.LogInformation($"Product {value.InventoryNumber} removed succed");
+        }
+
     }
 }
