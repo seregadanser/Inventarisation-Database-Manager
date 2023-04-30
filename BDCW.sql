@@ -105,21 +105,30 @@ insert into warehouse2.Useful values
 go
 
 create role worker
-create role HRAdmin
-create role Warehouseman
-create role WerehouseAdmin
-create role NotLogin
+grant select, insert, update on warehouse2.Useful to worker
+grant select on warehouse2.Products to worker
+grant select on warehouse2.InventoryProduct to worker
+grant update on dbo.Persons to worker
 
-grant select on dbo.Persons to NotLogin, Warehouseman, HRAdmin
+create role HRAdmin
 grant select, insert, update, delete on dbo.Persons to HRAdmin
 
-grant select, delete on  warehouse2.Useful to Warehouseman
-grant select, delete, insert on  warehouse2.Useful to worker
-grant select on warehouse2.InventoryProduct to worker, Warehouseman
-grant select on warehouse2.Products to worker
-grant select on warehouse2.PlaceofObject to Warehouseman
+create role Warehouseman
+grant select, delete on warehouse2.Useful to Warehouseman
+grant select on warehouse2.InventoryProduct to Warehouseman
 grant select on warehouse2.Place to Warehouseman
+grant select on warehouse2.PlaceofObject to Warehouseman
+grant select on dbo.Persons to Warehouseman
 
+create role WarehouseAdmin
+grant select, insert, delete on warehouse2.Product to WarehouseAdmin
+grant select, insert, delete on warehouse2.InventoryProduct to WarehouseAdmin
+grant select, insert, delete on warehouse2.PlaceofObject to WarehouseAdmin
+grant select, insert, delete on warehouse2.Place to WarehouseAdmin	
+grant update on warehouse2.Place to WarehouseAdmin
+
+create role NotLogin
+grant select on  dbo.Persons to  NotLogin
 
 select * from warehouse2.Products
 select * from warehouse2.InventoryProduct
