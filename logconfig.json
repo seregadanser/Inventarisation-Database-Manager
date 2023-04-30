@@ -2,7 +2,8 @@
   "Logging": {
     "LogLevel": {
       "Default": "Information",
-      "ConsoleApp3.AModel": "Debug"
+      "ConsoleApp3.AModel": "Debug",
+      "DB_course.Models.AWarehouseAdminModel" :  "Error"
     }
   }
 }

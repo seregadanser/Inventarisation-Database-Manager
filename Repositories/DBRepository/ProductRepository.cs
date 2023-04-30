@@ -22,7 +22,15 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(Product item)
         {
-            db.Products.Add(item);
+            try
+            {
+                db.Products.Add(item);
+            }
+            catch  (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
         }
 
         public void Delete(string key)
