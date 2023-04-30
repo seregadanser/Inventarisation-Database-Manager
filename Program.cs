@@ -1,4 +1,4 @@
-//#define Laptop
+#define Laptop
 
 
 using DB_course.Presenter;
@@ -10,6 +10,7 @@ using DB_course.tecknologicalUI;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 using Microsoft.Extensions.Logging;
 using DB_course.Models.DBModels;
+using DB_course.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DB_course
@@ -22,10 +23,17 @@ namespace DB_course
         [STAThread]
         static void Main(string[] args)
         {
-            var configuration = new ConfigurationBuilder().SetBasePath("D:\\Labs\\DB_course").AddJsonFile("logconfig.json").Build();
+            string p = "";
+#if Laptop
+           p ="D:\\Study\\Test\\DB_course";
+#else
+           p ="D:\\Labs\\DB_course";
+#endif
+
+            var configuration = new ConfigurationBuilder().SetBasePath(p).AddJsonFile("logconfig.json").Build();
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-            builder.AddConsole().AddConfiguration(configuration.GetSection("Logging")));
-            //   builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt")).AddFilter(typeof(AModel).ToString(), LogLevel.Debug));
+            //builder.AddConsole().AddConfiguration(configuration.GetSection("Logging")));
+              builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt")).AddConfiguration(configuration.GetSection("Logging")));
             var builder = new ConfigurationBuilder();
 #if Laptop
             builder.SetBasePath("D:\\Study\\Test\\DB_course");

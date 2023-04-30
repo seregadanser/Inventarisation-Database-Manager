@@ -11,9 +11,11 @@ namespace DB_course.Models
     {
         string filePath;
         static object _lock = new object();
-        public FileLogger(string path)
+        string category;
+        public FileLogger(string path, string category)
         {
             filePath = path;
+            this.category = category;
         }
         public IDisposable BeginScope<TState>(TState state)
         {
@@ -32,7 +34,7 @@ namespace DB_course.Models
         {
             lock (_lock)
             {
-                File.AppendAllText(filePath, logLevel + "  " + formatter(state, exception) + Environment.NewLine);
+                File.AppendAllText(filePath, logLevel + "{ "+category +" }"+"  " + formatter(state, exception) + Environment.NewLine);
             }
         }
 
@@ -46,7 +48,7 @@ namespace DB_course.Models
         }
         public ILogger CreateLogger(string categoryName)
         {
-            return new FileLogger(path);
+            return new FileLogger(path, categoryName);
         }
 
         public void Dispose() { }
