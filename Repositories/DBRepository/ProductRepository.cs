@@ -1,4 +1,5 @@
 ﻿using DB_course.Models.DBModels;
+using DB_course.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

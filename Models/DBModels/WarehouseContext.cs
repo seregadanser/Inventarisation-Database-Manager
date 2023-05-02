@@ -4,10 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DB_course.Models.DBModels;
 
-public interface IConnection
-{
-    public string Type { get; set; }
-}
+
 
 public partial class WarehouseContext : DbContext, IConnection
 {

@@ -5,12 +5,11 @@ using DB_course.Presenter;
 using DB_course.View;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
-using Microsoft.Extensions.Configuration;
+
 using DB_course.tecknologicalUI;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using Microsoft.Extensions.Logging;
-using DB_course.Models.DBModels;
-using DB_course.Models;
+
+
 using Microsoft.EntityFrameworkCore;
 
 namespace DB_course
@@ -34,14 +33,15 @@ namespace DB_course
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
             //builder.AddConsole().AddConfiguration(configuration.GetSection("Logging")));
               builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt")).AddConfiguration(configuration.GetSection("Logging")));
-            var builder = new ConfigurationBuilder();
+         
+              var builder = new ConfigurationBuilder();
 #if Laptop
             builder.SetBasePath("D:\\Study\\Test\\DB_course");
 #else
             builder.SetBasePath("D:\\Labs\\DB_course");
 #endif
             builder.AddJsonFile("connstring.json");
-            var config = builder.Build();
+            IConfigurationRoot config = builder.Build();
             string connectionString = "";
 
 
