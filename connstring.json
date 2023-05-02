@@ -1,24 +1,16 @@
 {
   "ConnectionStrings": {
-    "unlogin": {
-      "DesktopConnection": "Server=DESKTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True",
-      "LaptopConnection": "Server=LAPTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True"
+    "MSSQL": {
+      "unlogin": {
+        "DesktopConnection": "Server=DESKTOPSERGEY;Database=warehouse;Trusted_Connection=True;TrustServerCertificate=True",
+        "LaptopConnection": "Server=LAPTOPSERGEY;Database=warehouse; TrustServerCertificate=True;User Id = notautorise; Password=111111"
+      },
+      "base": {
+        "LaptopConnection": "Server=LAPTOPSERGEY;Database=warehouse; TrustServerCertificate=True;User Id = ; Password= "
+      }
     },
-    "worker": {
-      "DesktopConnection": "",
-      "LaptopConnection": ""
-    },
-    "admin": {
-      "DesktopConnection": "",
-      "LaptopConnection": ""
-    },
-    "hrAdmin": {
-      "DesktopConnection": "",
-      "LaptopConnection": ""
-    },
-    "warehouseman": {
-      "DesktopConnection": "",
-      "LaptopConnection": ""
+    "Mongo": {
+
     }
   }
 }

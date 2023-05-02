@@ -78,7 +78,10 @@ public partial class WarehouseContext : DbContext, IConnection
             entity.Property(e => e.SecondName)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
         });
+        modelBuilder.Entity<Person>().ToTable(tb => tb.HasTrigger("add_login_and_role"));
+        modelBuilder.Entity<Person>().ToTable(tb => tb.HasTrigger("delete_login_and_role"));
 
         modelBuilder.Entity<Place>(entity =>
         {

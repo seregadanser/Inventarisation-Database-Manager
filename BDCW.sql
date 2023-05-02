@@ -1,7 +1,7 @@
 create database warehouse
 go
 
-
+ 
 --create schema warehouse2
 --go
 
@@ -69,6 +69,8 @@ delete warehouse2.Products
 delete warehouse2.InventoryProduct
 delete warehouse2.PlaceofObject
 delete warehouse2.Place
+delete warehouse2.Useful
+delete dbo.Persons
 
 insert into warehouse2.Products values
 (1, 'microscop', 2, null, null),
@@ -97,21 +99,25 @@ insert into warehouse2.PlaceofObject values
 
 
 insert into dbo.Persons values
-( 'admin', 'vova', 'markus','admin', '1912-10-25' ,'password',0),
-( 'hradmin', 'valera', 'borisov','hradmin', '1962-10-25' ,'123456',0)
+--( 'admin', 'vova', 'markus','admin', '1912-10-25' ,'password',0),
+( 'hradminn', 'valera', 'borisov','hradmin', '1962-10-25' ,'123456',0)
 
 insert into warehouse2.Useful values
 ( 1, 'f', null)
 go
 
-create role worker
-grant select, insert, update on warehouse2.Useful to worker
-grant select on warehouse2.Products to worker
-grant select on warehouse2.InventoryProduct to worker
-grant update on dbo.Persons to worker
+create role Worker
+grant select, insert, delete on warehouse2.Useful to Worker
+grant select on warehouse2.Products to Worker
+grant select on warehouse2.InventoryProduct to Worker
+grant update on dbo.Persons to Worker
 
 create role HRAdmin
-grant select, insert, update, delete on dbo.Persons to HRAdmin
+grant select, insert, update, delete on dbo.Persons to HRAdmin 
+grant select on warehouse2.Useful to HRAdmin
+GRANT ALTER ANY ROLE TO HRAdmin;
+
+
 
 create role Warehouseman
 grant select, delete on warehouse2.Useful to Warehouseman
@@ -121,14 +127,19 @@ grant select on warehouse2.PlaceofObject to Warehouseman
 grant select on dbo.Persons to Warehouseman
 
 create role WarehouseAdmin
-grant select, insert, delete on warehouse2.Product to WarehouseAdmin
+grant select, insert, delete on warehouse2.Products to WarehouseAdmin
 grant select, insert, delete on warehouse2.InventoryProduct to WarehouseAdmin
 grant select, insert, delete on warehouse2.PlaceofObject to WarehouseAdmin
 grant select, insert, delete on warehouse2.Place to WarehouseAdmin	
+grant select on warehouse2.Useful to WarehouseAdmin
 grant update on warehouse2.Place to WarehouseAdmin
 
 create role NotLogin
 grant select on  dbo.Persons to  NotLogin
+
+create login notautorise with password = '111111'
+create user notautorise for login notautorise
+alter role NotLogin add member notautorise
 
 select * from warehouse2.Products
 select * from warehouse2.InventoryProduct
@@ -140,7 +151,71 @@ select * from warehouse2.Useful
 update warehouse2.Products
 set warehouse2.Products.value = 1
 
+go
+CREATE TRIGGER add_login_and_role
+ON dbo.Persons
+AFTER INSERT
+AS
+BEGIN
+  DECLARE @login_name NVARCHAR(100);
+  DECLARE @password NVARCHAR(100);
+  DECLARE @role_name NVARCHAR(100);
+  
+  -- Get the login name, password, and role name from the inserted row
+  SELECT @login_name = inserted.[Login], @password = inserted.[password], @role_name = inserted.Position
+  FROM inserted;
+  
+DECLARE @sql NVARCHAR(MAX) = N'CREATE LOGIN ' + QUOTENAME(@login_name) + N' WITH PASSWORD = ' + QUOTENAME(@password, '''') + N';';
+EXEC sp_executesql @sql;
+DECLARE @sql1 NVARCHAR(MAX) = N'create user ' + QUOTENAME(@login_name) + N' for login ' + QUOTENAME(@login_name);
+EXEC sp_executesql @sql1;
+DECLARE @sql2 NVARCHAR(MAX) = case @role_name
+when 'hradmin' then
+   N'ALTER ROLE HRAdmin ADD MEMBER ' +  QUOTENAME(@login_name)
+when 'admin' then
+	N'ALTER ROLE WarehouseAdmin ADD MEMBER ' +  QUOTENAME(@login_name)
+when 'worker' then
+	N'ALTER ROLE Worker ADD MEMBER ' +  QUOTENAME(@login_name)
+when 'warehouseman' then
+	N'ALTER ROLE Warehouseman ADD MEMBER ' +  QUOTENAME(@login_name)
+end
+EXEC sp_executesql @sql2;
+END;
+go
 
+CREATE TRIGGER delete_login_and_role
+ON dbo.Persons
+AFTER DELETE
+AS
+BEGIN
+  DECLARE @login_name NVARCHAR(100);
+  DECLARE @role_name NVARCHAR(100);
+  
+  -- Get the login name and role name from the deleted row
+  SELECT @login_name = deleted.Login, @role_name = deleted.Position
+  FROM deleted;
+
+    
+DECLARE @sql2 NVARCHAR(MAX) = case @role_name
+when 'hradmin' then
+   N'ALTER ROLE HRAdmin drop MEMBER ' +  QUOTENAME(@login_name)
+when 'admin' then
+	N'ALTER ROLE WarehouseAdmin drop MEMBER ' +  QUOTENAME(@login_name)
+when 'worker' then
+	N'ALTER ROLE Worker drop MEMBER ' +  QUOTENAME(@login_name)
+when 'warehouseman' then
+	N'ALTER ROLE Warehouseman drop MEMBER ' +  QUOTENAME(@login_name)
+end
+ EXEC sp_executesql @sql2;
+ DECLARE @sql1 NVARCHAR(MAX) = N'drop user ' + QUOTENAME(@login_name);
+EXEC sp_executesql @sql1;
+  DECLARE @sql NVARCHAR(MAX) = N'drop LOGIN ' + QUOTENAME(@login_name);
+EXEC sp_executesql @sql;
+
+END;
+go
+drop TRIGGER add_login_and_role
+drop TRIGGER delete_login_and_role
 --Сотрудник
 select warehouse2.InventoryProduct.inventory_number, [name], dateCome, dateProduction
 from warehouse2.InventoryProduct join warehouse2.Products on warehouse2.Products.Id = warehouse2.InventoryProduct.product_Id 

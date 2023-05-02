@@ -48,9 +48,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.SecondName = new System.Windows.Forms.Label();
             this.BirthdayText = new System.Windows.Forms.TextBox();
-            this.PositionText = new System.Windows.Forms.TextBox();
             this.SecondNameText = new System.Windows.Forms.TextBox();
             this.NameText = new System.Windows.Forms.TextBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -163,6 +163,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.comboBox1);
             this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Controls.Add(this.passwordText);
             this.tabPage2.Controls.Add(this.label4);
@@ -174,7 +175,6 @@
             this.tabPage2.Controls.Add(this.label1);
             this.tabPage2.Controls.Add(this.SecondName);
             this.tabPage2.Controls.Add(this.BirthdayText);
-            this.tabPage2.Controls.Add(this.PositionText);
             this.tabPage2.Controls.Add(this.SecondNameText);
             this.tabPage2.Controls.Add(this.NameText);
             this.tabPage2.Location = new System.Drawing.Point(4, 34);
@@ -292,14 +292,6 @@
             this.BirthdayText.Size = new System.Drawing.Size(141, 31);
             this.BirthdayText.TabIndex = 3;
             // 
-            // PositionText
-            // 
-            this.PositionText.Location = new System.Drawing.Point(184, 93);
-            this.PositionText.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.PositionText.Name = "PositionText";
-            this.PositionText.Size = new System.Drawing.Size(141, 31);
-            this.PositionText.TabIndex = 2;
-            // 
             // SecondNameText
             // 
             this.SecondNameText.Location = new System.Drawing.Point(469, 10);
@@ -315,6 +307,19 @@
             this.NameText.Name = "NameText";
             this.NameText.Size = new System.Drawing.Size(141, 31);
             this.NameText.TabIndex = 0;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "worker",
+            "admin",
+            "hradmin",
+            "warehouseman"});
+            this.comboBox1.Location = new System.Drawing.Point(172, 98);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(159, 33);
+            this.comboBox1.TabIndex = 14;
             // 
             // HRAdminForm
             // 
@@ -345,7 +350,6 @@
         private Button Search;
         private TextBox SearchText;
         private TabPage tabPage2;
-        private TextBox PositionText;
         private TextBox SecondNameText;
         private TextBox NameText;
         private Label SecondName;
@@ -359,5 +363,6 @@
         private TextBox LoginText;
         private Label label5;
         private TextBox passwordText;
+        private ComboBox comboBox1;
     }
 }

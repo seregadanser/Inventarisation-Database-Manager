@@ -110,7 +110,7 @@ namespace DB_course.View
 
         public string WorkerName { get { return NameText.Text; } set { NameText.Text = value; } }
         public string WorkerSecondName { get { return SecondNameText.Text; } set { SecondNameText.Text = value; } }
-        public string WorkerPosition { get { return PositionText.Text; } set { PositionText.Text = value; } }
+        public string WorkerPosition { get { return (string)comboBox1.SelectedItem; } set { comboBox1.SelectedIndex = 0; } }
         public string WorkerBirthday { get { return BirthdayText.Text; } set { BirthdayText.Text = value; } }
         public string WorkerLogin { get { return LoginText.Text; } set { LoginText.Text = value; } }
         public string WorkerPassword { get { return passwordText.Text; } set { passwordText.Text = value; } }

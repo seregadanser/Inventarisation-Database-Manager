@@ -1,4 +1,5 @@
-﻿using DB_course.Models;
+﻿#define Laptop
+using DB_course.Models;
 using DB_course.Models.DBModels;
 using DB_course.Presenter;
 using DB_course.Repositories;
@@ -10,6 +11,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace DB_course.tecknologicalUI
 {
@@ -17,20 +21,41 @@ namespace DB_course.tecknologicalUI
     {
         AUnLoginModel model;
         private readonly string sqlConnectionString;
+        IConfigurationRoot config;
         IConnection connection;
         ILoggerFactory loggerFactory =null;
 
-        public AutoriseConsole(IConnection connection)
+        string login, password;
+        public AutoriseConsole(IConfigurationRoot config)
           {
-            this.connection = connection;
-            this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            this.config = config;
 
+            string connectionString = "";
+#if Laptop
+            connectionString = config.GetConnectionString("MSSQL:unlogin:LaptopConnection") ?? throw new Exception();
+#else
+            connectionString = config.GetConnectionString("unlogin:DesktopConnection") ?? throw new Exception();
+#endif
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer(connectionString).Options;
+            IConnection connection = new WarehouseContext(options);
+            this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
             CheckPerson();
         }
-        public AutoriseConsole(IConnection connection, ILoggerFactory loggerFactory)
+        public AutoriseConsole(IConfigurationRoot config, ILoggerFactory loggerFactory)
         {
-            this.connection = connection;
+            this.config = config;
             this.loggerFactory = loggerFactory;
+
+            string connectionString = "";
+#if Laptop
+            connectionString = config.GetConnectionString("MSSQL:unlogin:LaptopConnection") ?? throw new Exception();
+#else
+            connectionString = config.GetConnectionString("unlogin:DesktopConnection") ?? throw new Exception();
+#endif
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer(connectionString).Options;
+            IConnection connection = new WarehouseContext(options);
             this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
             model = new UnLoginModelLogDecorator(model, loggerFactory);
 
@@ -40,9 +65,9 @@ namespace DB_course.tecknologicalUI
         private void CheckPerson()
         {
             Console.Write("Input Login: ");
-            string login = Console.ReadLine();
+            login = Console.ReadLine();
             Console.Write("Input password: ");
-            string password = Console.ReadLine();
+            password = Console.ReadLine();
             State a = State.INVALID;
             try
             {
@@ -69,6 +94,20 @@ namespace DB_course.tecknologicalUI
 
         private void ShowHrView()
         {
+            string connectionString = "";
+#if Laptop
+            connectionString = config.GetConnectionString("MSSQL:unlogin:LaptopConnection") ?? throw new Exception();
+#else
+            connectionString = config.GetConnectionString("unlogin:DesktopConnection") ?? throw new Exception();
+#endif
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+
+            var ConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+            ConnectionStringBuilder.UserID = login;
+            ConnectionStringBuilder.Password = password;
+
+            var options = optionsBuilder.UseSqlServer(ConnectionStringBuilder.ConnectionString).Options;
+            IConnection connection = new WarehouseContext(options);
             if(loggerFactory==null)
             new HRAdminConsole(connection);
             else
@@ -84,6 +123,20 @@ namespace DB_course.tecknologicalUI
         }
         private void ShowAdmin()
         {
+            string connectionString = "";
+#if Laptop
+            connectionString = config.GetConnectionString("MSSQL:unlogin:LaptopConnection") ?? throw new Exception();
+#else
+            connectionString = config.GetConnectionString("unlogin:DesktopConnection") ?? throw new Exception();
+#endif
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+
+            var ConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+            ConnectionStringBuilder.UserID = login;
+            ConnectionStringBuilder.Password = password;
+
+            var options = optionsBuilder.UseSqlServer(ConnectionStringBuilder.ConnectionString).Options;
+            IConnection connection = new WarehouseContext(options);
             if (loggerFactory == null)
                 new WarehouseAdminConsole(connection);
             else

@@ -43,14 +43,6 @@ namespace DB_course
             builder.AddJsonFile("connstring.json");
             var config = builder.Build();
             string connectionString = "";
-#if Laptop
-            connectionString = config.GetConnectionString("unlogin:LaptopConnection") ?? throw new Exception();
-#else
-            connectionString = config.GetConnectionString("unlogin:DesktopConnection")?? throw new Exception();
-#endif
-            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
-            var options = optionsBuilder.UseSqlServer(connectionString).Options;
-            IConnection connection = new WarehouseContext(options);
 
 
             IView view = null;
@@ -62,7 +54,7 @@ namespace DB_course
             }
 
             if (args[0] == "TUI")
-                new AutoriseConsole(connection, loggerFactory);
+                new AutoriseConsole(config, loggerFactory);
 
             if (args[0] == "work")
             {

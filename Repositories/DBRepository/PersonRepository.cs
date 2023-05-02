@@ -22,7 +22,15 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(Person item)
         {
-            db.Persons.Add(item);
+            try
+            {
+                db.Persons.Add(item);
+            }
+            catch(Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
         }
 
         public void Delete(string key)
@@ -52,7 +60,15 @@ namespace DB_course.Repositories.DBRepository
 
         public void Save()
         {
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch(Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
         }
 
         public void Update(Person item)
