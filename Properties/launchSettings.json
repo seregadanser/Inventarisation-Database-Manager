@@ -2,7 +2,7 @@
   "profiles": {
     "DB_course": {
       "commandName": "Project",
-      "commandLineArgs": "TUI\r\n"
+      "commandLineArgs": "work\r\n"
     }
   }
 }

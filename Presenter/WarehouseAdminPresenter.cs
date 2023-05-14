@@ -14,7 +14,7 @@ namespace DB_course.Presenter
     public class WarehouseAdminPresenter
     {
         private IWarehouseAdminView view;
-        private WarehouseAdminModel model;
+        private AWarehouseAdminModel model;
         private BindingSource productsBindingSource;
         private IEnumerable<AdminCompose> productList;
         private BindingSource placesBindingSource;
@@ -27,7 +27,7 @@ namespace DB_course.Presenter
             placesBindingSource = new BindingSource();
 
             this.view = view;
-            this.model = (WarehouseAdminModel)model;
+            this.model = (AWarehouseAdminModel)model;
 
 
             //Set pets bindind source
