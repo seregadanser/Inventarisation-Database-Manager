@@ -47,19 +47,13 @@ namespace DB_course
 
             IView view = null;
             ApplicationConfiguration.Initialize();
-            if (args[0] == "Test")
-            {
-                view = new MainForm();
-                new MainPresenter(view, connectionString);
-            }
-
             if (args[0] == "TUI")
                 new AutoriseConsole(config, loggerFactory);
 
             if (args[0] == "work")
             {
                 view = new UnLoginForm();
-                new UnLoginPresenter(view, connectionString);
+                new UnLoginPresenter(view, config);
             }
 
 

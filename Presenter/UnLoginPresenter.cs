@@ -19,7 +19,7 @@ namespace DB_course.Presenter
 
         private readonly string sqlConnectionString;
         IConnection connection;
-        public UnLoginPresenter(IView view, string sqlConnectionString)
+        public UnLoginPresenter(IView view, IConfigurationRoot connectionconfig)
         {
             this.view = (IUnLoginView)view;
 
@@ -68,7 +68,7 @@ namespace DB_course.Presenter
         private void ShowHrView()
         {
             IHRAdminView view = HRAdminForm.GetInstace();
-            AHRAdminModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            IModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
           //  model = new HRAdminModelDecorator(model);
             new HRAdminPresenter(view, model);
         }
