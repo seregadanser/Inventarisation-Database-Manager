@@ -42,8 +42,6 @@ namespace DB_course
 #endif
             builder.AddJsonFile("connstring.json");
             IConfigurationRoot config = builder.Build();
-            string connectionString = "";
-
 
             IView view = null;
             ApplicationConfiguration.Initialize();
@@ -53,7 +51,7 @@ namespace DB_course
             if (args[0] == "work")
             {
                 view = new UnLoginForm();
-                new UnLoginPresenter(view, config);
+                new UnLoginPresenter(view, config, loggerFactory);
             }
 
 

@@ -1,9 +1,12 @@
-﻿using System;
+﻿#define Laptop
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DB_course.Models.DBModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Data.SqlClient;
 
 namespace DB_course.Models
 {
@@ -12,21 +15,41 @@ namespace DB_course.Models
         public string Type { get; set; }
     }
 
-    public class ConnectionBuilder
-    {
-    public ConnectionBuilder(IConfigurationRoot config)
+    public static class ConnectionBuilder
     {
 
-    }
 
-    public IConnection CreateMSSQLconnection()
-    {
-            return null;
-    }
+        public static IConnection CreateMSSQLconnection(IConfigurationRoot config)
+        {
+            string connectionString = "";
+#if Laptop
+            connectionString = config.GetConnectionString("MSSQL:unlogin:LaptopConnection") ?? throw new Exception();
+#else
+            connectionString = config.GetConnectionString("unlogin:DesktopConnection") ?? throw new Exception();
+#endif
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+            var options = optionsBuilder.UseSqlServer(connectionString).Options;
+            IConnection connection = new WarehouseContext(options);
+            return connection;
+        }
 
-    public IConnection CreateMongoConnection ()
-    {
-            return null;
-    }
+        public static IConnection CreateMSSQLconnection(IConfigurationRoot config, string login, string password)
+        {
+            string connectionString = "";
+#if Laptop
+            connectionString = config.GetConnectionString("MSSQL:unlogin:LaptopConnection") ?? throw new Exception();
+#else
+            connectionString = config.GetConnectionString("unlogin:DesktopConnection") ?? throw new Exception();
+#endif
+            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
+
+            var ConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
+            ConnectionStringBuilder.UserID = login;
+            ConnectionStringBuilder.Password = password;
+
+            var options = optionsBuilder.UseSqlServer(ConnectionStringBuilder.ConnectionString).Options;
+            IConnection connection = new WarehouseContext(options);
+            return connection;
+        }
     }
 }

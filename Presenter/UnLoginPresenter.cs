@@ -1,4 +1,5 @@
-﻿using DB_course.Models;
+﻿#define Laptop
+using DB_course.Models;
 using DB_course.Models.DBModels;
 using DB_course.Repositories;
 using DB_course.View;
@@ -17,28 +18,45 @@ namespace DB_course.Presenter
         IUnLoginView view;
         AUnLoginModel model;
 
-        private readonly string sqlConnectionString;
         IConnection connection;
-        public UnLoginPresenter(IView view, IConfigurationRoot connectionconfig)
+
+        IConfigurationRoot config;
+        ILoggerFactory loggerFactory = null;
+
+        string login, password;
+        public UnLoginPresenter(IView view, IConfigurationRoot config)
         {
             this.view = (IUnLoginView)view;
 
-            this.sqlConnectionString = sqlConnectionString;
             this.view.SaveEvent += CheckPerson;
 
-            var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
-            var options = optionsBuilder.UseSqlServer(sqlConnectionString).Options;
-            connection = new WarehouseContext(options);
+            this.config = config;
 
-            this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection))); 
+            connection = ConnectionBuilder.CreateMSSQLconnection(config);
+            this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+
+            this.view.Show();
+        }
+
+        public UnLoginPresenter(IView view, IConfigurationRoot config, ILoggerFactory loggerFactory)
+        {
+            this.view = (IUnLoginView)view;
+            this.view.SaveEvent += CheckPerson;
+
+            this.config = config;
+            this.loggerFactory = loggerFactory;
+
+            connection = ConnectionBuilder.CreateMSSQLconnection(config);
+            this.model = new UnLoginModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            model = new UnLoginModelLogDecorator(model, loggerFactory);
 
             this.view.Show();
         }
 
         private void CheckPerson(object? sender, EventArgs e)
         {
-            string login = this.view.WorkerLogin;
-            string password = this.view.WorkerPassword;
+            login = this.view.WorkerLogin;
+            password = this.view.WorkerPassword;
             State a = State.INVALID;
             try
             {
@@ -68,22 +86,26 @@ namespace DB_course.Presenter
         private void ShowHrView()
         {
             IHRAdminView view = HRAdminForm.GetInstace();
-            IModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
-          //  model = new HRAdminModelDecorator(model);
+            connection = ConnectionBuilder.CreateMSSQLconnection(config, login, password);
+            AHRAdminModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            model = new HRAdminModelDecorator(model, loggerFactory);
             new HRAdminPresenter(view, model);
         }
 
         private void ShowWorkerView(string login)
         {
             IWorkerView view = WorkerForm.GetInstace();
-            IModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)), login);
+            connection = ConnectionBuilder.CreateMSSQLconnection(config, login, password);
+            AWorkerModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)), login);
+            model = new WorkerModelDecorator(model, loggerFactory);
             new WorkerPresenter(view, model);
         }
         private void ShowAdmin()
         {
-
             IWarehouseAdminView view = WarehouseAdminForm.GetInstace();
-            IModel model = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            connection = ConnectionBuilder.CreateMSSQLconnection(config, login, password);
+            AWarehouseAdminModel model = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            model = new WarehouseAdminModelDecorator(model, loggerFactory);
             new WarehouseAdminPresenter(view, model);
         }
     }
