@@ -12,10 +12,12 @@ namespace DB_course.Models
         string filePath;
         static object _lock = new object();
         string category;
-        public FileLogger(string path, string category)
+        TimeSpan timeZone;
+        public FileLogger(string path, string category, TimeSpan timeZone)
         {
             filePath = path;
             this.category = category;
+            this.timeZone = timeZone;
         }
         public IDisposable BeginScope<TState>(TState state)
         {
@@ -34,9 +36,8 @@ namespace DB_course.Models
         {
             lock (_lock)
             {
-                var offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
-          
-                File.AppendAllText(filePath, logLevel + "{ "+category +" }"+"  " + formatter(state, exception) + Environment.NewLine);
+                var timestamp = DateTime.UtcNow.Add(timeZone).ToString("yyyy-MM-dd HH:mm:ss");
+                File.AppendAllText(filePath, $"{timestamp} " +  logLevel + "{ "+category +" }"+"  " + formatter(state, exception) + Environment.NewLine);
             }
         }
 
@@ -44,22 +45,24 @@ namespace DB_course.Models
     public class FileLoggerProvider : ILoggerProvider
     {
         string path;
-        public FileLoggerProvider(string path)
+        TimeSpan timeZone;
+        public FileLoggerProvider(string path, TimeSpan timeZone)
         {
             this.path = path;
+            this.timeZone = timeZone;
         }
         public ILogger CreateLogger(string categoryName)
         {
-            return new FileLogger(path, categoryName);
+            return new FileLogger(path, categoryName, timeZone);
         }
 
         public void Dispose() { }
     }
     public static class FileLoggerExtensions
     {
-        public static ILoggingBuilder AddFile(this ILoggingBuilder builder, string filePath)
+        public static ILoggingBuilder AddFile(this ILoggingBuilder builder, string filePath, TimeSpan timeZone)
         {
-            builder.AddProvider(new FileLoggerProvider(filePath));
+            builder.AddProvider(new FileLoggerProvider(filePath, timeZone));
             return builder;
         }
         public static void LogError(this ILogger logger, string? message, params object?[] args)

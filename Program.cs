@@ -16,6 +16,21 @@ namespace DB_course
 {
     internal static class Program
     {
+
+        private static TimeSpan ParseTimeZoneOffset(string offsetString)
+        {
+            bool isNegative = offsetString.StartsWith("-");
+            string[] parts = offsetString.TrimStart('-', '+').Split(':');
+
+            int hours = int.Parse(parts[0]);
+            int minutes = parts.Length > 1 ? int.Parse(parts[1]) : 0;
+
+            int totalMinutes = (hours * 60) + minutes;
+            if(isNegative)
+                totalMinutes = -totalMinutes;
+
+            return TimeSpan.FromMinutes(totalMinutes);
+        }
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -30,8 +45,12 @@ namespace DB_course
 #endif
 
             var configuration = new ConfigurationBuilder().SetBasePath(p).AddJsonFile("logconfig.json").Build();
+            var timeZoneOffsetString = configuration["Logging:File:TimeZoneOffset"];
+            var timeZoneOffset = ParseTimeZoneOffset(timeZoneOffsetString);
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-              builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), configuration["Logging:File:FilePath"])).AddConfiguration(configuration.GetSection("Logging")));
+
+              builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), configuration["Logging:File:FilePath"]), timeZoneOffset).
+              AddConfiguration(configuration.GetSection("Logging")));
          
 
               var builder = new ConfigurationBuilder();
