@@ -31,9 +31,9 @@ namespace DB_course
 
             var configuration = new ConfigurationBuilder().SetBasePath(p).AddJsonFile("logconfig.json").Build();
             ILoggerFactory loggerFactory = LoggerFactory.Create(builder =>
-            //builder.AddConsole().AddConfiguration(configuration.GetSection("Logging")));
-              builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), "logger.txt")).AddConfiguration(configuration.GetSection("Logging")));
+              builder.AddFile(Path.Combine(Directory.GetCurrentDirectory(), configuration["Logging:File:FilePath"])).AddConfiguration(configuration.GetSection("Logging")));
          
+
               var builder = new ConfigurationBuilder();
 #if Laptop
             builder.SetBasePath("D:\\Study\\Test\\DB_course");

@@ -3,7 +3,12 @@
     "LogLevel": {
       "Default": "Information",
       "ConsoleApp3.AModel": "Debug",
-      "DB_course.Models.AWarehouseAdminModel" :  "Error"
+      "DB_course.Models.AWarehouseAdminModel": "Error"
+    },
+    "File": {
+      "IncludeTimestamp": true,
+      "TimestampFormat": "yyyy-MM-dd HH:mm:ss",
+      "FilePath": "logfile.txt"
     }
   }
 }
