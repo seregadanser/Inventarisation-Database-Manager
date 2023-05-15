@@ -34,6 +34,8 @@ namespace DB_course.Models
         {
             lock (_lock)
             {
+                var offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+          
                 File.AppendAllText(filePath, logLevel + "{ "+category +" }"+"  " + formatter(state, exception) + Environment.NewLine);
             }
         }

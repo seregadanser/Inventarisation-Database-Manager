@@ -88,7 +88,8 @@ namespace DB_course.Presenter
             IHRAdminView view = HRAdminForm.GetInstace();
             connection = ConnectionBuilder.CreateMSSQLconnection(config, login, password);
             AHRAdminModel model = new HRAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
-            model = new HRAdminModelDecorator(model, loggerFactory);
+            if(loggerFactory != null)
+                model = new HRAdminModelDecorator(model, loggerFactory);
             new HRAdminPresenter(view, model);
         }
 
@@ -97,7 +98,8 @@ namespace DB_course.Presenter
             IWorkerView view = WorkerForm.GetInstace();
             connection = ConnectionBuilder.CreateMSSQLconnection(config, login, password);
             AWorkerModel model = new WorkerModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)), login);
-            model = new WorkerModelDecorator(model, loggerFactory);
+            if(loggerFactory != null)
+                model = new WorkerModelDecorator(model, loggerFactory);
             new WorkerPresenter(view, model);
         }
         private void ShowAdmin()
@@ -105,7 +107,8 @@ namespace DB_course.Presenter
             IWarehouseAdminView view = WarehouseAdminForm.GetInstace();
             connection = ConnectionBuilder.CreateMSSQLconnection(config, login, password);
             AWarehouseAdminModel model = new WarehouseAdminModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
-            model = new WarehouseAdminModelDecorator(model, loggerFactory);
+            if(loggerFactory != null)
+                model = new WarehouseAdminModelDecorator(model, loggerFactory);
             new WarehouseAdminPresenter(view, model);
         }
     }

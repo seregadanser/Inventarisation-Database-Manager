@@ -22,11 +22,7 @@ namespace DB_course.Models
         public static IConnection CreateMSSQLconnection(IConfigurationRoot config)
         {
             string connectionString = "";
-#if Laptop
-            connectionString = config.GetConnectionString("MSSQL:unlogin:LaptopConnection") ?? throw new Exception();
-#else
-            connectionString = config.GetConnectionString("unlogin:DesktopConnection") ?? throw new Exception();
-#endif
+            connectionString = config.GetConnectionString("Connection") ?? throw new Exception();
             var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
             var options = optionsBuilder.UseSqlServer(connectionString).Options;
             IConnection connection = new WarehouseContext(options);
@@ -36,11 +32,8 @@ namespace DB_course.Models
         public static IConnection CreateMSSQLconnection(IConfigurationRoot config, string login, string password)
         {
             string connectionString = "";
-#if Laptop
-            connectionString = config.GetConnectionString("MSSQL:unlogin:LaptopConnection") ?? throw new Exception();
-#else
-            connectionString = config.GetConnectionString("unlogin:DesktopConnection") ?? throw new Exception();
-#endif
+            connectionString = config.GetConnectionString("Connection") ?? throw new Exception();
+
             var optionsBuilder = new DbContextOptionsBuilder<WarehouseContext>();
 
             var ConnectionStringBuilder = new SqlConnectionStringBuilder(connectionString);
