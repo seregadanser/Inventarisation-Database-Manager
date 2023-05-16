@@ -22,4 +22,8 @@ namespace DB_course.Repositories
     {
 
     }
+    public interface INeo4jRepository<T> : IRepository<T> where T : class
+    {
+
+    }
 }

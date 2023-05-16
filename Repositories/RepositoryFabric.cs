@@ -84,4 +84,64 @@ namespace DB_course.Repositories
             return new WorkerLookUsefulComposeRepository(connection);
         }
     }
+
+    public class Neo4jRepositoryAbstractFabric : IRepositoryAbstractFabric
+    {
+        IConnection connection;
+
+        public Neo4jRepositoryAbstractFabric(IConnection connection)
+        {
+            this.connection = connection;
+            ((N4jGrafClient)connection).ConnectAsync();
+        }
+
+        public IRepository<AdminCompose> CreateAdminComposeR()
+        {
+            return new AdminComposeRepositoryN(connection);
+        }
+
+        public IRepository<InventoryProduct> CreateInventoryProductR()
+        {
+            return new InventoryProductRepositoryN(connection);
+        }
+
+        public IRepository<Person> CreatePersonR()
+        {
+            return new PersonRepositoryN(connection);
+        }
+
+        public IRepository<PlaceofObject> CreatePlaceofObjectR()
+        {
+            return new PlaceofObjectRepositoryN(connection);
+        }
+
+        public IRepository<Place> CreatePlaceR()
+        {
+            return new PlaceRepositoryN(connection);
+        }
+
+        public IRepository<Product> CreateProductR()
+        {
+            return new ProductRepositoryN(connection);
+        }
+
+        public IRepository<Useful> CreateUsefulR()
+        {
+            return new UsefulRepositoryN(connection);
+        }
+        public IRepository<WarehousemanLookCompose> CreateWarehousemanLookComposeRepositoryR()
+        {
+            return new WarehousemanLookComposeRepositoryN(connection);
+        }
+
+        public IRepository<WorkerLookCompose> CreateWorkerLookComposeR()
+        {
+            return new WorkerLookComposeRepositoryN(connection);
+        }
+
+        public IRepository<WorkerLookUsefulCompose> CreateWorkerLookUsefulComposeR()
+        {
+            return new WorkerLookUsefulComposeRepositoryN(connection);
+        }
+    }
 }
