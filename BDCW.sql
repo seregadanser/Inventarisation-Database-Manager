@@ -58,6 +58,16 @@ PersonId varchar(50) REFERENCES  dbo.Persons ([Login]),
 DateOfStart date
 )
 go
+
+create table warehouse2.History
+(
+Id int primary key,
+InventoryId int REFERENCES  warehouse2.InventoryProduct (inventory_number),
+PersonId varchar(50) REFERENCES  dbo.Persons ([Login]),
+DateOfStart date,
+DateOfEnd date
+)
+go
 --drop table warehouse2.InventoryProduct
 --drop table warehouse2.Products
 --drop table warehouse2.Place

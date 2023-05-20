@@ -30,6 +30,8 @@ public partial class WarehouseContext : DbContext, IConnection
 
     public virtual DbSet<Useful> Usefuls { get; set; }
 
+    public virtual DbSet<History> Historys { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.UseSqlServer();
 
@@ -150,6 +152,7 @@ public partial class WarehouseContext : DbContext, IConnection
             //    .HasConstraintName("FK__Useful__PersonId__6D0D32F4");
         });
 
+        PK__History__3214EC0796AA2E2F
         OnModelCreatingPartial(modelBuilder);
     }
 
