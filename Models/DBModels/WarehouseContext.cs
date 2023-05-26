@@ -152,7 +152,7 @@ public partial class WarehouseContext : DbContext, IConnection
             //    .HasConstraintName("FK__Useful__PersonId__6D0D32F4");
         });
 
-        PK__History__3214EC0796AA2E2F
+        //PK__History__3214EC0796AA2E2F
         OnModelCreatingPartial(modelBuilder);
     }
 
