@@ -21,7 +21,15 @@ namespace DB_course.Repositories.DBRepository
         }
         public void Create(Place item)
         {
-            db.Places.Add(item);
+            try
+            {
+                db.Places.Add(item);
+            }
+            catch (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
         }
 
         public void Delete(string id)
@@ -54,7 +62,16 @@ namespace DB_course.Repositories.DBRepository
 
         public void Save()
         {
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
+            db.ChangeTracker.Clear();
         }
 
         public void Update(Place item)

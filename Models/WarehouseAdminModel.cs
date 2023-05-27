@@ -144,9 +144,10 @@ namespace DB_course.Models
             }
             unitOfWork.ProductRepository.Save();
 
-            unitOfWork.InventoryProductRepository.Create(newInventory);
+           
             try
             {
+                unitOfWork.InventoryProductRepository.Create(newInventory);
                 unitOfWork.InventoryProductRepository.Save();
             }
             catch

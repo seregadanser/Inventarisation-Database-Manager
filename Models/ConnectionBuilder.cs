@@ -57,6 +57,7 @@ namespace DB_course.Models
 
             var options = optionsBuilder.UseSqlServer(ConnectionStringBuilder.ConnectionString).Options;
             IConnection connection = new WarehouseContext(options);
+            ((WarehouseContext)connection).ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
             return connection;
         }
     }

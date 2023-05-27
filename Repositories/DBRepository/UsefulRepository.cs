@@ -21,7 +21,15 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(Useful item)
         {
-            db.Usefuls.Add(item);
+            try
+            {
+                db.Usefuls.Add(item);
+            }
+            catch (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
         }
 
         public void Delete(string key)
@@ -33,7 +41,7 @@ namespace DB_course.Repositories.DBRepository
             }
             catch { throw new Exception("unvalid key"); }
             Useful book = db.Usefuls.Find(id);
-            if(book != null)
+            if (book != null)
                 db.Usefuls.Remove(book);
         }
 
@@ -50,7 +58,16 @@ namespace DB_course.Repositories.DBRepository
 
         public void Save()
         {
-             db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
+            db.ChangeTracker.Clear();
         }
 
         public void Update(Useful item)
@@ -63,9 +80,9 @@ namespace DB_course.Repositories.DBRepository
 
         public virtual void Dispose(bool disposing)
         {
-            if(!disposed)
+            if (!disposed)
             {
-                if(disposing)
+                if (disposing)
                 {
                     db.Dispose();
                 }

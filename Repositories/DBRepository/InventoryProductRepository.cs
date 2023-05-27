@@ -1,4 +1,5 @@
 ﻿using DB_course.Models.DBModels;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,22 +17,31 @@ namespace DB_course.Repositories.DBRepository
         public InventoryProductRepository(IConnection db)
         {
             this.db = (WarehouseContext)db;
+       
         }
 
         public void Create(InventoryProduct item)
         {
-            db.InventoryProducts.Add(item);
+            try
+            {
+                db.InventoryProducts.Add(item);
+            }
+            catch (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
         }
 
         public void Delete(string key)
         {
             InventoryProduct book = db.InventoryProducts.Find(Convert.ToInt32(key));
-            if(book == null)
+            if (book == null)
                 throw new Exception("Inventory not Exists");
             db.InventoryProducts.Remove(book);
         }
 
-   
+
 
         public IEnumerable<InventoryProduct> Get(string value)
         {
@@ -51,7 +61,16 @@ namespace DB_course.Repositories.DBRepository
         }
         public void Save()
         {
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
+            db.ChangeTracker.Clear();
         }
 
 
@@ -61,9 +80,9 @@ namespace DB_course.Repositories.DBRepository
 
         public virtual void Dispose(bool disposing)
         {
-            if(!disposed)
+            if (!disposed)
             {
-                if(disposing)
+                if (disposing)
                 {
                     db.Dispose();
                 }

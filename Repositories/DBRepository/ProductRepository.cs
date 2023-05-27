@@ -78,6 +78,7 @@ namespace DB_course.Repositories.DBRepository
                 db.ChangeTracker.Clear();
                 throw ex;
             }
+            db.ChangeTracker.Clear();
         }
 
 

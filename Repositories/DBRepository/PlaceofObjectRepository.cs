@@ -21,17 +21,25 @@ namespace DB_course.Repositories.DBRepository
 
         public void Create(PlaceofObject item)
         {
-            db.PlaceofObjects.Add(item);
+            try
+            {
+                db.PlaceofObjects.Add(item);
+            }
+            catch (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
         }
 
         public void Delete(string key)
         {
-            PlaceofObject book = db.PlaceofObjects.Find(Convert.ToInt32(key)) 
+            PlaceofObject book = db.PlaceofObjects.Find(Convert.ToInt32(key))
                 ?? throw new Exception("person not Exists");
             db.PlaceofObjects.Remove(book);
         }
 
- 
+
 
         public IEnumerable<PlaceofObject> Get(string value)
         {
@@ -49,7 +57,16 @@ namespace DB_course.Repositories.DBRepository
         }
         public void Save()
         {
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                db.ChangeTracker.Clear();
+                throw ex;
+            }
+            db.ChangeTracker.Clear();
         }
 
 
@@ -59,9 +76,9 @@ namespace DB_course.Repositories.DBRepository
 
         public virtual void Dispose(bool disposing)
         {
-            if(!disposed)
+            if (!disposed)
             {
-                if(disposing)
+                if (disposing)
                 {
                     db.Dispose();
                 }
