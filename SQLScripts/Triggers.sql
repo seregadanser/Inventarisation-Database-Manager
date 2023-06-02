@@ -65,3 +65,37 @@ EXEC sp_executesql @sql;
 
 END;
 go
+
+
+CREATE TRIGGER delete_inventory
+ON warehouse2.InventoryProduct
+instead of DELETE
+AS
+BEGIN
+  DECLARE @number int;
+  DECLARE @prod_id int;
+  
+  SELECT @number = deleted.inventory_number, @prod_id = deleted.product_Id
+  FROM deleted;
+
+
+  print('aaaa')
+
+  delete warehouse2.PlaceofObject where warehouse2.PlaceofObject.InventoryId = @number
+  delete warehouse2.InventoryProduct where warehouse2.InventoryProduct.inventory_number = @number
+  update warehouse2.Products 
+  set   warehouse2.Products.value = warehouse2.Products.value-1
+  where warehouse2.Products.Id = @prod_id 
+
+  declare @value int 
+  select @value = warehouse2.Products.value from warehouse2.Products where warehouse2.Products.Id = @prod_id
+
+  if @value = 0
+	delete warehouse2.Products where warehouse2.Products.Id = @prod_id
+
+END;
+go
+
+
+
+delete warehouse2.InventoryProduct where inventory_number = 2

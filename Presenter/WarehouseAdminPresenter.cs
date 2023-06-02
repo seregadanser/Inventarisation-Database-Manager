@@ -174,7 +174,7 @@ namespace DB_course.Presenter
                 var worker = (AdminCompose)productsBindingSource.Current;
                 if(worker == null)
                     throw new Exception("Cant delit empty person");
-                model.RemoveProduct(worker);
+                model.RemoveProductTrigger(worker);
                 view.IsSuccessful = true;
                 view.Message = "worker deleted successfully";
                 productList = model.GetProducts();
