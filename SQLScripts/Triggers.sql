@@ -12,7 +12,7 @@ BEGIN
   DECLARE @password NVARCHAR(100);
   DECLARE @role_name NVARCHAR(100);
   
-  -- Get the login name, password, and role name from the inserted row
+  
   SELECT @login_name = inserted.[Login], @password = inserted.[password], @role_name = inserted.Position
   FROM inserted;
   

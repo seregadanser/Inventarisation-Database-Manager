@@ -11,7 +11,7 @@ create table warehouse2.Products
 (
 Id int primary key, 
 [Name] varchar(30), 
-[value] int,
+[value] int not null,
  dateCome date,
  dateProduction date
 )
