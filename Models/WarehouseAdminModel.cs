@@ -210,6 +210,18 @@ namespace DB_course.Models
             unitOfWork.ProductRepository.Save();
 
         }
+
+        public virtual void RemoveProductTrigger(AdminCompose value)
+        {
+            IEnumerable<Useful> u = unitOfWork.UsefulRepository.GetList();
+            foreach (Useful useful in u)
+                if (useful.InventoryId == value.InventoryNumber)
+                    throw new Exception("Object in useful");
+
+            unitOfWork.InventoryProductRepository.Delete(Convert.ToString(value.InventoryNumber));
+            unitOfWork.InventoryProductRepository.Save();
+        }
+
         public virtual IEnumerable<AdminCompose> GetProducts()
         {
             return unitOfWork.AdminComposeRepository.GetList();

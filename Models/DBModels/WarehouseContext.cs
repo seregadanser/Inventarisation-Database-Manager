@@ -52,6 +52,7 @@ public partial class WarehouseContext : DbContext, IConnection
          //       .HasForeignKey(d => d.ProductId)
          //       .HasConstraintName("FK__Inventory__produ__52593CB8");
         });
+        modelBuilder.Entity<InventoryProduct>().ToTable(tb => tb.HasTrigger("delete_inventory"));
 
         modelBuilder.Entity<Person>(entity =>
         {
