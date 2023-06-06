@@ -58,6 +58,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<Product> GetList()
         {
+            db.ChangeTracker.Clear();
             return db.Products.ToList();
         }
 

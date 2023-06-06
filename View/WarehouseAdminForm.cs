@@ -130,6 +130,11 @@ namespace DB_course.View
                     MessageBox.Show(Message);
                 }
             };
+
+            button1.Click += delegate
+            {
+                TestEvent.Invoke(this, EventArgs.Empty);
+            };
         }
 
         public string PlaceId { get => textPlaceId.Text; set => textPlaceId.Text = value; }
@@ -171,6 +176,8 @@ namespace DB_course.View
         public event EventHandler DeletePlaceEvent;
         public event EventHandler SavePlaceEvent;
         public event EventHandler CancelPlaceEvent;
+
+        public event EventHandler TestEvent;
 
         public void SetPlaceListBindingSource(BindingSource WorkerList)
         {

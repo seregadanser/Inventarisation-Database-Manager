@@ -27,9 +27,9 @@ go
 create table warehouse2.Place
 (
 Id int primary key, 
-number_stay int,
-number_layer int, 
-size int
+number_stay int not null,
+number_layer int not null, 
+size int not null
 )
 go
 

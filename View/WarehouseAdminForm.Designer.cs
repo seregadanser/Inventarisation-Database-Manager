@@ -32,6 +32,7 @@
             this.buttonDelete = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.productsPage = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonSearch = new System.Windows.Forms.Button();
             this.textSearch = new System.Windows.Forms.TextBox();
@@ -96,7 +97,7 @@
             // 
             this.buttonDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.buttonDelete.Location = new System.Drawing.Point(579, 33);
-            this.buttonDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(2);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(75, 27);
             this.buttonDelete.TabIndex = 1;
@@ -114,7 +115,7 @@
             this.tabControl1.Controls.Add(this.PlacePage);
             this.tabControl1.Controls.Add(this.PlaceComponent);
             this.tabControl1.Location = new System.Drawing.Point(6, 15);
-            this.tabControl1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(2);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(673, 365);
@@ -122,19 +123,30 @@
             // 
             // productsPage
             // 
+            this.productsPage.Controls.Add(this.button1);
             this.productsPage.Controls.Add(this.buttonAdd);
             this.productsPage.Controls.Add(this.buttonSearch);
             this.productsPage.Controls.Add(this.textSearch);
             this.productsPage.Controls.Add(this.dataGridView1);
             this.productsPage.Controls.Add(this.buttonDelete);
             this.productsPage.Location = new System.Drawing.Point(4, 24);
-            this.productsPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.productsPage.Margin = new System.Windows.Forms.Padding(2);
             this.productsPage.Name = "productsPage";
-            this.productsPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.productsPage.Padding = new System.Windows.Forms.Padding(2);
             this.productsPage.Size = new System.Drawing.Size(665, 337);
             this.productsPage.TabIndex = 0;
             this.productsPage.Text = "productsPage";
             this.productsPage.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(579, 261);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "test";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             // 
             // buttonAdd
             // 
@@ -161,7 +173,7 @@
             this.textSearch.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.textSearch.Location = new System.Drawing.Point(5, 4);
-            this.textSearch.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textSearch.Margin = new System.Windows.Forms.Padding(2);
             this.textSearch.Name = "textSearch";
             this.textSearch.Size = new System.Drawing.Size(568, 23);
             this.textSearch.TabIndex = 2;
@@ -183,9 +195,9 @@
             this.addProductPage.Controls.Add(this.textProductName);
             this.addProductPage.Controls.Add(this.textProductId);
             this.addProductPage.Location = new System.Drawing.Point(4, 24);
-            this.addProductPage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addProductPage.Margin = new System.Windows.Forms.Padding(2);
             this.addProductPage.Name = "addProductPage";
-            this.addProductPage.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addProductPage.Padding = new System.Windows.Forms.Padding(2);
             this.addProductPage.Size = new System.Drawing.Size(665, 337);
             this.addProductPage.TabIndex = 1;
             this.addProductPage.Text = "addProductPage";
@@ -274,7 +286,7 @@
             // textPlaceId
             // 
             this.textPlaceId.Location = new System.Drawing.Point(245, 149);
-            this.textPlaceId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textPlaceId.Margin = new System.Windows.Forms.Padding(2);
             this.textPlaceId.Name = "textPlaceId";
             this.textPlaceId.Size = new System.Drawing.Size(106, 23);
             this.textPlaceId.TabIndex = 5;
@@ -282,7 +294,7 @@
             // textInventoryNumber
             // 
             this.textInventoryNumber.Location = new System.Drawing.Point(245, 122);
-            this.textInventoryNumber.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textInventoryNumber.Margin = new System.Windows.Forms.Padding(2);
             this.textInventoryNumber.Name = "textInventoryNumber";
             this.textInventoryNumber.Size = new System.Drawing.Size(106, 23);
             this.textInventoryNumber.TabIndex = 4;
@@ -290,7 +302,7 @@
             // textDateProduction
             // 
             this.textDateProduction.Location = new System.Drawing.Point(245, 95);
-            this.textDateProduction.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textDateProduction.Margin = new System.Windows.Forms.Padding(2);
             this.textDateProduction.Name = "textDateProduction";
             this.textDateProduction.Size = new System.Drawing.Size(106, 23);
             this.textDateProduction.TabIndex = 3;
@@ -298,7 +310,7 @@
             // textDateCome
             // 
             this.textDateCome.Location = new System.Drawing.Point(245, 68);
-            this.textDateCome.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textDateCome.Margin = new System.Windows.Forms.Padding(2);
             this.textDateCome.Name = "textDateCome";
             this.textDateCome.Size = new System.Drawing.Size(106, 23);
             this.textDateCome.TabIndex = 2;
@@ -306,7 +318,7 @@
             // textProductName
             // 
             this.textProductName.Location = new System.Drawing.Point(245, 41);
-            this.textProductName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textProductName.Margin = new System.Windows.Forms.Padding(2);
             this.textProductName.Name = "textProductName";
             this.textProductName.Size = new System.Drawing.Size(106, 23);
             this.textProductName.TabIndex = 1;
@@ -314,7 +326,7 @@
             // textProductId
             // 
             this.textProductId.Location = new System.Drawing.Point(245, 14);
-            this.textProductId.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textProductId.Margin = new System.Windows.Forms.Padding(2);
             this.textProductId.Name = "textProductId";
             this.textProductId.Size = new System.Drawing.Size(106, 23);
             this.textProductId.TabIndex = 0;
@@ -328,7 +340,7 @@
             this.PlacePage.Controls.Add(this.searchPlaceTextBox);
             this.PlacePage.Controls.Add(this.dataGridView2);
             this.PlacePage.Location = new System.Drawing.Point(4, 24);
-            this.PlacePage.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PlacePage.Margin = new System.Windows.Forms.Padding(2);
             this.PlacePage.Name = "PlacePage";
             this.PlacePage.Size = new System.Drawing.Size(665, 337);
             this.PlacePage.TabIndex = 2;
@@ -338,7 +350,7 @@
             // deletePlaceBtn
             // 
             this.deletePlaceBtn.Location = new System.Drawing.Point(515, 74);
-            this.deletePlaceBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.deletePlaceBtn.Margin = new System.Windows.Forms.Padding(2);
             this.deletePlaceBtn.Name = "deletePlaceBtn";
             this.deletePlaceBtn.Size = new System.Drawing.Size(78, 20);
             this.deletePlaceBtn.TabIndex = 5;
@@ -348,7 +360,7 @@
             // updatePlaceBtn
             // 
             this.updatePlaceBtn.Location = new System.Drawing.Point(515, 50);
-            this.updatePlaceBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.updatePlaceBtn.Margin = new System.Windows.Forms.Padding(2);
             this.updatePlaceBtn.Name = "updatePlaceBtn";
             this.updatePlaceBtn.Size = new System.Drawing.Size(78, 20);
             this.updatePlaceBtn.TabIndex = 4;
@@ -358,7 +370,7 @@
             // addPlaceBtn
             // 
             this.addPlaceBtn.Location = new System.Drawing.Point(515, 26);
-            this.addPlaceBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.addPlaceBtn.Margin = new System.Windows.Forms.Padding(2);
             this.addPlaceBtn.Name = "addPlaceBtn";
             this.addPlaceBtn.Size = new System.Drawing.Size(78, 20);
             this.addPlaceBtn.TabIndex = 3;
@@ -368,7 +380,7 @@
             // searchPlaceBtn
             // 
             this.searchPlaceBtn.Location = new System.Drawing.Point(515, 2);
-            this.searchPlaceBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.searchPlaceBtn.Margin = new System.Windows.Forms.Padding(2);
             this.searchPlaceBtn.Name = "searchPlaceBtn";
             this.searchPlaceBtn.Size = new System.Drawing.Size(78, 20);
             this.searchPlaceBtn.TabIndex = 2;
@@ -378,7 +390,7 @@
             // searchPlaceTextBox
             // 
             this.searchPlaceTextBox.Location = new System.Drawing.Point(2, 2);
-            this.searchPlaceTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.searchPlaceTextBox.Margin = new System.Windows.Forms.Padding(2);
             this.searchPlaceTextBox.Name = "searchPlaceTextBox";
             this.searchPlaceTextBox.Size = new System.Drawing.Size(510, 23);
             this.searchPlaceTextBox.TabIndex = 1;
@@ -387,7 +399,7 @@
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Location = new System.Drawing.Point(2, 24);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 62;
             this.dataGridView2.RowTemplate.Height = 33;
@@ -407,7 +419,7 @@
             this.PlaceComponent.Controls.Add(this.laerPlaceText);
             this.PlaceComponent.Controls.Add(this.placeIdText);
             this.PlaceComponent.Location = new System.Drawing.Point(4, 24);
-            this.PlaceComponent.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.PlaceComponent.Margin = new System.Windows.Forms.Padding(2);
             this.PlaceComponent.Name = "PlaceComponent";
             this.PlaceComponent.Size = new System.Drawing.Size(665, 337);
             this.PlaceComponent.TabIndex = 3;
@@ -458,7 +470,7 @@
             // cancelPlaceBtn
             // 
             this.cancelPlaceBtn.Location = new System.Drawing.Point(324, 227);
-            this.cancelPlaceBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.cancelPlaceBtn.Margin = new System.Windows.Forms.Padding(2);
             this.cancelPlaceBtn.Name = "cancelPlaceBtn";
             this.cancelPlaceBtn.Size = new System.Drawing.Size(78, 20);
             this.cancelPlaceBtn.TabIndex = 5;
@@ -468,7 +480,7 @@
             // savePlaceBtn
             // 
             this.savePlaceBtn.Location = new System.Drawing.Point(172, 227);
-            this.savePlaceBtn.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.savePlaceBtn.Margin = new System.Windows.Forms.Padding(2);
             this.savePlaceBtn.Name = "savePlaceBtn";
             this.savePlaceBtn.Size = new System.Drawing.Size(78, 20);
             this.savePlaceBtn.TabIndex = 4;
@@ -478,7 +490,7 @@
             // StayPlaceText
             // 
             this.StayPlaceText.Location = new System.Drawing.Point(362, 164);
-            this.StayPlaceText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.StayPlaceText.Margin = new System.Windows.Forms.Padding(2);
             this.StayPlaceText.Name = "StayPlaceText";
             this.StayPlaceText.Size = new System.Drawing.Size(106, 23);
             this.StayPlaceText.TabIndex = 3;
@@ -486,7 +498,7 @@
             // sizePlaceText
             // 
             this.sizePlaceText.Location = new System.Drawing.Point(147, 155);
-            this.sizePlaceText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.sizePlaceText.Margin = new System.Windows.Forms.Padding(2);
             this.sizePlaceText.Name = "sizePlaceText";
             this.sizePlaceText.Size = new System.Drawing.Size(106, 23);
             this.sizePlaceText.TabIndex = 2;
@@ -494,7 +506,7 @@
             // laerPlaceText
             // 
             this.laerPlaceText.Location = new System.Drawing.Point(362, 94);
-            this.laerPlaceText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.laerPlaceText.Margin = new System.Windows.Forms.Padding(2);
             this.laerPlaceText.Name = "laerPlaceText";
             this.laerPlaceText.Size = new System.Drawing.Size(106, 23);
             this.laerPlaceText.TabIndex = 1;
@@ -502,7 +514,7 @@
             // placeIdText
             // 
             this.placeIdText.Location = new System.Drawing.Point(150, 89);
-            this.placeIdText.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.placeIdText.Margin = new System.Windows.Forms.Padding(2);
             this.placeIdText.Name = "placeIdText";
             this.placeIdText.Size = new System.Drawing.Size(106, 23);
             this.placeIdText.TabIndex = 0;
@@ -573,5 +585,6 @@
         private Label label9;
         private Label label8;
         private Label label7;
+        private Button button1;
     }
 }

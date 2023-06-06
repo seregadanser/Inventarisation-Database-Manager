@@ -78,9 +78,6 @@ BEGIN
   SELECT @number = deleted.inventory_number, @prod_id = deleted.product_Id
   FROM deleted;
 
-
-  print('aaaa')
-
   delete warehouse2.PlaceofObject where warehouse2.PlaceofObject.InventoryId = @number
   delete warehouse2.InventoryProduct where warehouse2.InventoryProduct.inventory_number = @number
   update warehouse2.Products 

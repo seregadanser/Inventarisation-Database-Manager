@@ -84,6 +84,8 @@ namespace DB_course.View
         event EventHandler SaveEvent;
         event EventHandler CancelEvent;
 
+        event EventHandler TestEvent;
+
         event EventHandler SearchPlaceEvent;
         event EventHandler AddNewPlaceEvent;
         event EventHandler EditPlaceEvent;

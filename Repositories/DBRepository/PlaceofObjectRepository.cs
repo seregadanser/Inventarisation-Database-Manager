@@ -48,6 +48,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<PlaceofObject> GetList()
         {
+            db.ChangeTracker.Clear();
             return db.PlaceofObjects.ToList();
         }
 

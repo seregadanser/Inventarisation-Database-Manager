@@ -50,6 +50,7 @@ namespace DB_course.Repositories.DBRepository
 
         public IEnumerable<InventoryProduct> GetList()
         {
+            db.ChangeTracker.Clear();
             return db.InventoryProducts.ToList();
         }
 
