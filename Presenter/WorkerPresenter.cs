@@ -79,7 +79,7 @@ namespace DB_course.Presenter
             try
             {
                 var product = (WorkerLookCompose)productsBindingSource.Current;
-                if (product == null) throw new Exception("An error ocurred, could not ass worker");
+                if (product == null) throw new Exception("An error ocurred, could not add product");
                 model.AddUseful(product);
                 view.Message = "product added sucessfully";
                 productList = model.LookProducts();

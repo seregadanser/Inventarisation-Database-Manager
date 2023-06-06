@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DB_course.Models.DBModels;
 using System.Globalization;
+using System.Diagnostics;
 
 namespace DB_course.Presenter
 {
@@ -45,8 +46,72 @@ namespace DB_course.Presenter
             this.view.SavePlaceEvent += SavePlace;
             this.view.DeletePlaceEvent += DeleteSelectedPlace;
             this.view.SearchPlaceEvent += SearchPlace;
+            this.view.TestEvent += TestFunc;
             this.view.Show();
         }
+
+        private void TestFunc(object? sender, EventArgs e)
+        {
+            for (int j = 10; j <= 500; j += 10)
+            {
+               // Console.WriteLine(j);
+                List<Product> productList = new List<Product>();
+
+                for (int i = 1; i <= j; i++)
+                {
+                    Product product = new Product();
+                    product.Id = i + 1; // Set the unique ID
+                    product.Name = $"Product {i}"; // Set a unique name for each product
+                    product.Value = null; // Set the value as null
+
+                    // Set non-null values for DateProduction and DateCome
+                    product.DateCome = DateTime.Now.Date.AddDays(-i);
+                    product.DateProduction = DateTime.Now.Date.AddMonths(-i);
+
+                    productList.Add(product);
+                }
+
+                List<AdminCompose> adminComposeList = new List<AdminCompose>();
+                Random random = new Random();
+
+                for (int i = 1; i <= j; i++)
+                {
+                    AdminCompose adminCompose = new AdminCompose();
+                    int prodid = random.Next(0, 10);
+
+                    adminCompose.DateProduction = productList[prodid].DateProduction;
+                    adminCompose.ProductId = productList[prodid].Id;
+                    adminCompose.DateCome = productList[prodid].DateCome;
+                    adminCompose.Name = productList[prodid].Name;
+
+                    adminCompose.InventoryNumber = i + 1;
+                    adminCompose.PlaceId = random.Next(1, 6).ToString();
+                    adminComposeList.Add(adminCompose);
+                }
+
+                for (int i = 0; i < j; i++)
+                    model.AddProduct(adminComposeList[i]);
+
+                adminComposeList = model.GetProducts().ToList();
+                Stopwatch strender = new Stopwatch();
+                for (int i = 0; i < j; i++)
+                {
+
+                    strender.Start();
+                   // model.RemoveProductTrigger(adminComposeList[i]);
+                    model.RemoveProduct(adminComposeList[i]);
+                    strender.Stop();
+
+                }
+                TimeSpan ts = strender.Elapsed;
+
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                Console.WriteLine(elapsedTime);
+            }
+        }
+
         //Methods
 
         private void SearchPlace(object sender, EventArgs e)
@@ -76,13 +141,13 @@ namespace DB_course.Presenter
                 if (view.IsEdit)
                 {
                     model.UpdatePlace(place.Id,place);
-                    view.Message = "place edited successfuly";
+                    view.Message = "Place edited successfuly";
                 }
                 else
                 {
 
                     model.AddPlace(place);
-                    view.Message = "worker added sucessfully";
+                    view.Message = "Place added sucessfully";
                 }
 
                 view.IsSuccessful = true;
@@ -104,10 +169,10 @@ namespace DB_course.Presenter
         {
             try
             {
-                var place = (Place)placesBindingSource.Current ?? throw new Exception("Empty product");
+                var place = (Place)placesBindingSource.Current ?? throw new Exception("Empty Place");
                 model.RemovePlace(place.Id);
                 view.IsSuccessful = true;
-                view.Message = "worker deleted successfully";
+                view.Message = "Place deleted successfully";
                 placesList = model.GetPlace();
                 placesBindingSource.DataSource = placesList;
 
@@ -173,10 +238,21 @@ namespace DB_course.Presenter
             {
                 var worker = (AdminCompose)productsBindingSource.Current;
                 if(worker == null)
-                    throw new Exception("Cant delit empty person");
+                    throw new Exception("Cant delit empty product");
+
+                Stopwatch strender = new Stopwatch();
+
+                strender.Start();
                 model.RemoveProductTrigger(worker);
+                strender.Stop();
+                TimeSpan ts = strender.Elapsed;
+
+                string elapsedTime = String.Format("{0:00}:{1:00}:{2:00}.{3:00}",
+                    ts.Hours, ts.Minutes, ts.Seconds,
+                    ts.Milliseconds / 10);
+                Console.WriteLine(elapsedTime);
                 view.IsSuccessful = true;
-                view.Message = "worker deleted successfully";
+                view.Message = "product deleted successfully";
                 productList = model.GetProducts();
                 productsBindingSource.DataSource = productList;
 
@@ -190,7 +266,7 @@ namespace DB_course.Presenter
 
         private void AddNewProduct(object sender, EventArgs e)
         {
-            try
+           try
             {
                 var product = new AdminCompose();
                 product.DateCome = DateTime.ParseExact(view.DateCome, "dd.MM.yyyy", CultureInfo.InvariantCulture);
