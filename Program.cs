@@ -1,4 +1,4 @@
-//#define Laptop
+#define Laptop
 
 
 using DB_course.Presenter;

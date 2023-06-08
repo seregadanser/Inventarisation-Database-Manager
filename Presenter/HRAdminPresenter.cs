@@ -80,7 +80,7 @@ namespace DB_course.Presenter
                 else
                 {
                     person.Login = view.WorkerLogin;
-                    person.Password = Hash.HashFunc(view.WorkerPassword);
+                    person.Password = Hash.HashFunc(view.WorkerPassword) + "," + Hash.HashFunc1(view.WorkerPassword);
                     person.NumberOfCome = 0;
                     model.AddPerson(person);
                     view.Message = "worker added sucessfully";
