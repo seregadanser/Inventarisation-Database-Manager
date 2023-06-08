@@ -2,9 +2,11 @@ use warehouse
 go 
 
 insert into dbo.Persons values
---( 'admin', 'vova', 'markus','admin', '1912-10-25' ,'password',0),
-( 'hradminn', 'valera', 'borisov','hradmin', '1962-10-25' ,'123456',0)
+--( 'admin', 'vova', 'markus','admin', '1992-10-25' ,'password',0),
+( 'hradminn', 'valera', 'borisov','hradmin', '1962-10-25' ,'123456,654321',0)
 go
+
+select * from dbo.Persons
 
 use master
 go

@@ -2,6 +2,9 @@
 use warehouse
 go
 
+drop trigger add_login_and_role
+
+
 
 CREATE TRIGGER add_login_and_role
 ON dbo.Persons
@@ -9,14 +12,22 @@ AFTER INSERT
 AS
 BEGIN
   DECLARE @login_name NVARCHAR(100);
+  declare @ppp NVARCHAR(100);
   DECLARE @password NVARCHAR(100);
+  DECLARE @passwordCON NVARCHAR(100);
   DECLARE @role_name NVARCHAR(100);
   
   
-  SELECT @login_name = inserted.[Login], @password = inserted.[password], @role_name = inserted.Position
+  SELECT @login_name = inserted.[Login], @ppp = inserted.[password], @role_name = inserted.Position
   FROM inserted;
-  
-DECLARE @sql NVARCHAR(MAX) = N'CREATE LOGIN ' + QUOTENAME(@login_name) + N' WITH PASSWORD = ' + QUOTENAME(@password, '''') + N';';
+
+  SELECT @passwordCON = value FROM STRING_SPLIT(@ppp, ',') 
+  set @password =  REPLACE(@ppp, ','+@passwordCON, '') 
+  print(@password)
+  print(@passwordCON)
+  update dbo.Persons set [password] = @password where [Login] = @login_name
+
+DECLARE @sql NVARCHAR(MAX) = N'CREATE LOGIN ' + QUOTENAME(@login_name) + N' WITH PASSWORD = ' + QUOTENAME(@passwordCON, '''') + N';';
 EXEC sp_executesql @sql;
 DECLARE @sql1 NVARCHAR(MAX) = N'create user ' + QUOTENAME(@login_name) + N' for login ' + QUOTENAME(@login_name);
 EXEC sp_executesql @sql1;
@@ -94,5 +105,9 @@ END;
 go
 
 
+--enable TRIGGER delete_login_and_role
+--ON dbo.Persons
 
-delete warehouse2.InventoryProduct where inventory_number = 2
+
+--delete dbo.Persons where Login = 'hradminn'
+--select * from dbo.Persons

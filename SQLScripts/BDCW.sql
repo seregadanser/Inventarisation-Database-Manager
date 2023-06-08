@@ -21,7 +21,7 @@ delete warehouse2.InventoryProduct
 delete warehouse2.PlaceofObject
 delete warehouse2.Place
 delete warehouse2.Useful
-delete dbo.Persons
+delete dbo.Persons where  dbo.Persons.Login = 'hradminn' 
 
 insert into warehouse2.Products values
 (1, 'microscop', 2, null, null),

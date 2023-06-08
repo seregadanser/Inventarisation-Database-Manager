@@ -19,7 +19,13 @@ grant select on warehouse2.Place to Warehouseman
 grant select on warehouse2.PlaceofObject to Warehouseman
 grant select on dbo.Persons to Warehouseman
 
-
+create role WarehouseAdmin
+grant select, insert, delete on warehouse2.Products to WarehouseAdmin
+grant select, insert, delete on warehouse2.InventoryProduct to WarehouseAdmin
+grant select, insert, delete on warehouse2.PlaceofObject to WarehouseAdmin
+grant select, insert, delete on warehouse2.Place to WarehouseAdmin	
+grant select on warehouse2.Useful to WarehouseAdmin
+grant update on warehouse2.Place to WarehouseAdmin
 
 create role NotLogin
 grant select on  dbo.Persons to  NotLogin
