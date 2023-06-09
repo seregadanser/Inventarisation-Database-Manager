@@ -41,6 +41,12 @@ namespace DB_course.View
         event EventHandler DeleteEvent;
     }
 
+    public interface IWarehousemanView : IView
+    {
+        void SetUsingListBindingSource(BindingSource petList);
+        event EventHandler DeleteEvent;
+    }
+
     public interface IHRAdminView   : IView
     {
 

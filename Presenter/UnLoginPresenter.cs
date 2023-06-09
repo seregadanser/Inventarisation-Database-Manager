@@ -70,6 +70,7 @@ namespace DB_course.Presenter
                         ShowWorkerView(login);
                         break;
                     case "warehouseman":
+                        ShowWarehousemanView();
                         break;
                     case "admin":
                         ShowAdmin();
@@ -101,6 +102,15 @@ namespace DB_course.Presenter
             if(loggerFactory != null)
                 model = new WorkerModelDecorator(model, loggerFactory);
             new WorkerPresenter(view, model);
+        }
+        private void ShowWarehousemanView()
+        {
+            IWarehousemanView view = WarehousemanForm.GetInstace();
+            connection = ConnectionBuilder.CreateMSSQLconnection(config, login, Hash.HashFunc1(password));
+            AWarehousemanModel model = new WarehousemanModel(new UnitOfWork(new SQLRepositoryAbstractFabric(connection)));
+            if (loggerFactory != null)
+                model = new WarehousemanModelLogDecorator(model, loggerFactory);
+            new WarehousemanPresenter(view, model);
         }
         private void ShowAdmin()
         {
